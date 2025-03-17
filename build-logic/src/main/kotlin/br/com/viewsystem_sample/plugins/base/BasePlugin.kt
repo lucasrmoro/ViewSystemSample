@@ -96,11 +96,13 @@ abstract class BasePlugin : Plugin<Project> {
                 if (this is ApplicationExtension || this is LibraryExtension) {
                     isMinifyEnabled = true
                 }
+                if (this is ApplicationExtension) {
+                    proguardFiles(
+                        getDefaultProguardFile(ProjectConfig.PROGUARD_ANDROID_OPTIMIZE),
+                        ProjectConfig.PROGUARD_RULES
+                    )
+                }
                 isDebuggable = false
-                proguardFiles(
-                    getDefaultProguardFile(ProjectConfig.PROGUARD_ANDROID_OPTIMIZE),
-                    ProjectConfig.PROGUARD_RULES
-                )
             }
         }
     }
