@@ -1,0 +1,3 @@
+package br.com.viewsystem_sample.core_ui.adapter.callbacks.generic
+
+interface SampleGenericAdapterCallback

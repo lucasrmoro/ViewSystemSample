@@ -1,0 +1,37 @@
+package br.com.viewsystem_sample.app
+
+import android.app.Application
+import br.com.viewsystem_sample.BuildConfig
+import br.com.viewsystem_sample.core.di.CoreModule
+import br.com.viewsystem_sample.core_network.di.CoreNetworkModule
+import br.com.viewsystem_sample.data.di.DataModule
+import br.com.viewsystem_sample.domain.di.DomainModule
+import br.com.viewsystem_sample.local_storage.di.LocalStorageModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import timber.log.Timber
+
+class AppApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        setupTimber()
+        setupKoin()
+    }
+
+    private fun setupTimber() {
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+    }
+
+    private fun setupKoin() {
+        startKoin {
+            androidContext(applicationContext)
+        }
+        CoreModule.init()
+        CoreNetworkModule.init()
+        LocalStorageModule.init()
+        DataModule.init()
+        DomainModule.init()
+    }
+
+}
