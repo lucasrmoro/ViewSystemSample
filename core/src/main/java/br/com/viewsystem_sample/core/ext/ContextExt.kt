@@ -46,10 +46,9 @@ fun <T : KClass<out AppCompatActivity>> Context.openActivity(
 }
 
 fun Context.hideKeyboard() {
-    runCatching {
-        (this as Activity).currentFocus?.let {
-            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-        }
+    (this as? Activity?)?.currentFocus?.let {
+        it.clearFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(it.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 }

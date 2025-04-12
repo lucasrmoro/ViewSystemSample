@@ -2,6 +2,7 @@ package br.com.viewsystem_sample.core_ui.ext
 
 import android.content.Intent
 import android.widget.Toast
+import br.com.viewsystem_sample.core.ext.hideKeyboard
 import androidx.annotation.StringRes
 import br.com.viewsystem_sample.core.ext.showToast
 import br.com.viewsystem_sample.core_ui.base.activity.BaseActivity
@@ -21,4 +22,8 @@ fun BaseFragment<*, *>.showToast(@StringRes message: Int, length: Int = Toast.LE
 
 fun <T : KClass<out BaseActivity<*>>> BaseFragment<*, *>.openActivity(activityKClass: T) {
     Intent(context, activityKClass.java).also { startActivity(it) }
+}
+
+fun BaseFragment<*, *>.hideKeyboard() {
+    context?.hideKeyboard()
 }
