@@ -3,8 +3,18 @@ package br.com.viewsystem_sample.core_ui.ext
 import android.app.AlertDialog
 import android.content.pm.PackageManager
 import android.os.Build
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.viewbinding.ViewBinding
 
 inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
@@ -25,3 +35,25 @@ val AppCompatActivity.activityInfo
     } else {
         packageManager.getActivityInfo(componentName, PackageManager.GET_META_DATA)
     }
+
+fun FragmentActivity.setMenu(
+    @MenuRes menuRes: Int,
+    lifecycleOwner: LifecycleOwner,
+    onMenuItemClicked: (MenuItem) -> Boolean
+) {
+    addMenuProvider(
+        object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(menuRes, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean =
+                onMenuItemClicked(menuItem)
+        },
+        lifecycleOwner,
+        Lifecycle.State.RESUMED
+    )
+}
+
+fun <T> AppCompatActivity.extra(block: Bundle.() -> T) =
+    lazy { block(intent?.extras ?: bundleOf()) }
