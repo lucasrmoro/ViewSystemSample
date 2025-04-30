@@ -40,3 +40,6 @@ val Long.Companion.ZERO
 
 val Long.Companion.FIVE
     get() = 5L
+
+val Long.Companion.TWO_SECONDS_IN_MILLIS
+    get() = 2_000L
