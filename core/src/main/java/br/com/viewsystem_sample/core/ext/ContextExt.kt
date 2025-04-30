@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.TypedArray
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -31,16 +32,17 @@ fun Context.getCustomAttributes(
     }
 }
 
-fun <T : KClass<out AppCompatActivity>> Context.openActivity(
-    activityKClass: T,
-    addNewTaskFlag: Boolean = true
+inline fun <reified T : AppCompatActivity> Context.openActivity(
+    addNewTaskFlag: Boolean = true,
+    args: Bundle.() -> Unit = { }
 ) {
-    Intent(this, activityKClass.java).also {
+    Intent(this, T::class.java).also {
         if (addNewTaskFlag) {
             listOf(Intent.FLAG_ACTIVITY_NEW_TASK, Intent.FLAG_ACTIVITY_CLEAR_TASK).forEach { flag ->
                 it.addFlags(flag)
             }
         }
+        it.putExtras(Bundle().apply(args))
         startActivity(it)
     }
 }
