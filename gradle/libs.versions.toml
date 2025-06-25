@@ -1,6 +1,7 @@
 [versions]
 agp = "8.8.2"
 kotlin = "2.1.10"
+annotationJvm = "1.9.1"
 ksp = "2.1.10-1.0.31"
 quadrant = "1.9.1"
 coreKtx = "1.15.0"
@@ -24,6 +25,9 @@ okhttp = "4.10.0"
 # Gradle
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 android-gradle-tools = { module = "com.android.tools.build:gradle", version.ref = "agp" }
+
+# Annotation JVM
+annotationJvm = { group = "androidx.annotation", name = "annotation-jvm", version.ref = "annotationJvm" }
 
 # Android
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
