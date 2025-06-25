@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation(files(libs.javaClass.superclass.protectionDomain.codeSource.location))
+    implementation(files((libs).javaClass.superclass.protectionDomain.codeSource.location))
     implementation(libs.quadrant)
     compileOnly(libs.android.gradle.tools)
     compileOnly(libs.kotlin.gradle.plugin)
