@@ -1,13 +1,9 @@
-import br.com.viewsystem_sample.modules.Modules
 import br.com.viewsystem_sample.ext.ksp
+import br.com.viewsystem_sample.modules.Modules
 
 plugins {
     alias(libs.plugins.sample.android.library)
     alias(libs.plugins.ksp)
-}
-
-android {
-    namespace = "br.com.viewsystem_sample.local_storage"
 }
 
 dependencies {

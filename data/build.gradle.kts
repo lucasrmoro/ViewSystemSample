@@ -4,10 +4,6 @@ plugins {
     alias(libs.plugins.sample.android.library)
 }
 
-android {
-    namespace = "br.com.viewsystem_sample.core_data"
-}
-
 dependencies {
     implementation(project(Modules.CORE))
     implementation(project(Modules.CORE_NETWORK))

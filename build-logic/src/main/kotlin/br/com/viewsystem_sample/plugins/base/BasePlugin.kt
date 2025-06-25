@@ -35,7 +35,7 @@ abstract class BasePlugin : Plugin<Project> {
         setupJvmTarget()
     }
 
-    protected fun setupProjectConfig(commonExt: CommonExtension<*, *, *, *, *, *>) {
+    protected fun Project.setupProjectConfig(commonExt: CommonExtension<*, *, *, *, *, *>) {
         commonExt.apply {
             compileSdk = ProjectConfig.COMPILE_SDK
 
@@ -46,6 +46,7 @@ abstract class BasePlugin : Plugin<Project> {
             }
 
             if (this is BaseExtension) {
+                setupAndroidNamespace(this@setupProjectConfig)
                 setupBuildTypes()
                 setupFlavors()
             }
@@ -59,6 +60,15 @@ abstract class BasePlugin : Plugin<Project> {
                 buildConfig = true
                 viewBinding = true
             }
+        }
+    }
+
+    private fun BaseExtension.setupAndroidNamespace(project: Project) {
+        namespace = when (this) {
+            is ApplicationExtension -> ProjectConfig.APP_ID
+            else -> ProjectConfig.APP_ID.plus(project.path)
+                .replace(":", ".")
+                .replace("-", "_")
         }
     }
 

@@ -6,10 +6,6 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-android {
-    namespace = "br.com.viewsystem_sample.core_network"
-}
-
 dependencies {
     implementation(project(Modules.CORE))
     implementation(project(Modules.ENTITIES))

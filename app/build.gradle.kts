@@ -1,4 +1,3 @@
-import br.com.viewsystem_sample.ProjectConfig
 import br.com.viewsystem_sample.modules.Modules
 
 plugins {
@@ -8,8 +7,6 @@ plugins {
 quadrantConfig.generateByDefault = false
 
 android {
-    namespace = ProjectConfig.NAMESPACE
-
     dynamicFeatures.apply {
         clear()
         addAll(listOf(Modules.FEATURE_A))
