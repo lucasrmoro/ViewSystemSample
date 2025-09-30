@@ -33,9 +33,21 @@ gradlePlugin {
             id = libs.plugins.sample.android.library.get().pluginId
             implementationClass = "br.com.viewsystem_sample.plugins.AndroidLibraryPlugin"
         }
-        register("androidFeature") {
-            id = libs.plugins.sample.android.feature.get().pluginId
-            implementationClass = "br.com.viewsystem_sample.plugins.AndroidFeaturePlugin"
+        register("di") {
+            id = libs.plugins.sample.di.get().pluginId
+            implementationClass = "br.com.viewsystem_sample.plugins.DIPlugin"
+        }
+        register("data") {
+            id = libs.plugins.sample.data.get().pluginId
+            implementationClass = "br.com.viewsystem_sample.plugins.DataPlugin"
+        }
+        register("domain") {
+            id = libs.plugins.sample.domain.get().pluginId
+            implementationClass = "br.com.viewsystem_sample.plugins.DomainPlugin"
+        }
+        register("presentation") {
+            id = libs.plugins.sample.presentation.get().pluginId
+            implementationClass = "br.com.viewsystem_sample.plugins.PresentationPlugin"
         }
     }
 }

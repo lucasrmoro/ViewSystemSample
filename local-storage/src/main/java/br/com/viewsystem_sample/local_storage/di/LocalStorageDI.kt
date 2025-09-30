@@ -2,7 +2,7 @@ package br.com.viewsystem_sample.local_storage.di
 
 import androidx.room.Room
 import br.com.viewsystem_sample.local_storage.db.LocalDatabase
-import br.com.viewsystem_sample.local_storage.db.dao.FooDao
+import br.com.viewsystem_sample.local_storage.db.dao.SomeDao
 import br.com.viewsystem_sample.local_storage.ext.database
 import br.com.viewsystem_sample.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.local_storage.prefs.PreferencesDataSourceImpl
@@ -23,7 +23,7 @@ private val localStorageModule = module {
 }
 
 private val daoModule = module {
-    factory<FooDao> { database.fooDao() }
+    factory<SomeDao> { database.fooDao() }
 }
 
 object LocalStorageModule {

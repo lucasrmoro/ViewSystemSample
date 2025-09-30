@@ -20,6 +20,7 @@ navigation = "2.8.8"
 timber = "5.0.1"
 security-crypto = "1.1.0-alpha06"
 okhttp = "4.10.0"
+junit = "4.13.2"
 
 [libraries]
 # Gradle
@@ -70,6 +71,7 @@ koin-compiler = { group = "io.insert-koin", name = "koin-ksp-compiler", version.
 
 # Timber
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -82,7 +84,10 @@ android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "a
 # Custom plugins
 sample-android-app = { id = "sample.android.app" }
 sample-android-library = { id = "sample.android.library" }
-sample-android-feature = { id = "sample.android.feature" }
+sample-di = { id = "sample.di" }
+sample-data = { id = "sample.data" }
+sample-domain = { id = "sample.domain" }
+sample-presentation = { id = "sample.presentation" }
 
 [bundles]
 android = ["androidx-core-ktx", "androidx-appcompat", "androidx-espresso-core", "androidx-junit", "androidx-navigation-ui-ktx", "androidx-navigation-runtime-ktx", "androidx-navigation-fragment"]

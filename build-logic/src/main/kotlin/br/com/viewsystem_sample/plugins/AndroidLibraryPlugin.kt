@@ -32,6 +32,7 @@ class AndroidLibraryPlugin : BasePlugin() {
         dependencies {
             implementation(libs.timber)
             implementation(libs.annotationJvm)
+            implementation(libs.coroutines)
         }
     }
 }

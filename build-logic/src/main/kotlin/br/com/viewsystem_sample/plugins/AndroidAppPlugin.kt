@@ -3,6 +3,7 @@ package br.com.viewsystem_sample.plugins
 import br.com.viewsystem_sample.Plugins
 import br.com.viewsystem_sample.ProjectConfig
 import br.com.viewsystem_sample.ext.implementation
+import br.com.viewsystem_sample.ext.ksp
 import br.com.viewsystem_sample.modules.Modules
 import br.com.viewsystem_sample.plugins.base.BasePlugin
 import com.android.build.api.dsl.ApplicationExtension
@@ -38,8 +39,13 @@ class AndroidAppPlugin : BasePlugin() {
 
     private fun Project.setupDependencies() = dependencies {
         implementation(project(Modules.CORE))
+        implementation(project(Modules.CORE_NETWORK))
+        implementation(project(Modules.LOCAL_STORAGE))
         implementation(project(Modules.CORE_UI))
         implementation(libs.material)
         implementation(libs.bundles.android)
+        implementation(libs.bundles.koin)
+        implementation(libs.timber)
+        ksp(libs.koin.compiler)
     }
 }

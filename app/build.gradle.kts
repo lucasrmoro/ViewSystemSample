@@ -7,10 +7,6 @@ plugins {
 quadrantConfig.generateByDefault = false
 
 dependencies {
-    implementation(project(Modules.CORE_NETWORK))
-    implementation(project(Modules.LOCAL_STORAGE))
-    implementation(project(Modules.DATA))
-    implementation(project(Modules.DOMAIN))
-    implementation(libs.timber)
-    implementation(libs.bundles.koin)
+    implementation(project(Modules.Feature.FeatureA.DI_API))
+    implementation(project(Modules.Feature.FeatureA.DI_IMPL))
 }

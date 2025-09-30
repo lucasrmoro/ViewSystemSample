@@ -1,6 +1,7 @@
 package br.com.viewsystem_sample.local_storage.prefs
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
 
@@ -31,24 +32,24 @@ internal class PreferencesDataSourceImpl(context: Context) : PreferencesDataSour
 
     override fun putString(key: String, value: String?, encrypt: Boolean) {
         if (encrypt) {
-            encryptedSharedPrefs.edit().putString(key, value).apply()
+            encryptedSharedPrefs.edit { putString(key, value) }
         } else {
-            sharedPrefs.edit().putString(key, value).apply()
+            sharedPrefs.edit { putString(key, value) }
         }
     }
 
     override fun getBoolean(key: String, defValue: Boolean) = sharedPrefs.getBoolean(key, defValue)
 
     override fun putBoolean(key: String, value: Boolean) =
-        sharedPrefs.edit().putBoolean(key, value).apply()
+        sharedPrefs.edit { putBoolean(key, value) }
 
     override fun getInt(key: String, defValue: Int) = sharedPrefs.getInt(key, defValue)
 
-    override fun putInt(key: String, value: Int) = sharedPrefs.edit().putInt(key, value).apply()
+    override fun putInt(key: String, value: Int) = sharedPrefs.edit { putInt(key, value) }
 
     override fun getLong(key: String, defValue: Long) = sharedPrefs.getLong(key, defValue)
 
-    override fun putLong(key: String, value: Long) = sharedPrefs.edit().putLong(key, value).apply()
+    override fun putLong(key: String, value: Long) = sharedPrefs.edit { putLong(key, value) }
 
     companion object {
         private const val SAMPLE_SHARED_PREFS = "sample_shared_prefs"

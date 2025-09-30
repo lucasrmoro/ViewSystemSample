@@ -35,6 +35,17 @@ include(":core-ui")
 include(":core-network")
 include(":entities")
 include(":local-storage")
-include(":data")
-include(":domain")
-include(":features", ":features:featureA")
+
+// Features
+include(
+    ":features",
+    ":features:featureA",
+    ":features:featureA:di",
+    ":features:featureA:data:api",
+    ":features:featureA:data:impl",
+    ":features:featureA:domain:api",
+    ":features:featureA:domain:impl",
+    ":features:featureA:presentation"
+)
+include(":features:featureA:di:api")
+include(":features:featureA:di:impl")
