@@ -40,12 +40,11 @@ include(":local-storage")
 include(
     ":features",
     ":features:featureA",
-    ":features:featureA:di",
+    ":features:featureA:di:api",
+    ":features:featureA:di:impl",
     ":features:featureA:data:api",
     ":features:featureA:data:impl",
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
     ":features:featureA:presentation"
 )
-include(":features:featureA:di:api")
-include(":features:featureA:di:impl")
