@@ -11,7 +11,11 @@ import br.com.viewsystem_sample.core_ui.R
 import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
 import br.com.viewsystem_sample.core_ui.databinding.ActivityBaseContainerBinding
 import br.com.viewsystem_sample.core_ui.ext.hide
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidEndWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidStartWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidTopWindowInset
 import br.com.viewsystem_sample.core_ui.ext.show
+import br.com.viewsystem_sample.core_ui.ext.sumPadding
 import br.com.viewsystem_sample.core_ui.ext.viewBinding
 import org.koin.android.ext.android.inject
 import org.koin.core.parameter.parametersOf
@@ -30,6 +34,7 @@ abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
         setupScreen()
         setupOnBackStackChangedListener()
         setupOnBackPressed()
+        setupEdgeToEdge()
     }
 
     override fun onResume() {
@@ -89,6 +94,20 @@ abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
                 navigationProvider.isLastFragment.not() -> navigationProvider.popBackStack()
                 else -> finish()
             }
+        }
+    }
+
+    private fun setupEdgeToEdge() = with(binding) {
+        root.onGetAndroidTopWindowInset {
+            toolbar.sumPadding(top = it)
+        }
+        root.onGetAndroidStartWindowInset {
+            toolbar.sumPadding(start = it)
+            flContainer.sumPadding(start = it)
+        }
+        root.onGetAndroidEndWindowInset {
+            toolbar.sumPadding(end = it)
+            flContainer.sumPadding(end = it)
         }
     }
 }

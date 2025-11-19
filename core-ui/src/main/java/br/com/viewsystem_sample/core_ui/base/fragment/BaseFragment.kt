@@ -31,6 +31,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
         get() = getString(R.string.an_error_occurred_try_again_later)
 
     protected abstract fun setupViews()
+    protected open fun setupEdgeToEdge() {}
     protected open fun setupListeners() {}
     protected open fun setupObservers() {}
     open fun onFragmentVisible() {}

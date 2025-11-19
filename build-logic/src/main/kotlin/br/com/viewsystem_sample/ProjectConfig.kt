@@ -7,8 +7,8 @@ object ProjectConfig {
     const val APP_ID = "br.com.viewsystem_sample"
     const val NAMESPACE = "br.com.viewsystem_sample"
     const val MIN_SDK = 26
-    const val TARGET_SDK = 35
-    const val COMPILE_SDK = 35
+    const val TARGET_SDK = 36
+    const val COMPILE_SDK = 36
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0"
     const val ANDROID_JUNIT_RUNNER = "androidx.test.runner.AndroidJUnitRunner"

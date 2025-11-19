@@ -4,7 +4,12 @@ import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
 import br.com.viewsystem_sample.core_ui.adapter.SampleGenericAdapter
 import br.com.viewsystem_sample.core_ui.adapter.model.Foo
 import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidBottomWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidEndWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidStartWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidTopWindowInset
 import br.com.viewsystem_sample.core_ui.ext.showToast
+import br.com.viewsystem_sample.core_ui.ext.sumPadding
 import br.com.viewsystem_sample.features.featureA.presentation.databinding.FragListBinding
 
 class ListFragment private constructor() :
@@ -15,6 +20,21 @@ class ListFragment private constructor() :
     override fun setupViews() {
         setupListeners()
         setupObservers()
+    }
+
+    override fun setupEdgeToEdge() = with(binding) {
+        root.onGetAndroidTopWindowInset {
+            recyclerView.sumPadding(top = it)
+        }
+        root.onGetAndroidBottomWindowInset {
+            recyclerView.sumPadding(bottom = it)
+        }
+        root.onGetAndroidStartWindowInset {
+            recyclerView.sumPadding(start = it)
+        }
+        root.onGetAndroidEndWindowInset {
+            recyclerView.sumPadding(start = it)
+        }
     }
 
     override fun onFragmentVisible() {

@@ -4,6 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <br.com.viewsystem_sample.core_ui.components.android.AndroidBottomWindowInsetView
+        android:id="@+id/androidBottomInsetView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <br.com.viewsystem_sample.core_ui.components.android.AndroidEndWindowInsetView
+        android:id="@+id/androidEndInsetView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <br.com.viewsystem_sample.core_ui.components.recyclerView.SampleEndlessRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
@@ -18,7 +30,7 @@
         android:backgroundTint="@color/green_300"
         android:contentDescription="TODO"
         android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toTopOf="@id/androidBottomInsetView"
+        app:layout_constraintEnd_toStartOf="@id/androidEndInsetView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
