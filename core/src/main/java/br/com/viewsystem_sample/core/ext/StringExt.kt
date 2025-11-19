@@ -10,14 +10,16 @@ val String.Companion.EMPTY
 val String.Companion.SPACE
     get() = " "
 
-fun String?.toMoney(fractionDigits: Int = Int.TWO) = NumberFormat.getCurrencyInstance().apply {
-    DecimalFormatSymbols.getInstance().also {
-        it.currencySymbol = String.EMPTY
-        (this as? DecimalFormat)?.decimalFormatSymbols = it
-        maximumFractionDigits = fractionDigits
-        minimumFractionDigits = fractionDigits
-    }
-}.format(this)
+fun String?.toMoney(fractionDigits: Int = Int.TWO) = runCatching {
+    NumberFormat.getCurrencyInstance().apply {
+        DecimalFormatSymbols.getInstance().also {
+            it.currencySymbol = String.EMPTY
+            (this as? DecimalFormat)?.decimalFormatSymbols = it
+            maximumFractionDigits = fractionDigits
+            minimumFractionDigits = fractionDigits
+        }
+    }.format(this ?: Double.ZERO.toString())
+}.getOrElse { String.EMPTY }
 
 fun String?.plusSpacing(vararg others: String?) =
     this.orEmpty().plus(String.SPACE)
