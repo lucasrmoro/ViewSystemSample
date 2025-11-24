@@ -27,7 +27,6 @@ abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
         setupNavigation()
         setupToolbar()
         setupEdgeToEdge()
-        window.setStatusBarColorCompat(getColor(R.color.green_300))
         if (isTaskRoot && isFirstFragmentOfNavGraph()) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }

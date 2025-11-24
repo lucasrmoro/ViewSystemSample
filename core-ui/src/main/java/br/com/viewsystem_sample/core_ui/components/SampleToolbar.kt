@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import androidx.cardview.widget.CardView
+import android.widget.LinearLayout
 import androidx.core.view.MenuProvider
 import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
@@ -14,7 +14,7 @@ import br.com.viewsystem_sample.core_ui.delegate.ViewDelegate
 
 class SampleToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : CardView(context, attrs) {
+) : LinearLayout(context, attrs) {
 
     private val binding =
         SampleToolbarBinding.inflate(LayoutInflater.from(context), this, true)
