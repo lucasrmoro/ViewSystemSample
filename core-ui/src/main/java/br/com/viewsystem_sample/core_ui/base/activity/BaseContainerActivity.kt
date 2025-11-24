@@ -6,9 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import br.com.viewsystem_sample.core.base.viewModel.BaseViewModel
 import br.com.viewsystem_sample.core.ext.ZERO
+import br.com.viewsystem_sample.core_ui.R
 import br.com.viewsystem_sample.core_ui.databinding.ActivityBaseContainerBinding
 import br.com.viewsystem_sample.core_ui.ext.hide
 import br.com.viewsystem_sample.core_ui.ext.onGetAndroidWindowInsets
+import br.com.viewsystem_sample.core_ui.ext.setStatusBarColorCompat
 import br.com.viewsystem_sample.core_ui.ext.show
 import br.com.viewsystem_sample.core_ui.ext.viewBinding
 
@@ -25,6 +27,7 @@ abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
         setupNavigation()
         setupToolbar()
         setupEdgeToEdge()
+        window.setStatusBarColorCompat(getColor(R.color.green_300))
         if (isTaskRoot && isFirstFragmentOfNavGraph()) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }

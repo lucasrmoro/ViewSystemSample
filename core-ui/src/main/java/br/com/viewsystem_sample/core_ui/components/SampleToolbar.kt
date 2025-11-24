@@ -9,9 +9,6 @@ import androidx.core.view.MenuProvider
 import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.navigation.NavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import br.com.viewsystem_sample.core_ui.databinding.SampleToolbarBinding
 import br.com.viewsystem_sample.core_ui.delegate.ViewDelegate
 
@@ -23,13 +20,6 @@ class SampleToolbar @JvmOverloads constructor(
         SampleToolbarBinding.inflate(LayoutInflater.from(context), this, true)
 
     val androidToolbar by ViewDelegate(binding.androidToolbar)
-
-    fun setupWithNavController(
-        navController: NavController,
-        configuration: AppBarConfiguration = AppBarConfiguration(navController.graph)
-    ) {
-        androidToolbar.setupWithNavController(navController, configuration)
-    }
 
     fun addMenuProvider(
         provider: MenuProvider,
