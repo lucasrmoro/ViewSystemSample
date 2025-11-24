@@ -1,65 +1,33 @@
 package br.com.viewsystem_sample.core_ui.base.activity
 
 import android.os.Bundle
-import android.view.MenuItem
-import androidx.activity.addCallback
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.fragment.app.Fragment
+import androidx.annotation.NavigationRes
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import br.com.viewsystem_sample.core.base.viewModel.BaseViewModel
-import br.com.viewsystem_sample.core.provider.navigation.NavigationProvider
-import br.com.viewsystem_sample.core_ui.R
-import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
+import br.com.viewsystem_sample.core.ext.ZERO
 import br.com.viewsystem_sample.core_ui.databinding.ActivityBaseContainerBinding
 import br.com.viewsystem_sample.core_ui.ext.hide
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidEndWindowInset
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidStartWindowInset
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidTopWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidWindowInsets
 import br.com.viewsystem_sample.core_ui.ext.show
-import br.com.viewsystem_sample.core_ui.ext.sumPadding
 import br.com.viewsystem_sample.core_ui.ext.viewBinding
-import org.koin.android.ext.android.inject
-import org.koin.core.parameter.parametersOf
 
 abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
 
     override val binding by viewBinding(ActivityBaseContainerBinding::inflate)
-    private val navigationProvider by inject<NavigationProvider> {
-        parametersOf(this)
-    }
-    private val lastFragment: BaseFragment<*, *>?
-        get() = navigationProvider.lastFragment as? BaseFragment<*, *>
+    private lateinit var navController: NavController
+
+    @NavigationRes
+    abstract fun navigationRes(): Int
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupScreen()
-        setupOnBackStackChangedListener()
-        setupOnBackPressed()
+        setupNavigation()
+        setupToolbar()
         setupEdgeToEdge()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        lastFragment?.onFragmentVisible()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
-        android.R.id.home -> {
-            onBackPressedDispatcher.onBackPressed()
-            true
+        if (isTaskRoot && isFirstFragmentOfNavGraph()) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
-
-        else -> super.onOptionsItemSelected(item)
-    }
-
-    fun navigate(fragment: Fragment, clearBackStack: Boolean = false, clearTop: Boolean = false) {
-        val backStack = "${javaClass.canonicalName}BackStack"
-        navigationProvider.navigate(
-            fragment = fragment,
-            backStack = backStack,
-            containerId = binding.flContainer.id,
-            clearBackStack = clearBackStack,
-            clearTop = clearTop
-        )
     }
 
     fun showScreenLoading() {
@@ -70,44 +38,35 @@ abstract class BaseContainerActivity<VM : BaseViewModel> : BaseActivity<VM>() {
         binding.pbLoading.hide()
     }
 
-    private fun setupScreen() = with(binding) {
-        setSupportActionBar(toolbar.androidToolbar)
-        setupActionBar()
-    }
-
-    private fun setupActionBar() = supportActionBar?.let {
-        it.title = null
-        it.setHomeAsUpIndicator(AppCompatResources.getDrawable(this, R.drawable.ic_back_arrow))
-    }
-
-    private fun setupOnBackStackChangedListener() = with(navigationProvider) {
-        setOnCurrentFragmentChangeListener { currentFragment, isNotLastFragment ->
-            if (currentFragment is BaseFragment<*, *>) currentFragment.onFragmentVisible()
-            supportActionBar?.setDisplayHomeAsUpEnabled(isNotLastFragment || isTaskRoot.not())
+    private fun setupNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        navController = navHostFragment.navController
+        navController.setGraph(navigationRes())
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            supportActionBar?.setDisplayHomeAsUpEnabled(
+                supportFragmentManager.backStackEntryCount > Int.ZERO || !isFirstFragmentOfNavGraph()
+            )
         }
     }
 
-    private fun setupOnBackPressed() {
-        onBackPressedDispatcher.addCallback(this) {
-            when {
-                lastFragment?.onBackPressed() ?: false -> return@addCallback
-                navigationProvider.isLastFragment.not() -> navigationProvider.popBackStack()
-                else -> finish()
-            }
+    private fun setupToolbar() = with(binding.toolbar) {
+        setSupportActionBar(androidToolbar)
+        title = null
+        setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
     private fun setupEdgeToEdge() = with(binding) {
-        root.onGetAndroidTopWindowInset {
-            toolbar.sumPadding(top = it)
+        navHostFragment.onGetAndroidWindowInsets { top, bottom, left, right ->
+            toolbar.applyWindowInsets(top = top, left = left, right = right)
         }
-        root.onGetAndroidStartWindowInset {
-            toolbar.sumPadding(start = it)
-            flContainer.sumPadding(start = it)
-        }
-        root.onGetAndroidEndWindowInset {
-            toolbar.sumPadding(end = it)
-            flContainer.sumPadding(end = it)
-        }
+    }
+
+    private fun isFirstFragmentOfNavGraph(): Boolean {
+        val currentFragmentId = navController.currentDestination?.id
+        val navGraphStartFragmentId = navController.graph.startDestinationId
+        return navGraphStartFragmentId == currentFragmentId
     }
 }

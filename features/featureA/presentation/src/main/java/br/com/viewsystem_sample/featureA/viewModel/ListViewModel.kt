@@ -27,11 +27,15 @@ class ListViewModel(
 
     override fun loadItems(page: Int) {
         launch {
-            getSomethingUseCase().onError {
-                _onLoadItems.postValue(null to message)
-            }.onSuccess {
-                _onLoadItems.postValue(emptyList<Foo>() to null)
-            }
+//            getSomethingUseCase().onError {
+//                _onLoadItems.postValue(null to message)
+//            }.onSuccess {
+                _onLoadItems.postValue(
+                    (1..100).map {
+                        Foo(it.toLong(), "Teste $it")
+                    } to null
+                )
+
         }
     }
 

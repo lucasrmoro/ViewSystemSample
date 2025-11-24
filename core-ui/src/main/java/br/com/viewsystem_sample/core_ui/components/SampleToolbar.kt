@@ -6,13 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.cardview.widget.CardView
 import androidx.core.view.MenuProvider
+import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import br.com.viewsystem_sample.core_ui.delegate.ViewDelegate
 import br.com.viewsystem_sample.core_ui.databinding.SampleToolbarBinding
+import br.com.viewsystem_sample.core_ui.delegate.ViewDelegate
 
 class SampleToolbar @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -38,11 +39,15 @@ class SampleToolbar @JvmOverloads constructor(
         androidToolbar.addMenuProvider(provider, owner, state)
     }
 
-
     fun setNavigationOnClickListener(onClick: View.() -> Unit) {
         androidToolbar.setNavigationOnClickListener {
             onClick.invoke(it)
         }
+    }
+
+    fun applyWindowInsets(top: Int, left: Int, right: Int) {
+        binding.root.updatePadding(top = top)
+        androidToolbar.updatePadding(left = left, right = right)
     }
 
 }

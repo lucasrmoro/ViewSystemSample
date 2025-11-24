@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewbinding.ViewBinding
 import br.com.viewsystem_sample.core.R
 import br.com.viewsystem_sample.core.base.viewModel.BaseViewModel
 import br.com.viewsystem_sample.core_ui.base.activity.BaseContainerActivity
 import br.com.viewsystem_sample.core_ui.ext.getViewModelClass
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidWindowInsets
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
-import br.com.viewsystem_sample.core_ui.R as coreUiR
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -27,17 +28,13 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
         get() = _binding ?: throw NotFoundException("ViewBinding not found")
 
     protected val viewModel by viewModelForClass(getViewModelClass())
-    protected val defaultErrorMessage
+    protected val genericErrorMessage
         get() = getString(R.string.an_error_occurred_try_again_later)
 
     protected abstract fun setupViews()
     protected open fun setupEdgeToEdge() {}
     protected open fun setupListeners() {}
     protected open fun setupObservers() {}
-    open fun onFragmentVisible() {}
-
-    // Return true to use your custom impl otherwise false for default
-    open fun onBackPressed(): Boolean = false
 
     @CallSuper
     override fun onCreateView(
@@ -46,7 +43,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
         savedInstanceState: Bundle?
     ): View? {
         _binding = inflater(inflater, container, false)
-        binding.root.setBackgroundColor(requireContext().getColor(coreUiR.color.dark_75))
         return binding.root
     }
 
@@ -54,6 +50,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupViews()
+        setupEdgeToEdge()
     }
 
     @CallSuper
@@ -62,16 +59,8 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
         super.onDestroyView()
     }
 
-    protected fun navigate(
-        fragment: Fragment,
-        clearBackStack: Boolean = false,
-        clearTop: Boolean = false
-    ) {
-        baseContainerActivity?.navigate(fragment, clearBackStack, clearTop)
-    }
-
     protected fun popBackStack() {
-        parentFragmentManager.popBackStack()
+        findNavController().popBackStack()
     }
 
     protected fun showScreenLoading() {
@@ -80,5 +69,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
 
     protected fun dismissScreenLoading() {
         baseContainerActivity?.dismissScreenLoading()
+    }
+
+    protected fun onGetAndroidWindowInsets(block: (top: Int, bottom: Int, left: Int, right: Int) -> Unit) {
+        binding.root.onGetAndroidWindowInsets(block)
     }
 }

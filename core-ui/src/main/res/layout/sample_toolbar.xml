@@ -3,14 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/green_300">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/androidToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/green_300"
         app:navigationIcon="@drawable/ic_back_arrow"
+        tools:layout_height="32dp"
         tools:title="Toolbar Title" />
 
 </com.google.android.material.appbar.AppBarLayout>

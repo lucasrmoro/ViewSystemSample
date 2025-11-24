@@ -2,8 +2,6 @@ package br.com.viewsystem_sample.core.di
 
 import br.com.viewsystem_sample.core.provider.appSession.AppSessionProvider
 import br.com.viewsystem_sample.core.provider.appSession.AppSessionProviderImpl
-import br.com.viewsystem_sample.core.provider.navigation.NavigationProvider
-import br.com.viewsystem_sample.core.provider.navigation.NavigationProviderImpl
 import br.com.viewsystem_sample.core.provider.network.provider.NetworkConnectivityProvider
 import br.com.viewsystem_sample.core.provider.network.provider.NetworkConnectivityProviderImpl
 import br.com.viewsystem_sample.core.provider.permission.PermissionsProvider
@@ -17,7 +15,6 @@ private val coreModule = module {
     single<CoroutineDispatcher>(DispatcherIO) { Dispatchers.IO }
     single<CoroutineDispatcher>(DispatcherMain) { Dispatchers.Main }
     single<CoroutineDispatcher>(DispatcherDefault) { Dispatchers.Default }
-    single<NavigationProvider> { params -> NavigationProviderImpl(params.get()) }
     single<PermissionsProvider> { params -> PermissionsProviderImpl(params.get()) }
     single<AppSessionProvider> { AppSessionProviderImpl() }
     single<NetworkConnectivityProvider> { NetworkConnectivityProviderImpl(context = get()) }

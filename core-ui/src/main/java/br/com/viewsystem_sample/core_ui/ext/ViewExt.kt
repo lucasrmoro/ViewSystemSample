@@ -20,38 +20,18 @@ fun View?.invisible() {
     this?.visibility = View.INVISIBLE
 }
 
-fun View.onGetAndroidTopWindowInset(block: View.(size: Int) -> Unit) {
-    onGetAndroidWindowInsets(
-        insetsType = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
-    ) {
-        block(this, it?.top.orZero())
-    }
-}
-
-fun View.onGetAndroidBottomWindowInset(block: View.(size: Int) -> Unit) {
-    onGetAndroidWindowInsets(insetsType = WindowInsetsCompat.Type.systemBars()) {
-        block(this, it?.bottom.orZero())
-    }
-}
-
-fun View.onGetAndroidStartWindowInset(block: View.(size: Int) -> Unit) {
-    onGetAndroidWindowInsets(insetsType = WindowInsetsCompat.Type.systemBars()) {
-        block(this, it?.left.orZero())
-    }
-}
-
-fun View.onGetAndroidEndWindowInset(block: View.(size: Int) -> Unit) {
-    onGetAndroidWindowInsets(insetsType = WindowInsetsCompat.Type.systemBars()) {
-        block(this, it?.right.orZero())
+fun View.onGetAndroidWindowInsets(block: (top: Int, bottom: Int, left: Int, right: Int) -> Unit) {
+    onGetAndroidWindowInsets(insetsType = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout() or WindowInsetsCompat.Type.ime()) {
+        block(it?.top.orZero(), it?.bottom.orZero(), it?.left.orZero(), it?.right.orZero())
     }
 }
 
 private fun View.onGetAndroidWindowInsets(
     @InsetsType insetsType: Int,
-    block: View.(Insets?) -> Unit
+    block: (Insets?) -> Unit
 ) {
     ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
-        block(this, insets.getInsets(insetsType))
+        block(insets.getInsets(insetsType))
         insets
     }
 }
@@ -59,13 +39,13 @@ private fun View.onGetAndroidWindowInsets(
 fun View.sumPadding(
     top: Int = Int.ZERO,
     bottom: Int = Int.ZERO,
-    start: Int = Int.ZERO,
-    end: Int = Int.ZERO
+    left: Int = Int.ZERO,
+    right: Int = Int.ZERO
 ) {
     setPadding(
-        paddingLeft.plus(start),
+        paddingLeft.plus(left),
         paddingTop.plus(top),
-        paddingRight.plus(end),
+        paddingRight.plus(right),
         paddingBottom.plus(bottom)
     )
 }

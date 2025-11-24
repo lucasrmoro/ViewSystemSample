@@ -1,18 +1,17 @@
 package br.com.viewsystem_sample.featureA.fragment
 
-import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
+import androidx.core.view.updatePadding
+import androidx.navigation.fragment.findNavController
 import br.com.viewsystem_sample.core_ui.adapter.SampleGenericAdapter
 import br.com.viewsystem_sample.core_ui.adapter.model.Foo
 import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidBottomWindowInset
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidEndWindowInset
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidStartWindowInset
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidTopWindowInset
+import br.com.viewsystem_sample.core_ui.ext.navigateAnimated
 import br.com.viewsystem_sample.core_ui.ext.showToast
-import br.com.viewsystem_sample.core_ui.ext.sumPadding
+import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
+import br.com.viewsystem_sample.features.featureA.presentation.R
 import br.com.viewsystem_sample.features.featureA.presentation.databinding.FragListBinding
 
-class ListFragment private constructor() :
+internal class ListFragment() :
     BaseFragment<FragListBinding, ListViewModel>(FragListBinding::inflate) {
 
     private val listAdapter = SampleGenericAdapter()
@@ -20,32 +19,20 @@ class ListFragment private constructor() :
     override fun setupViews() {
         setupListeners()
         setupObservers()
-    }
-
-    override fun setupEdgeToEdge() = with(binding) {
-        root.onGetAndroidTopWindowInset {
-            recyclerView.sumPadding(top = it)
-        }
-        root.onGetAndroidBottomWindowInset {
-            recyclerView.sumPadding(bottom = it)
-        }
-        root.onGetAndroidStartWindowInset {
-            recyclerView.sumPadding(start = it)
-        }
-        root.onGetAndroidEndWindowInset {
-            recyclerView.sumPadding(start = it)
-        }
-    }
-
-    override fun onFragmentVisible() {
         showScreenLoading()
         binding.recyclerView.resetCurrentPage()
         viewModel.loadItems()
     }
 
+    override fun setupEdgeToEdge() = with(binding) {
+        onGetAndroidWindowInsets { top, bottom, left, right ->
+            recyclerView.updatePadding(bottom = bottom, left = left, right = right)
+        }
+    }
+
     override fun setupListeners() = with(binding) {
         btnAdd.setOnClickListener {
-            navigate(FormFragment.newInstance())
+            findNavController().navigateAnimated(R.id.action_list_fragment_to_form_fragment)
         }
         recyclerView.setup(adapter = listAdapter, callbacks = viewModel)
     }
@@ -60,11 +47,7 @@ class ListFragment private constructor() :
             recyclerView.onLoadItemsSuccess(it)
         } ?: run {
             recyclerView.onLoadItemsError()
-            showToast(result.second ?: defaultErrorMessage)
+            showToast(result.second ?: genericErrorMessage)
         }
-    }
-
-    companion object {
-        fun newInstance() = ListFragment()
     }
 }

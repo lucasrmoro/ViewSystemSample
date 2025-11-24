@@ -4,8 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
+import androidx.core.view.updateLayoutParams
 import br.com.viewsystem_sample.core_ui.databinding.AndroidBottomWindowInsetPreviewBinding
-import br.com.viewsystem_sample.core_ui.ext.onGetAndroidBottomWindowInset
+import br.com.viewsystem_sample.core_ui.ext.onGetAndroidWindowInsets
 
 class AndroidBottomWindowInsetView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -19,8 +20,10 @@ class AndroidBottomWindowInsetView @JvmOverloads constructor(
                 true
             )
         } else {
-            onGetAndroidBottomWindowInset {
-                layoutParams.height = it
+            onGetAndroidWindowInsets { _, bottom, _, _ ->
+                updateLayoutParams {
+                    height = bottom
+                }
             }
         }
     }
