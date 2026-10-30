@@ -16,4 +16,5 @@ interface FeatureAService {
         // Endpoints
         private const val SOME_API = "some_api/{$SOME_PARAM}"
     }
+
 }
