@@ -1,12 +1,11 @@
 package br.com.viewsystem_sample.structural.core.ext
 
 import br.com.viewsystem_sample.structural.network.exception.SampleException
+import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.transform
 import retrofit2.HttpException
-import timber.log.Timber
-import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 
 fun <T> Flow<T>.onError(
     ignoreUnauthorized: Boolean = true,
@@ -15,8 +14,6 @@ fun <T> Flow<T>.onError(
     if (ignoreUnauthorized && (it as? HttpException)?.code() == HTTP_UNAUTHORIZED) {
         return@catch
     }
-    Timber.e(it)
-
     block(it.toSampleException())
 }
 
@@ -28,7 +25,6 @@ suspend fun Flow<*>.onFinish(block: suspend () -> Unit) {
     runCatching {
         collect { block.invoke() }
     }.onFailure {
-        Timber.e(it)
         block.invoke()
     }
 }

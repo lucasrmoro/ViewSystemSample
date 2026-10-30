@@ -12,7 +12,6 @@ import br.com.viewsystem_sample.structural.core.ext.ZERO
 import br.com.viewsystem_sample.structural.core.ext.isSign
 import br.com.viewsystem_sample.structural.core.ext.toMoney
 import br.com.viewsystem_sample.structural.core.ext.unmasked
-import timber.log.Timber
 
 fun EditText.setMaxLength(maxLength: Int) {
     val currentFilters = filters.filterNot { it.javaClass == InputFilter.LengthFilter::class.java }
@@ -53,8 +52,6 @@ fun EditText.setMoneyMask(fractionDigits: Int = Int.TWO): TextWatcher {
             }
             runCatching {
                 this@onTextChange.setText(text.toMoney(fractionDigits))
-            }.onFailure {
-                Timber.e(it)
             }
         }
     )
