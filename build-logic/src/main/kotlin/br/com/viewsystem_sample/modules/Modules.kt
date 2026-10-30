@@ -7,6 +7,10 @@ object Modules {
         private const val ROOT = ":structural"
 
         const val CORE = "$ROOT:core"
+        const val SESSION_API = "$ROOT:session:api"
+        const val SESSION_IMPL = "$ROOT:session:impl"
+        const val PERMISSIONS_API = "$ROOT:permissions:api"
+        const val PERMISSIONS_IMPL = "$ROOT:permissions:impl"
         const val LOGGER_API = "$ROOT:logger:api"
         const val LOGGER_IMPL = "$ROOT:logger:impl"
         const val NETWORK_API = "$ROOT:network:api"

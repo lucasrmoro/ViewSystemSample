@@ -34,6 +34,10 @@ include(":app")
 include(
     ":structural",
     ":structural:core",
+    ":structural:session:api",
+    ":structural:session:impl",
+    ":structural:permissions:api",
+    ":structural:permissions:impl",
     ":structural:logger:api",
     ":structural:logger:impl",
     ":structural:network",

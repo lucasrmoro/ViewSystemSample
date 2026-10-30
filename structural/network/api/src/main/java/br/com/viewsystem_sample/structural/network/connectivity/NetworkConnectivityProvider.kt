@@ -1,4 +1,4 @@
-package br.com.viewsystem_sample.structural.core.provider.network.provider
+package br.com.viewsystem_sample.structural.network.connectivity
 
 import androidx.lifecycle.LiveData
 

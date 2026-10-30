@@ -2,12 +2,12 @@ package br.com.viewsystem_sample.structural.network.authenticator
 
 import br.com.viewsystem_sample.login.repository.LoginRepository
 import br.com.viewsystem_sample.structural.core.ext.plusSpacing
-import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.ACCESS_TOKEN
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.REFRESH_TOKEN
 import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
 import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
+import br.com.viewsystem_sample.structural.session.AppSessionProvider
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Response

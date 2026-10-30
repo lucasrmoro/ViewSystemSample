@@ -1,9 +1,11 @@
 package br.com.viewsystem_sample.structural.network.di
 
-import br.com.viewsystem_sample.structural.network.impl.BuildConfig
 import br.com.viewsystem_sample.structural.network.authenticator.NetworkAuthenticator
+import br.com.viewsystem_sample.structural.network.connectivity.NetworkConnectivityProvider
+import br.com.viewsystem_sample.structural.network.connectivity.NetworkConnectivityProviderImpl
 import br.com.viewsystem_sample.structural.network.ext.setConverterFactory
 import br.com.viewsystem_sample.structural.network.ext.setTimeouts
+import br.com.viewsystem_sample.structural.network.impl.BuildConfig
 import br.com.viewsystem_sample.structural.network.interceptor.NetworkInterceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +14,8 @@ import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-private val retrofitModule = module {
+private val networkModule = module {
+    single<NetworkConnectivityProvider> { NetworkConnectivityProviderImpl(context = get()) }
     single<NetworkInterceptor> { NetworkInterceptor(preferencesDataSource = get()) }
     single<NetworkAuthenticator> {
         NetworkAuthenticator(
@@ -58,6 +61,6 @@ private val retrofitModule = module {
 
 object CoreNetworkModule {
     fun init() {
-        loadKoinModules(retrofitModule)
+        loadKoinModules(networkModule)
     }
 }

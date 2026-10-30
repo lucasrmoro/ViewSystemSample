@@ -7,6 +7,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Modules.Structural.SESSION_API))
     implementation(project(Modules.Feature.Login.DOMAIN_API))
     implementation(project(Modules.Structural.CORE))
     implementation(project(Modules.Structural.NETWORK_API))

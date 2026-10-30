@@ -1,4 +1,4 @@
-package br.com.viewsystem_sample.structural.core.provider.appSession
+package br.com.viewsystem_sample.structural.session
 
 import androidx.lifecycle.LiveData
 

@@ -2,8 +2,11 @@ package br.com.viewsystem_sample.structural.core.provider.appState
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
-import br.com.viewsystem_sample.structural.core.provider.network.provider.NetworkConnectivityProvider
+
+import br.com.viewsystem_sample.structural.network.connectivity.ConnectivityStatus
+import br.com.viewsystem_sample.structural.network.connectivity.NetworkConnectivityProvider
+import br.com.viewsystem_sample.structural.session.AppSessionProvider
+import br.com.viewsystem_sample.structural.session.SessionStatus
 
 internal class AppStateProviderImpl(
     private val appSessionProvider: AppSessionProvider,
