@@ -2,11 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <activity android:name="br.com.viewsystem_sample.featureA.activity.FeatureAActivity">
-            <meta-data
-                android:name="addressable"
-                android:value="true" />
-        </activity>
+        <activity android:name="br.com.viewsystem_sample.featureA.activity.FeatureAActivity" />
     </application>
 
 </manifest>

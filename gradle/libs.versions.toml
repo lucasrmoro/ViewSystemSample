@@ -3,7 +3,6 @@ agp = "8.8.2"
 kotlin = "2.1.10"
 annotationJvm = "1.9.1"
 ksp = "2.1.10-1.0.31"
-quadrant = "1.9.1"
 coreKtx = "1.15.0"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -50,9 +49,6 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 # Coroutines
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
-
-# Quadrant
-quadrant = { group = "gradle.plugin.com.gaelmarhic", name = "quadrant", version.ref = "quadrant" }
 
 # Room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }

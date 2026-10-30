@@ -53,6 +53,7 @@ include(
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
     ":features:featureA:presentation",
+    ":features:featureA:navigation:api",
     ":features:login:domain:api",
     ":features:login:data",
     ":features:login:di:api",

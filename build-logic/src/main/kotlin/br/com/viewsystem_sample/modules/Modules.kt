@@ -35,6 +35,7 @@ object Modules {
             const val DOMAIN_API = "$FEATURE_A:domain:api"
             const val DOMAIN_IMPL = "$FEATURE_A:domain:impl"
             const val PRESENTATION = "$FEATURE_A:presentation"
+            const val NAVIGATION_API = "$FEATURE_A:navigation:api"
         }
     }
 }

@@ -5,12 +5,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity.OVERRIDE_TRANSITION_CLOSE
 
-fun Activity.startActivityByClassName(
-    className: String,
+fun Activity.launchActivity(
+    intent: Intent,
     showActivityTransition: Boolean = true,
     finishCurrentActivity: Boolean = false
 ) {
-    startActivity(Intent().setClassName(this, className))
+    startActivity(intent)
 
     if (finishCurrentActivity) finish()
     if (showActivityTransition.not()) stopPendingTransition()

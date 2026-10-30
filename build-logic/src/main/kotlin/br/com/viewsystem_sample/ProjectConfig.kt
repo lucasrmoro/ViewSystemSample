@@ -23,7 +23,6 @@ internal object Plugins {
     const val ANDROID_LIBRARY = "com.android.library"
     const val KOTLIN_ANDROID = "org.jetbrains.kotlin.android"
     const val KSP = "com.google.devtools.ksp"
-    const val QUADRANT = "com.gaelmarhic.quadrant"
 }
 
 internal object Flavors {

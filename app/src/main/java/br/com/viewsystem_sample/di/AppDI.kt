@@ -7,15 +7,14 @@ import br.com.viewsystem_sample.login.LoginDIImpl
 import br.com.viewsystem_sample.structural.core.di.CoreModule
 import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
 import br.com.viewsystem_sample.structural.local_storage.di.LocalStorageModule
-import org.koin.core.context.GlobalContext
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
 internal object AppDI {
 
-    private val featuresModule = module {
-        single<FeatureADI> { FeatureADIImpl() }
-        single<LoginDI> { LoginDIImpl() }
+    private val featuresModule = module(createdAtStart = true) {
+        single<FeatureADI> { FeatureADIImpl().apply { load() } }
+        single<LoginDI> { LoginDIImpl().apply { load() } }
     }
 
     fun load() {
@@ -23,7 +22,6 @@ internal object AppDI {
         CoreNetworkModule.init()
         LocalStorageModule.init()
         loadKoinModules(featuresModule)
-        GlobalContext.get().get<LoginDI>().load()
     }
 
 }

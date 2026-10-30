@@ -22,8 +22,8 @@ class AppApplication : Application() {
     private fun setupKoin() {
         startKoin {
             androidContext(applicationContext)
+            AppDI.load()
         }
-        AppDI.load()
     }
 
 }

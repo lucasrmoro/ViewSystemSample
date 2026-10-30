@@ -2,15 +2,18 @@ package br.com.viewsystem_sample.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.viewsystem_sample.structural.core.ext.startActivityByClassName
-import com.gaelmarhic.quadrant.QuadrantConstants.FEATURE_A_ACTIVITY
+import br.com.viewsystem_sample.featureA.navigation.FeatureAEntryPoint
+import br.com.viewsystem_sample.structural.core.ext.launchActivity
+import org.koin.android.ext.android.inject
 
 class LauncherActivity : AppCompatActivity() {
 
+    private val featureAEntryPoint by inject<FeatureAEntryPoint>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        startActivityByClassName(
-            className = FEATURE_A_ACTIVITY,
+        launchActivity(
+            intent = featureAEntryPoint.createIntent(this),
             showActivityTransition = false,
             finishCurrentActivity = true
         )
