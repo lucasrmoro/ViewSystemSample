@@ -1,13 +1,13 @@
 package br.com.viewsystem_sample.structural.network.authenticator
 
+import br.com.viewsystem_sample.login.repository.LoginRepository
 import br.com.viewsystem_sample.structural.core.ext.plusSpacing
 import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
-import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
-import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
-import br.com.viewsystem_sample.login.repository.LoginRepository
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.ACCESS_TOKEN
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.REFRESH_TOKEN
+import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
+import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.Response
@@ -19,32 +19,32 @@ internal class NetworkAuthenticator(
     private val preferencesDataSource: PreferencesDataSource
 ) : Authenticator {
 
-    private val localAccessToken: String
-        get() = preferencesDataSource.getString(ACCESS_TOKEN).orEmpty()
-
     override fun authenticate(route: Route?, response: Response) =
         synchronized(this) {
-            val shouldRefreshAccessToken = response.shouldRefreshAccessToken()
-            val accessToken = if (shouldRefreshAccessToken) {
-                runBlocking { getRemoteAccessToken() }
-            } else {
-                localAccessToken
-            }
-
-            when {
-                accessToken.isEmpty() || accessToken == FETCH_REMOTE_REFRESH_TOKEN_ERROR -> {
-                    if (shouldRefreshAccessToken && localAccessToken != accessToken) {
-                        preferencesDataSource.putString(ACCESS_TOKEN, accessToken, encrypt = true)
-                        appSessionProvider.expireSession()
-                    }
-                    null
+            runBlocking {
+                val localAccessToken = preferencesDataSource.getString(ACCESS_TOKEN).orEmpty()
+                val shouldRefreshAccessToken = response.shouldRefreshAccessToken(localAccessToken)
+                val accessToken = if (shouldRefreshAccessToken) {
+                    getRemoteAccessToken()
+                } else {
+                    localAccessToken
                 }
 
-                else -> {
-                    preferencesDataSource.putString(ACCESS_TOKEN, accessToken, encrypt = true)
-                    response.request.newBuilder()
-                        .header(AUTHORIZATION_HEADER, accessToken.plusBearerTokenType())
-                        .build()
+                when {
+                    accessToken.isEmpty() || accessToken == FETCH_REMOTE_REFRESH_TOKEN_ERROR -> {
+                        if (shouldRefreshAccessToken && localAccessToken != accessToken) {
+                            preferencesDataSource.putString(ACCESS_TOKEN, accessToken)
+                            appSessionProvider.expireSession()
+                        }
+                        null
+                    }
+
+                    else -> {
+                        preferencesDataSource.putString(ACCESS_TOKEN, accessToken)
+                        response.request.newBuilder()
+                            .header(AUTHORIZATION_HEADER, accessToken.plusBearerTokenType())
+                            .build()
+                    }
                 }
             }
         }
@@ -54,7 +54,7 @@ internal class NetworkAuthenticator(
             loginRepository.refreshToken(preferencesDataSource.getString(REFRESH_TOKEN).orEmpty())
         }.getOrNull() ?: FETCH_REMOTE_REFRESH_TOKEN_ERROR
 
-    private fun Response.shouldRefreshAccessToken(): Boolean =
+    private fun Response.shouldRefreshAccessToken(localAccessToken: String): Boolean =
         request.header(AUTHORIZATION_HEADER) == localAccessToken
 
     private fun String.plusBearerTokenType() = BEARER_TOKEN_TYPE.plusSpacing(this)

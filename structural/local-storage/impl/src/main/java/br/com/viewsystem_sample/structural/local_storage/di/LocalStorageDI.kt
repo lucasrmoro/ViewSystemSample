@@ -1,10 +1,12 @@
 package br.com.viewsystem_sample.structural.local_storage.di
 
 import androidx.room.Room
+import br.com.viewsystem_sample.structural.core.ext.dispatcherIO
 import br.com.viewsystem_sample.featureA.dao.SomeDao
 import br.com.viewsystem_sample.structural.local_storage.db.LocalDatabase
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSourceImpl
+import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataStoreFactory
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
@@ -19,7 +21,10 @@ private val localStorageModule = module {
         ).build()
     }
     factory<SomeDao> { get<LocalDatabase>().fooDao() }
-    single<PreferencesDataSource> { PreferencesDataSourceImpl(context = get()) }
+    single<PreferencesDataStoreFactory> {
+        PreferencesDataStoreFactory(context = get(), ioDispatcher = dispatcherIO)
+    }
+    single<PreferencesDataSource> { PreferencesDataSourceImpl(dataStoreFactory = get()) }
 }
 
 object LocalStorageModule {

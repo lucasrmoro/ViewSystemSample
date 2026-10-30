@@ -1,10 +1,11 @@
 package br.com.viewsystem_sample.structural.network.interceptor
 
 import br.com.viewsystem_sample.structural.core.ext.plusSpacing
-import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
-import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.ACCESS_TOKEN
+import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
+import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
+import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
@@ -13,7 +14,7 @@ class NetworkInterceptor(
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val accessToken = preferencesDataSource.getString(ACCESS_TOKEN).orEmpty()
+        val accessToken = runBlocking { preferencesDataSource.getString(ACCESS_TOKEN).orEmpty() }
         val request = chain.request().newBuilder().header(
             AUTHORIZATION_HEADER, BEARER_TOKEN_TYPE.plusSpacing(accessToken)
         ).build()
