@@ -16,6 +16,16 @@ object Modules {
     object Feature {
         private const val ROOT = ":features"
 
+        object Login {
+            private const val LOGIN = "$ROOT:login"
+
+            const val DOMAIN_API = "$LOGIN:domain:api"
+            const val DATA_API = "$LOGIN:data:api"
+            const val DATA_IMPL = "$LOGIN:data:impl"
+            const val DI_API = "$LOGIN:di:api"
+            const val DI_IMPL = "$LOGIN:di:impl"
+        }
+
         object FeatureA {
             private const val FEATURE_A = "$ROOT:featureA"
 

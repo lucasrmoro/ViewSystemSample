@@ -1,11 +1,10 @@
 package br.com.viewsystem_sample.structural.network.authenticator
 
-import br.com.viewsystem_sample.structural.core.ext.collectResultSafely
 import br.com.viewsystem_sample.structural.core.ext.plusSpacing
 import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
 import br.com.viewsystem_sample.structural.network.NetworkConstants.AUTHORIZATION_HEADER
 import br.com.viewsystem_sample.structural.network.NetworkConstants.BEARER_TOKEN_TYPE
-import br.com.viewsystem_sample.structural.network.data.AuthRemoteDataSource
+import br.com.viewsystem_sample.login.repository.LoginRepository
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.ACCESS_TOKEN
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource.Companion.REFRESH_TOKEN
@@ -16,7 +15,7 @@ import okhttp3.Route
 
 internal class NetworkAuthenticator(
     private val appSessionProvider: AppSessionProvider,
-    private val authRemoteDataSource: AuthRemoteDataSource,
+    private val loginRepository: LoginRepository,
     private val preferencesDataSource: PreferencesDataSource
 ) : Authenticator {
 
@@ -51,8 +50,9 @@ internal class NetworkAuthenticator(
         }
 
     private suspend fun getRemoteAccessToken(): String =
-        authRemoteDataSource.refreshToken(preferencesDataSource.getString(REFRESH_TOKEN).orEmpty())
-            .collectResultSafely()?.accessToken ?: FETCH_REMOTE_REFRESH_TOKEN_ERROR
+        runCatching {
+            loginRepository.refreshToken(preferencesDataSource.getString(REFRESH_TOKEN).orEmpty())
+        }.getOrNull() ?: FETCH_REMOTE_REFRESH_TOKEN_ERROR
 
     private fun Response.shouldRefreshAccessToken(): Boolean =
         request.header(AUTHORIZATION_HEADER) == localAccessToken

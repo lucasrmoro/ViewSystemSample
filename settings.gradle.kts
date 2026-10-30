@@ -51,5 +51,10 @@ include(
     ":features:featureA:data:impl",
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
-    ":features:featureA:presentation"
+    ":features:featureA:presentation",
+    ":features:login:domain:api",
+    ":features:login:data:api",
+    ":features:login:data:impl",
+    ":features:login:di:api",
+    ":features:login:di:impl"
 )

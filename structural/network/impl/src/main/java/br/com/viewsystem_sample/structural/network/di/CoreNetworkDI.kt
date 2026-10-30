@@ -2,10 +2,6 @@ package br.com.viewsystem_sample.structural.network.di
 
 import br.com.viewsystem_sample.structural.network.impl.BuildConfig
 import br.com.viewsystem_sample.structural.network.authenticator.NetworkAuthenticator
-import br.com.viewsystem_sample.structural.network.data.AuthRemoteDataSource
-import br.com.viewsystem_sample.structural.network.data.AuthRemoteDataSourceImpl
-import br.com.viewsystem_sample.structural.network.data.AuthService
-import br.com.viewsystem_sample.structural.network.ext.retrofitNoAuth
 import br.com.viewsystem_sample.structural.network.ext.setConverterFactory
 import br.com.viewsystem_sample.structural.network.ext.setTimeouts
 import br.com.viewsystem_sample.structural.network.interceptor.NetworkInterceptor
@@ -16,17 +12,12 @@ import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import retrofit2.Retrofit
 
-private val authModule = module {
-    factory { retrofitNoAuth.create(AuthService::class.java) }
-    factory<AuthRemoteDataSource> { AuthRemoteDataSourceImpl(authService = get()) }
-}
-
 private val retrofitModule = module {
     single<NetworkInterceptor> { NetworkInterceptor(preferencesDataSource = get()) }
     single<NetworkAuthenticator> {
         NetworkAuthenticator(
             appSessionProvider = get(),
-            authRemoteDataSource = get(),
+            loginRepository = get(),
             preferencesDataSource = get()
         )
     }
@@ -67,6 +58,6 @@ private val retrofitModule = module {
 
 object CoreNetworkModule {
     fun init() {
-        loadKoinModules(listOf(authModule, retrofitModule))
+        loadKoinModules(retrofitModule)
     }
 }

@@ -1,4 +1,4 @@
-package br.com.viewsystem_sample.structural.network.model
+package br.com.viewsystem_sample.login.model
 
 import com.google.gson.annotations.SerializedName
 
