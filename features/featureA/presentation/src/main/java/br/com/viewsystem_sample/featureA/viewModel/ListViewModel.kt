@@ -3,13 +3,13 @@ package br.com.viewsystem_sample.featureA.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.viewsystem_sample.featureA.useCase.GetSomethingUseCase
-import br.com.viewsystem_sample.core.base.viewModel.BaseViewModel
-import br.com.viewsystem_sample.core.ext.ONE
-import br.com.viewsystem_sample.core.ext.ONE_HUNDRED
-import br.com.viewsystem_sample.core.ext.onError
-import br.com.viewsystem_sample.core.ext.onSuccess
-import br.com.viewsystem_sample.core_ui.adapter.model.Foo
-import br.com.viewsystem_sample.core_ui.components.recyclerView.SampleEndlessRecyclerViewCallbacks
+import br.com.viewsystem_sample.structural.core.base.viewModel.BaseViewModel
+import br.com.viewsystem_sample.structural.core.ext.ONE
+import br.com.viewsystem_sample.structural.core.ext.ONE_HUNDRED
+import br.com.viewsystem_sample.structural.core.ext.onError
+import br.com.viewsystem_sample.structural.core.ext.onSuccess
+import br.com.viewsystem_sample.structural.designsystem.adapter.model.Foo
+import br.com.viewsystem_sample.structural.designsystem.components.recyclerView.SampleEndlessRecyclerViewCallbacks
 import kotlinx.coroutines.async
 
 class ListViewModel(

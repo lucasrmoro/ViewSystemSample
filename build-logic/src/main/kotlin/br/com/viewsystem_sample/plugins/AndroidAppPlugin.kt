@@ -38,10 +38,10 @@ class AndroidAppPlugin : BasePlugin() {
     }
 
     private fun Project.setupDependencies() = dependencies {
-        implementation(project(Modules.CORE))
-        implementation(project(Modules.CORE_NETWORK))
-        implementation(project(Modules.LOCAL_STORAGE))
-        implementation(project(Modules.CORE_UI))
+        implementation(project(Modules.Structural.CORE))
+        implementation(project(Modules.Structural.NETWORK))
+        implementation(project(Modules.Structural.LOCAL_STORAGE))
+        implementation(project(Modules.Structural.DESIGNSYSTEM))
         implementation(libs.material)
         implementation(libs.bundles.android)
         implementation(libs.bundles.koin)

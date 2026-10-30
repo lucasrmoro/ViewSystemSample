@@ -1,11 +1,17 @@
 package br.com.viewsystem_sample.modules
 
 object Modules {
-    const val CORE = ":core"
-    const val CORE_NETWORK = ":core-network"
-    const val CORE_UI = ":core-ui"
     const val COMMON_DOMAIN = ":common:domain"
-    const val LOCAL_STORAGE = ":local-storage"
+
+    object Structural {
+        private const val ROOT = ":structural"
+
+        const val CORE = "$ROOT:core"
+        const val NETWORK = "$ROOT:network"
+        const val DESIGNSYSTEM = "$ROOT:designsystem"
+        const val ENTITIES = "$ROOT:entities"
+        const val LOCAL_STORAGE = "$ROOT:local-storage"
+    }
 
     object Feature {
         private const val ROOT = ":features"
@@ -22,6 +28,4 @@ object Modules {
             const val PRESENTATION = "$FEATURE_A:presentation"
         }
     }
-
-    const val ENTITIES = ":entities"
 }

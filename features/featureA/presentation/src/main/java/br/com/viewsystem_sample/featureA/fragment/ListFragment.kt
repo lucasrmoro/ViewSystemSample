@@ -2,11 +2,11 @@ package br.com.viewsystem_sample.featureA.fragment
 
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
-import br.com.viewsystem_sample.core_ui.adapter.SampleGenericAdapter
-import br.com.viewsystem_sample.core_ui.adapter.model.Foo
-import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
-import br.com.viewsystem_sample.core_ui.ext.navigateAnimated
-import br.com.viewsystem_sample.core_ui.ext.showToast
+import br.com.viewsystem_sample.structural.designsystem.adapter.SampleGenericAdapter
+import br.com.viewsystem_sample.structural.designsystem.adapter.model.Foo
+import br.com.viewsystem_sample.structural.designsystem.base.fragment.BaseFragment
+import br.com.viewsystem_sample.structural.designsystem.ext.navigateAnimated
+import br.com.viewsystem_sample.structural.designsystem.ext.showToast
 import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
 import br.com.viewsystem_sample.features.featureA.presentation.R
 import br.com.viewsystem_sample.features.featureA.presentation.databinding.FragListBinding

@@ -2,9 +2,9 @@ package br.com.viewsystem_sample.di
 
 import br.com.viewsystem_sample.featureA.FeatureADI
 import br.com.viewsystem_sample.featureA.FeatureADIImpl
-import br.com.viewsystem_sample.core.di.CoreModule
-import br.com.viewsystem_sample.core_network.di.CoreNetworkModule
-import br.com.viewsystem_sample.local_storage.di.LocalStorageModule
+import br.com.viewsystem_sample.structural.core.di.CoreModule
+import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
+import br.com.viewsystem_sample.structural.local_storage.di.LocalStorageModule
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 

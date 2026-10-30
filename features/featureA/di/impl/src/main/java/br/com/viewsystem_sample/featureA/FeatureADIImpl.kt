@@ -1,8 +1,8 @@
 package br.com.viewsystem_sample.featureA
 
-import br.com.viewsystem_sample.core.ext.dispatcherIO
-import br.com.viewsystem_sample.core_network.ext.createService
-import br.com.viewsystem_sample.core_network.ext.retrofit
+import br.com.viewsystem_sample.structural.core.ext.dispatcherIO
+import br.com.viewsystem_sample.structural.network.ext.createService
+import br.com.viewsystem_sample.structural.network.ext.retrofit
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSource
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSourceImpl
 import br.com.viewsystem_sample.featureA.dataSource.FeatureARemoteDataSource

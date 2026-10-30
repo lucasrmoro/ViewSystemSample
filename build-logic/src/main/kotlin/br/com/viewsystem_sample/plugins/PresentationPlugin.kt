@@ -29,9 +29,9 @@ class PresentationPlugin : BasePlugin() {
     }
 
     private fun Project.setupDependencies() = dependencies {
-        implementation(project(Modules.CORE))
-        implementation(project(Modules.ENTITIES))
-        implementation(project(Modules.CORE_UI))
+        implementation(project(Modules.Structural.CORE))
+        implementation(project(Modules.Structural.ENTITIES))
+        implementation(project(Modules.Structural.DESIGNSYSTEM))
         implementation(libs.material)
         implementation(libs.bundles.android)
         implementation(libs.timber)

@@ -1,5 +1,5 @@
 package br.com.viewsystem_sample.featureA.viewModel
 
-import br.com.viewsystem_sample.core.base.viewModel.BaseViewModel
+import br.com.viewsystem_sample.structural.core.base.viewModel.BaseViewModel
 
 class FeatureAViewModel : BaseViewModel()

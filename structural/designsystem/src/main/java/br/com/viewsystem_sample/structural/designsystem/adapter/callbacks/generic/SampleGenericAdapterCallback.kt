@@ -1,0 +1,3 @@
+package br.com.viewsystem_sample.structural.designsystem.adapter.callbacks.generic
+
+interface SampleGenericAdapterCallback

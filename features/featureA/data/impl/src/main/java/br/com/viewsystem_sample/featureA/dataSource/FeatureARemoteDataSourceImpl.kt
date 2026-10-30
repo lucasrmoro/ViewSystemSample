@@ -2,7 +2,7 @@ package br.com.viewsystem_sample.featureA.dataSource
 
 import br.com.viewsystem_sample.featureA.model.SomeModel
 import br.com.viewsystem_sample.featureA.service.FeatureAService
-import br.com.viewsystem_sample.core.base.dataSource.BaseDataSource
+import br.com.viewsystem_sample.structural.core.base.dataSource.BaseDataSource
 import kotlinx.coroutines.flow.Flow
 
 class FeatureARemoteDataSourceImpl(

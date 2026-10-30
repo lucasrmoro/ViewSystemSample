@@ -18,9 +18,9 @@ class DataPlugin : BaseLibraryPlugin() {
 
     override fun setupDependencies(project: Project) = with(project) {
         dependencies {
-            implementation(project(Modules.CORE))
-            implementation(project(Modules.CORE_NETWORK))
-            implementation(project(Modules.LOCAL_STORAGE))
+            implementation(project(Modules.Structural.CORE))
+            implementation(project(Modules.Structural.NETWORK))
+            implementation(project(Modules.Structural.LOCAL_STORAGE))
             implementation(libs.bundles.retrofit)
             implementation(libs.coroutines)
         }

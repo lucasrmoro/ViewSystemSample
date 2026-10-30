@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <br.com.viewsystem_sample.core_ui.components.android.AndroidBottomWindowInsetView
+        <br.com.viewsystem_sample.structural.designsystem.components.android.AndroidBottomWindowInsetView
             android:id="@+id/androidBottomInsetView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/medium_dimen" />
 
-        <br.com.viewsystem_sample.core_ui.components.SampleTextField
+        <br.com.viewsystem_sample.structural.designsystem.components.SampleTextField
             android:id="@+id/etMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             app:layout_constraintStart_toStartOf="@id/guidelineStart"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <br.com.viewsystem_sample.core_ui.components.SampleButton
+        <br.com.viewsystem_sample.structural.designsystem.components.SampleButton
             android:id="@+id/btnSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

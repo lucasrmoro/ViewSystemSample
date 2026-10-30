@@ -1,6 +1,6 @@
 package br.com.viewsystem_sample.featureA.fragment
 
-import br.com.viewsystem_sample.core_ui.base.fragment.BaseFragment
+import br.com.viewsystem_sample.structural.designsystem.base.fragment.BaseFragment
 import br.com.viewsystem_sample.featureA.viewModel.FormViewModel
 import br.com.viewsystem_sample.features.featureA.presentation.databinding.FragFormBinding
 

@@ -19,8 +19,8 @@ class DIPlugin : BaseLibraryPlugin() {
 
     override fun setupDependencies(project: Project) = with(project) {
         dependencies {
-            implementation(project(Modules.CORE))
-            implementation(project(Modules.CORE_NETWORK))
+            implementation(project(Modules.Structural.CORE))
+            implementation(project(Modules.Structural.NETWORK))
             ksp(libs.koin.compiler)
             implementation(libs.bundles.koin)
             implementation(libs.bundles.retrofit)

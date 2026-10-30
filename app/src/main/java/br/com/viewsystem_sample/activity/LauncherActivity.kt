@@ -2,7 +2,7 @@ package br.com.viewsystem_sample.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import br.com.viewsystem_sample.core.ext.startActivityByClassName
+import br.com.viewsystem_sample.structural.core.ext.startActivityByClassName
 import com.gaelmarhic.quadrant.QuadrantConstants.FEATURE_A_ACTIVITY
 
 class LauncherActivity : AppCompatActivity() {

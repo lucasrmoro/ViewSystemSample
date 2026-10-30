@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import br.com.viewsystem_sample.local_storage.db.entity.SomeDbEntity
+import br.com.viewsystem_sample.structural.local_storage.db.entity.SomeDbEntity
 
 @Dao
 interface SomeDao {

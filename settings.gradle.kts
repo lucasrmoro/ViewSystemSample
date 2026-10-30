@@ -30,11 +30,15 @@ dependencyResolutionManagement {
 rootProject.name = "ViewSystem - Sample"
 
 include(":app")
-include(":core")
-include(":core-ui")
-include(":core-network")
-include(":entities")
-include(":local-storage")
+// Structural
+include(
+    ":structural",
+    ":structural:core",
+    ":structural:network",
+    ":structural:designsystem",
+    ":structural:entities",
+    ":structural:local-storage"
+)
 
 // Features
 include(

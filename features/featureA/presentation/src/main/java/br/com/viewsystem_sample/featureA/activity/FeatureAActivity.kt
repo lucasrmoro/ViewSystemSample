@@ -2,7 +2,7 @@ package br.com.viewsystem_sample.featureA.activity
 
 import android.os.Bundle
 import br.com.viewsystem_sample.featureA.FeatureADI
-import br.com.viewsystem_sample.core_ui.base.activity.BaseContainerActivity
+import br.com.viewsystem_sample.structural.designsystem.base.activity.BaseContainerActivity
 import br.com.viewsystem_sample.featureA.fragment.ListFragment
 import br.com.viewsystem_sample.featureA.viewModel.FeatureAViewModel
 import br.com.viewsystem_sample.features.featureA.presentation.R

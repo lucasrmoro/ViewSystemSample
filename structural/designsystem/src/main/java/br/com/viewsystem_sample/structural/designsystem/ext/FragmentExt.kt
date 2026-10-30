@@ -1,0 +1,29 @@
+package br.com.viewsystem_sample.structural.designsystem.ext
+
+import android.content.Intent
+import android.widget.Toast
+import br.com.viewsystem_sample.structural.core.ext.hideKeyboard
+import androidx.annotation.StringRes
+import br.com.viewsystem_sample.structural.core.ext.showToast
+import br.com.viewsystem_sample.structural.designsystem.base.activity.BaseActivity
+import br.com.viewsystem_sample.structural.designsystem.base.fragment.BaseFragment
+import kotlin.reflect.KClass
+
+val BaseFragment<*, *>.isFragmentVisible
+    get() = parentFragmentManager.fragments.filterIsInstance<BaseFragment<*, *>>().javaClass == javaClass
+
+fun BaseFragment<*, *>.showToast(message: String, length: Int = Toast.LENGTH_SHORT) {
+    context.showToast(message, length)
+}
+
+fun BaseFragment<*, *>.showToast(@StringRes message: Int, length: Int = Toast.LENGTH_SHORT) {
+    context.showToast(message, length)
+}
+
+fun <T : KClass<out BaseActivity<*>>> BaseFragment<*, *>.openActivity(activityKClass: T) {
+    Intent(context, activityKClass.java).also { startActivity(it) }
+}
+
+fun BaseFragment<*, *>.hideKeyboard() {
+    context?.hideKeyboard()
+}

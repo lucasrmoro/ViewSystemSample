@@ -4,19 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <br.com.viewsystem_sample.core_ui.components.android.AndroidBottomWindowInsetView
+    <br.com.viewsystem_sample.structural.designsystem.components.android.AndroidBottomWindowInsetView
         android:id="@+id/androidBottomInsetView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent" />
 
-    <br.com.viewsystem_sample.core_ui.components.android.AndroidRightWindowInsetView
+    <br.com.viewsystem_sample.structural.designsystem.components.android.AndroidRightWindowInsetView
         android:id="@+id/androidEndInsetView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <br.com.viewsystem_sample.core_ui.components.recyclerView.SampleEndlessRecyclerView
+    <br.com.viewsystem_sample.structural.designsystem.components.recyclerView.SampleEndlessRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

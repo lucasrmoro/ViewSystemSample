@@ -12,5 +12,5 @@ dependencies {
     implementation(project(FeatureA.DOMAIN_API))
     implementation(project(FeatureA.DOMAIN_IMPL))
     implementation(project(FeatureA.PRESENTATION))
-    implementation(project(Modules.LOCAL_STORAGE))
+    implementation(project(Modules.Structural.LOCAL_STORAGE))
 }
