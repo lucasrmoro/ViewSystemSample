@@ -6,8 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(FeatureA.DI_API))
-    implementation(project(FeatureA.DATA_API))
-    implementation(project(FeatureA.DATA_IMPL))
+    implementation(project(FeatureA.DATA))
     implementation(project(FeatureA.DOMAIN_API))
     implementation(project(FeatureA.DOMAIN_IMPL))
     implementation(project(FeatureA.PRESENTATION))

@@ -21,8 +21,7 @@ object Modules {
             private const val LOGIN = "$ROOT:login"
 
             const val DOMAIN_API = "$LOGIN:domain:api"
-            const val DATA_API = "$LOGIN:data:api"
-            const val DATA_IMPL = "$LOGIN:data:impl"
+            const val DATA = "$LOGIN:data"
             const val DI_API = "$LOGIN:di:api"
             const val DI_IMPL = "$LOGIN:di:impl"
         }
@@ -32,8 +31,7 @@ object Modules {
 
             const val DI_API = "$FEATURE_A:di:api"
             const val DI_IMPL = "$FEATURE_A:di:impl"
-            const val DATA_API = "$FEATURE_A:data:api"
-            const val DATA_IMPL = "$FEATURE_A:data:impl"
+            const val DATA = "$FEATURE_A:data"
             const val DOMAIN_API = "$FEATURE_A:domain:api"
             const val DOMAIN_IMPL = "$FEATURE_A:domain:impl"
             const val PRESENTATION = "$FEATURE_A:presentation"

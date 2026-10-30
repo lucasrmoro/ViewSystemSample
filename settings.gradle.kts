@@ -49,14 +49,12 @@ include(
     ":features:featureA",
     ":features:featureA:di:api",
     ":features:featureA:di:impl",
-    ":features:featureA:data:api",
-    ":features:featureA:data:impl",
+    ":features:featureA:data",
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
     ":features:featureA:presentation",
     ":features:login:domain:api",
-    ":features:login:data:api",
-    ":features:login:data:impl",
+    ":features:login:data",
     ":features:login:di:api",
     ":features:login:di:impl"
 )

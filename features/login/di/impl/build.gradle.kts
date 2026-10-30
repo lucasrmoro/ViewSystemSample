@@ -10,6 +10,5 @@ dependencies {
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(project(Modules.Structural.NETWORK_IMPL))
     implementation(project(Modules.Feature.Login.DI_API))
-    implementation(project(Modules.Feature.Login.DATA_API))
-    implementation(project(Modules.Feature.Login.DATA_IMPL))
+    implementation(project(Modules.Feature.Login.DATA))
 }
