@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import br.com.viewsystem_sample.structural.core.base.viewModel.BaseViewModel
 import br.com.viewsystem_sample.structural.core.ext.hideKeyboard
-import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
-import br.com.viewsystem_sample.structural.core.provider.network.provider.NetworkConnectivityProvider
+import br.com.viewsystem_sample.structural.core.provider.appState.AppState
+import br.com.viewsystem_sample.structural.core.provider.appState.AppStateProvider
 import br.com.viewsystem_sample.structural.core.provider.permission.PermissionsProvider
 import br.com.viewsystem_sample.structural.designsystem.ext.getViewModelClass
 import org.koin.android.ext.android.inject
@@ -21,8 +21,7 @@ import timber.log.Timber
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
-    private val appSessionProvider by inject<AppSessionProvider>()
-    private val networkConnectivityProvider by inject<NetworkConnectivityProvider>()
+    private val appStateProvider by inject<AppStateProvider>()
     private val permissionsProvider by inject<PermissionsProvider> {
         parametersOf(this)
     }
@@ -64,10 +63,12 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         return super.dispatchTouchEvent(ev)
     }
 
-    private fun setupObservers() {
-        appSessionProvider.isSessionExpired.observe(this) { sessionExpired -> }
-        networkConnectivityProvider.isInternetAvailable.observe(this) { isInternetAvailable ->
-            Timber.d("Is internet available: $isInternetAvailable")
-        }
+    protected open fun onAppStateChanged(state: AppState) {
+        Timber.d("App state: $state")
     }
+
+    private fun setupObservers() {
+        appStateProvider.state.observe(this, ::onAppStateChanged)
+    }
+
 }

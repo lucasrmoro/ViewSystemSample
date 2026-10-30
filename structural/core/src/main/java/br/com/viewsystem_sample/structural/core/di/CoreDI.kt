@@ -1,6 +1,8 @@
 package br.com.viewsystem_sample.structural.core.di
 
 import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProvider
+import br.com.viewsystem_sample.structural.core.provider.appState.AppStateProvider
+import br.com.viewsystem_sample.structural.core.provider.appState.AppStateProviderImpl
 import br.com.viewsystem_sample.structural.core.provider.appSession.AppSessionProviderImpl
 import br.com.viewsystem_sample.structural.core.provider.network.provider.NetworkConnectivityProvider
 import br.com.viewsystem_sample.structural.core.provider.network.provider.NetworkConnectivityProviderImpl
@@ -17,6 +19,9 @@ private val coreModule = module {
     single<CoroutineDispatcher>(DispatcherDefault) { Dispatchers.Default }
     single<PermissionsProvider> { params -> PermissionsProviderImpl(params.get()) }
     single<AppSessionProvider> { AppSessionProviderImpl() }
+    single<AppStateProvider> {
+        AppStateProviderImpl(appSessionProvider = get(), networkConnectivityProvider = get())
+    }
     single<NetworkConnectivityProvider> { NetworkConnectivityProviderImpl(context = get()) }
 }
 

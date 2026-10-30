@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 
 internal class AppSessionProviderImpl : AppSessionProvider {
 
-    private val _isSessionExpired = MutableLiveData<Boolean>()
+    private val _isSessionExpired = MutableLiveData(false)
     override val isSessionExpired: LiveData<Boolean> = _isSessionExpired
 
     override fun expireSession() {
