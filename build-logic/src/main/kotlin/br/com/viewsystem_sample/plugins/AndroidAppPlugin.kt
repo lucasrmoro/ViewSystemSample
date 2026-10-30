@@ -39,7 +39,8 @@ class AndroidAppPlugin : BasePlugin() {
 
     private fun Project.setupDependencies() = dependencies {
         implementation(project(Modules.Structural.CORE))
-        implementation(project(Modules.Structural.NETWORK))
+        implementation(project(Modules.Structural.NETWORK_API))
+        implementation(project(Modules.Structural.NETWORK_IMPL))
         implementation(project(Modules.Structural.LOCAL_STORAGE))
         implementation(project(Modules.Structural.DESIGNSYSTEM))
         implementation(libs.material)

@@ -35,8 +35,9 @@ include(
     ":structural",
     ":structural:core",
     ":structural:network",
+    ":structural:network:api",
+    ":structural:network:impl",
     ":structural:designsystem",
-    ":structural:entities",
     ":structural:local-storage"
 )
 

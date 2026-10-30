@@ -8,7 +8,6 @@ plugins {
 
 dependencies {
     implementation(project(Modules.Structural.CORE))
-    implementation(project(Modules.Structural.ENTITIES))
     implementation(libs.androidx.security)
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)

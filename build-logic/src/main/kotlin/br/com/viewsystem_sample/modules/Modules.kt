@@ -7,9 +7,9 @@ object Modules {
         private const val ROOT = ":structural"
 
         const val CORE = "$ROOT:core"
-        const val NETWORK = "$ROOT:network"
+        const val NETWORK_API = "$ROOT:network:api"
+        const val NETWORK_IMPL = "$ROOT:network:impl"
         const val DESIGNSYSTEM = "$ROOT:designsystem"
-        const val ENTITIES = "$ROOT:entities"
         const val LOCAL_STORAGE = "$ROOT:local-storage"
     }
 

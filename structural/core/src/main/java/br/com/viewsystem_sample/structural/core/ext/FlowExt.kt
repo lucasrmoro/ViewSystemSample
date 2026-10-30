@@ -1,6 +1,6 @@
 package br.com.viewsystem_sample.structural.core.ext
 
-import br.com.viewsystem_sample.structural.entities.SampleException
+import br.com.viewsystem_sample.structural.network.exception.SampleException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.transform

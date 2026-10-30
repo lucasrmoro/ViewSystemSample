@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.ENTITIES))
+    api(project(Modules.Structural.NETWORK_API))
     implementation(libs.bundles.android)
     implementation(libs.bundles.retrofit)
     implementation(libs.bundles.koin)
