@@ -21,7 +21,7 @@ class DomainPlugin : BaseLibraryPlugin() {
         dependencies {
 //            api(project(Modules.COMMON_DOMAIN))
             implementation(project(Modules.Structural.CORE))
-            implementation(libs.timber)
+            implementation(project(Modules.Structural.LOGGER_API))
             ksp(libs.koin.compiler)
             implementation(libs.bundles.koin)
         }

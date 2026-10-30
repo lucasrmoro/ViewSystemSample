@@ -33,7 +33,7 @@ class PresentationPlugin : BasePlugin() {
         implementation(project(Modules.Structural.DESIGNSYSTEM))
         implementation(libs.material)
         implementation(libs.bundles.android)
-        implementation(libs.timber)
+        implementation(project(Modules.Structural.LOGGER_API))
         implementation(libs.bundles.koin)
     }
 }

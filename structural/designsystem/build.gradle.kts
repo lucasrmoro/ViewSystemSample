@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Modules.Structural.LOGGER_API))
     implementation(project(Modules.Structural.CORE))
     implementation(libs.bundles.android)
     implementation(libs.bundles.koin)

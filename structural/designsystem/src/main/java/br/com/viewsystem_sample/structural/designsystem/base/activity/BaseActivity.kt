@@ -14,12 +14,14 @@ import br.com.viewsystem_sample.structural.core.provider.appState.AppState
 import br.com.viewsystem_sample.structural.core.provider.appState.AppStateProvider
 import br.com.viewsystem_sample.structural.core.provider.permission.PermissionsProvider
 import br.com.viewsystem_sample.structural.designsystem.ext.getViewModelClass
+import br.com.viewsystem_sample.structural.logger.Logger
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 import org.koin.core.parameter.parametersOf
-import timber.log.Timber
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
+
+    private val logger by inject<Logger>()
 
     private val appStateProvider by inject<AppStateProvider>()
     private val permissionsProvider by inject<PermissionsProvider> {
@@ -64,7 +66,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
     }
 
     protected open fun onAppStateChanged(state: AppState) {
-        Timber.d("App state: $state")
+        logger.debug("App state: $state")
     }
 
     private fun setupObservers() {

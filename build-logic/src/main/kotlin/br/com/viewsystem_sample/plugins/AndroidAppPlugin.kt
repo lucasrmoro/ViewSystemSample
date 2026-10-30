@@ -46,7 +46,8 @@ class AndroidAppPlugin : BasePlugin() {
         implementation(libs.material)
         implementation(libs.bundles.android)
         implementation(libs.bundles.koin)
-        implementation(libs.timber)
+        implementation(project(Modules.Structural.LOGGER_API))
+        implementation(project(Modules.Structural.LOGGER_IMPL))
         ksp(libs.koin.compiler)
     }
 }

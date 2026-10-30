@@ -9,10 +9,15 @@ import br.com.viewsystem_sample.structural.designsystem.adapter.SampleGenericAda
 import br.com.viewsystem_sample.structural.designsystem.adapter.model.Loading
 import br.com.viewsystem_sample.structural.designsystem.adapter.model.base.AdapterItem
 import br.com.viewsystem_sample.structural.designsystem.components.recyclerView.SampleEndlessRecyclerViewScrollListener.SampleEndlessRecyclerViewScrollListenerCallbacks
+import br.com.viewsystem_sample.structural.logger.Logger
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 class SampleEndlessRecyclerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : RecyclerView(context, attrs), SampleEndlessRecyclerViewScrollListenerCallbacks {
+) : RecyclerView(context, attrs), SampleEndlessRecyclerViewScrollListenerCallbacks, KoinComponent {
+
+    private val logger by inject<Logger>()
 
     private var callbacks: SampleEndlessRecyclerViewCallbacks? = null
 
@@ -42,7 +47,7 @@ class SampleEndlessRecyclerView @JvmOverloads constructor(
         this.adapter = adapter
         this.callbacks = callbacks
         layoutManager = LinearLayoutManager(context)
-        addOnScrollListener(SampleEndlessRecyclerViewScrollListener(this))
+        addOnScrollListener(SampleEndlessRecyclerViewScrollListener(callbacks = this, logger = logger))
     }
 
     fun <T : AdapterItem> onLoadItemsSuccess(newItems: List<T>) {

@@ -34,6 +34,8 @@ include(":app")
 include(
     ":structural",
     ":structural:core",
+    ":structural:logger:api",
+    ":structural:logger:impl",
     ":structural:network",
     ":structural:network:api",
     ":structural:network:impl",

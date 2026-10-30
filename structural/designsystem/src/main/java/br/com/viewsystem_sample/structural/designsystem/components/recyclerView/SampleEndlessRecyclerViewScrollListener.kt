@@ -5,10 +5,11 @@ import androidx.recyclerview.widget.RecyclerView
 import br.com.viewsystem_sample.structural.core.ext.THREE
 import br.com.viewsystem_sample.structural.core.ext.ZERO
 import br.com.viewsystem_sample.structural.core.ext.orZero
-import timber.log.Timber
+import br.com.viewsystem_sample.structural.logger.Logger
 
 internal class SampleEndlessRecyclerViewScrollListener(
-    private val callbacks: SampleEndlessRecyclerViewScrollListenerCallbacks
+    private val callbacks: SampleEndlessRecyclerViewScrollListenerCallbacks,
+    private val logger: Logger
 ) : RecyclerView.OnScrollListener() {
 
     private val threshold = Int.THREE
@@ -17,9 +18,9 @@ internal class SampleEndlessRecyclerViewScrollListener(
         super.onScrolled(rv, dx, dy)
 
         with(callbacks) {
-            Timber.d("isLoading: $isLoading")
-            Timber.d("hasItemsToLoad: $hasItemsToLoad")
-            Timber.d("rv.isLastItemVisible: ${rv.isLastItemVisible()}")
+            logger.debug("isLoading: $isLoading")
+            logger.debug("hasItemsToLoad: $hasItemsToLoad")
+            logger.debug("rv.isLastItemVisible: ${rv.isLastItemVisible()}")
             if (isLoading.not() && hasItemsToLoad && rv.isLastItemVisible() && dy >= Int.ZERO) {
                 loadItems()
             }
