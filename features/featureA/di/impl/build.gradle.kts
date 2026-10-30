@@ -1,4 +1,3 @@
-import br.com.viewsystem_sample.modules.Modules
 import br.com.viewsystem_sample.modules.Modules.Feature.FeatureA
 
 plugins {
@@ -12,5 +11,4 @@ dependencies {
     implementation(project(FeatureA.DOMAIN_API))
     implementation(project(FeatureA.DOMAIN_IMPL))
     implementation(project(FeatureA.PRESENTATION))
-    implementation(project(Modules.Structural.LOCAL_STORAGE))
 }

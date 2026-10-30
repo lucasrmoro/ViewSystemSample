@@ -5,8 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation(libs.bundles.room)
     implementation(project(Modules.Feature.FeatureA.DATA_API))
     implementation(project(Modules.Feature.FeatureA.DOMAIN_API))
-    implementation(libs.bundles.room)
-    ksp(libs.room.compiler)
 }

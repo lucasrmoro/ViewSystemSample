@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import br.com.viewsystem_sample.structural.local_storage.db.entity.SomeDbEntity
+import br.com.viewsystem_sample.featureA.entity.SomeDbEntity
 
 @Dao
 interface SomeDao {
@@ -28,7 +28,7 @@ interface SomeDao {
     @Query("SELECT * FROM some_table WHERE id=:id LIMIT 1")
     suspend fun getBy(id: Long): SomeDbEntity?
 
-    @Query("SELECT COUNT(id) FROM foo_table")
+    @Query("SELECT COUNT(id) FROM some_table")
     suspend fun getRowsCount(): Int
 
 }

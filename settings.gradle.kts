@@ -38,7 +38,9 @@ include(
     ":structural:network:api",
     ":structural:network:impl",
     ":structural:designsystem",
-    ":structural:local-storage"
+    ":structural:local-storage",
+    ":structural:local-storage:api",
+    ":structural:local-storage:impl"
 )
 
 // Features

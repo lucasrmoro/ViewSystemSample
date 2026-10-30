@@ -1,4 +1,3 @@
-import br.com.viewsystem_sample.ext.ksp
 import br.com.viewsystem_sample.modules.Modules
 
 plugins {
@@ -7,10 +6,11 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.CORE))
-    implementation(libs.androidx.security)
+    implementation(project(Modules.Feature.FeatureA.DATA_IMPL))
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
+    implementation(project(Modules.Structural.LOCAL_STORAGE_API))
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.security)
     implementation(libs.bundles.koin)
-    ksp(libs.koin.compiler)
 }

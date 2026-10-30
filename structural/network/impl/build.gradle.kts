@@ -10,7 +10,7 @@ dependencies {
     implementation(project(Modules.Feature.Login.DOMAIN_API))
     implementation(project(Modules.Structural.CORE))
     implementation(project(Modules.Structural.NETWORK_API))
-    implementation(project(Modules.Structural.LOCAL_STORAGE))
+    implementation(project(Modules.Structural.LOCAL_STORAGE_API))
     implementation(libs.bundles.retrofit)
     implementation(libs.okhttp.loggingInterceptor)
     implementation(libs.coroutines)

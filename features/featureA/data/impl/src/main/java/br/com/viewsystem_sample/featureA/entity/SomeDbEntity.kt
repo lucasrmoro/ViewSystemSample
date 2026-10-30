@@ -1,4 +1,4 @@
-package br.com.viewsystem_sample.structural.local_storage.db.entity
+package br.com.viewsystem_sample.featureA.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

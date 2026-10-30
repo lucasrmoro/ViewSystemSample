@@ -20,7 +20,7 @@ class DataPlugin : BaseLibraryPlugin() {
         dependencies {
             implementation(project(Modules.Structural.CORE))
             implementation(project(Modules.Structural.NETWORK_API))
-            implementation(project(Modules.Structural.LOCAL_STORAGE))
+            implementation(project(Modules.Structural.LOCAL_STORAGE_API))
             implementation(libs.bundles.retrofit)
             implementation(libs.coroutines)
         }

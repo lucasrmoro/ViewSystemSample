@@ -10,7 +10,8 @@ object Modules {
         const val NETWORK_API = "$ROOT:network:api"
         const val NETWORK_IMPL = "$ROOT:network:impl"
         const val DESIGNSYSTEM = "$ROOT:designsystem"
-        const val LOCAL_STORAGE = "$ROOT:local-storage"
+        const val LOCAL_STORAGE_API = "$ROOT:local-storage:api"
+        const val LOCAL_STORAGE_IMPL = "$ROOT:local-storage:impl"
     }
 
     object Feature {
