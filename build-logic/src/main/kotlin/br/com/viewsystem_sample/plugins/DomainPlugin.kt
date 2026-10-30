@@ -19,7 +19,6 @@ class DomainPlugin : BaseLibraryPlugin() {
 
     override fun setupDependencies(project: Project) = with(project) {
         dependencies {
-//            api(project(Modules.COMMON_DOMAIN))
             implementation(project(Modules.Structural.CORE))
             implementation(project(Modules.Structural.LOGGER_API))
             ksp(libs.koin.compiler)

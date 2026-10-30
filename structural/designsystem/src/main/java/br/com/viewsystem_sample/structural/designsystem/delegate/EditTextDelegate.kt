@@ -4,11 +4,11 @@ import android.text.InputType
 import android.view.View
 import android.widget.EditText
 import androidx.annotation.IntDef
-import br.com.viewsystem_sample.structural.designsystem.delegate.EditTextInputTypeDelegate.Companion.EditTextInputType
 import br.com.viewsystem_sample.structural.core.ext.CELLPHONE_MASK
 import br.com.viewsystem_sample.structural.core.ext.DATE_MASK
 import br.com.viewsystem_sample.structural.core.ext.ONE
 import br.com.viewsystem_sample.structural.core.ext.orZero
+import br.com.viewsystem_sample.structural.designsystem.delegate.EditTextInputTypeDelegate.Companion.EditTextInputType
 import br.com.viewsystem_sample.structural.designsystem.ext.setMask
 import br.com.viewsystem_sample.structural.designsystem.ext.setMaxLength
 import br.com.viewsystem_sample.structural.designsystem.ext.setMoneyMask
