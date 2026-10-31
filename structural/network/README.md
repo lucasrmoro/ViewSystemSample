@@ -1,20 +1,19 @@
-# Rede
+# Network
 
-`network/api` reúne contratos, modelos, exceções compartilhadas, qualificadores
-Retrofit e extensões usadas pelos consumidores. A API não depende de `core`.
-`network/impl` contém conectividade, interceptor e authenticator HTTP.
+`network/api` contains contracts, models, shared exceptions, Retrofit qualifiers,
+and consumer extensions. The API does not depend on `core`. `network/impl` contains
+connectivity, the HTTP interceptor, and the authenticator.
 
-O `app` depende de `network/di` e carrega `CoreNetworkModule.init()` antes de resolver
-serviços. Esse módulo configura clientes OkHttp, Retrofit e seus qualificadores,
-registra o contrato de conectividade e conecta os componentes HTTP da implementação.
-As classes internas são acessadas por funções de criação que retornam contratos.
+The app depends on `network/di` and loads `CoreNetworkModule.init()` before resolving
+services. This module configures OkHttp clients, Retrofit, and their qualifiers,
+registers the connectivity contract, and connects HTTP implementation components.
+Factory functions expose internal classes through their contracts.
 
-Os bindings com autenticação usam `NetworkInterceptor` e o authenticator que consome
-`LoginRepository`, de `login/domain/api`, para renovar tokens. Os bindings sem
-autenticação não instalam esse authenticator. O módulo de DI de login deve estar
-carregado antes de resolver o cliente que precisa renovar tokens.
+Authenticated bindings use `NetworkInterceptor` and an authenticator that consumes
+`LoginRepository` from `login/domain/api` to refresh tokens. Unauthenticated bindings
+do not install that authenticator. Load the login DI module before resolving a
+client that needs token refresh.
 
-Os qualificadores públicos `RetrofitAuth` e `RetrofitNoAuth` permanecem em `api`,
-junto das extensões `Scope.retrofit` e `Scope.retrofitNoAuth`. As configurações de
-conversão e timeout pertencem a `di`. `impl` não depende desse módulo nem declara
-bindings Koin.
+Public `RetrofitAuth` and `RetrofitNoAuth` qualifiers remain in `api`, alongside
+`Scope.retrofit` and `Scope.retrofitNoAuth`. Converter and timeout configuration
+belongs in `di`. The implementation neither depends on DI nor declares Koin bindings.

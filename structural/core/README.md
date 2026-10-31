@@ -1,15 +1,18 @@
 # Core
 
-Este módulo mantém contratos e utilitários compartilhados, as extensões de Flow e
-a agregação de estado da aplicação por `AppStateProvider`.
+Contains shared contracts and utilities, Flow extensions, and application state
+aggregation through `AppStateProvider`.
 
-`core/di` registra os dispatchers qualificados e o `AppStateProvider`. O `app`
-carrega `CoreModule.init()` antes de resolver consumidores. Sessão e conectividade
-são fornecidas por `session/api` e `network/api`; suas implementações são registradas
-pelos respectivos módulos `di`.
+`core/di` registers qualified dispatchers and `AppStateProvider`. The app loads
+`CoreModule.init()` before resolving consumers. Session and connectivity contracts
+come from `session/api` and `network/api`; their implementations are registered by
+the corresponding DI modules.
 
-`core` não depende de `core/di`. Os qualificadores `DispatcherIO`, `DispatcherMain`
-e `DispatcherDefault`, junto das extensões de `Scope`, permanecem no módulo principal
-para serem usados por outras camadas de DI sem dependências circulares. As
-implementações recebem dispatchers pelo construtor, sem acessar `Dispatchers`
-diretamente; os valores concretos são escolhidos em `core/di`.
+`core` does not depend on `core/di`. The `DispatcherIO`, `DispatcherMain`, and
+`DispatcherDefault` qualifiers and `Scope` extensions stay in the main module so
+other DI layers can use them without circular dependencies. Implementations receive
+dispatchers through constructors instead of accessing `Dispatchers` directly;
+concrete values are selected in `core/di`.
+
+Library clients, vendor SDKs, and their adapters belong in dedicated structural
+services, never in `core`.

@@ -1,27 +1,26 @@
 # Design system
 
-Este módulo reúne componentes de interface em XML, adapters, extensões de views e
-classes base de apresentação. Ele também adapta os contratos dos estruturantes
-ao ciclo de vida das telas. As features consomem essas adaptações sem colocar
-dependências de Activity nos contratos dos estruturantes.
+Contains XML UI components, adapters, view extensions, and presentation base classes.
+It also adapts structural contracts to screen lifecycles. Features consume these
+adapters without adding Activity dependencies to structural contracts.
 
 ## BaseActivity
 
-`BaseActivity` configura o View Binding, o ViewModel e a observação do estado do
-aplicativo. O provider de permissões é obtido por Activity em `onCreate`, depois
-de carregar os módulos estruturantes. A classe base não depende de biometria nem
-cria um provider biométrico para todas as telas.
+`BaseActivity` configures View Binding, the ViewModel, and application state
+observation. The permissions provider is obtained per Activity in `onCreate`, after
+loading structural DI modules. The base class does not depend on biometrics or
+create a biometric provider for every screen.
 
-## Biometria nas telas consumidoras
+## Biometrics in consuming screens
 
-A tela que usar biometria declara sua dependência de `biometric/api` e obtém seu
-próprio `BiometricProvider`. O app carrega `BiometricModule.init()` e
-`DesignSystemModule.init()` antes de abrir essas telas. O módulo principal de
-design system não reexporta a API de biometria.
+Screens that use biometrics declare a dependency on `biometric/api` and obtain
+their own `BiometricProvider`. The app loads `BiometricModule.init()` and
+`DesignSystemModule.init()` before opening those screens. The main design system
+module does not re-export the biometric API.
 
-O binding `ScreenBiometricProvider`, de `design-system/di`, adapta o provider de
-`biometric/di` ao ciclo de vida da tela. A tela pode obtê-lo em `onCreate`, usando
-Koin e passando sua Activity e seu `lifecycleScope`:
+The `ScreenBiometricProvider` binding in `design-system/di` adapts the provider from
+`biometric/di` to a screen lifecycle. Screens can obtain it in `onCreate` using
+Koin and passing their Activity and `lifecycleScope`:
 
 ```kotlin
 val biometricProvider: BiometricProvider = get(ScreenBiometricProvider) {
@@ -29,15 +28,15 @@ val biometricProvider: BiometricProvider = get(ScreenBiometricProvider) {
 }
 ```
 
-A adaptação cancela a operação quando a coroutine chamadora é cancelada ou a tela
-é destruída. Dispare `enroll()` e `authenticate()` com a tela em `RESUMED`, por
-exemplo em resposta a um clique. O estado do aparelho pode ser consultado por
-`getStatus()` sem abrir o prompt.
+The adapter cancels an operation when its calling coroutine is cancelled or the
+screen is destroyed. Call `enroll()` and `authenticate()` while the screen is
+`RESUMED`, for example in response to a click. `getStatus()` checks device capability
+without opening a prompt.
 
-O módulo usa os contratos dos estruturantes e o `Logger` injetado. Os bindings de
-biometria, permissões, estado do app e log pertencem aos respectivos módulos `di`,
-carregados na inicialização do aplicativo. O módulo principal de design system
-consome Koin, mas não declara registros nem depende de `design-system/di`.
+This module consumes structural contracts and an injected `Logger`. Bindings for
+biometrics, permissions, app state, and logging belong to their respective DI
+modules, loaded at app startup. The main design system module consumes Koin but
+declares no registrations and does not depend on `design-system/di`.
 
-Para criptografia, armazenamento e recuperação dos valores, consulte os READMEs de
-[biometria](../biometric/README.md) e [local storage](../local-storage/README.md).
+For encryption, persistence, and retrieval, see the [biometric](../biometric/README.md)
+and [local storage](../local-storage/README.md) READMEs.

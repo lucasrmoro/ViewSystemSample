@@ -1,12 +1,12 @@
 # Logger
 
-`logger/api` expõe o contrato `Logger`. Os consumidores recebem esse contrato por
-injeção; as extensões de Flow permanecem independentes do logger e de Koin.
+`logger/api` exposes the `Logger` contract. Consumers receive it through injection;
+Flow extensions remain independent of both the logger and Koin.
 
-O `app` depende de `logger/di` e carrega `LoggerModule.init()`. Esse módulo registra
-uma instância compartilhada por meio da função de criação de `logger/impl`.
-A classe de implementação permanece interna e não contém registros Koin.
+The app depends on `logger/di` and loads `LoggerModule.init()`. This module registers
+a shared instance through the factory function in `logger/impl`. The implementation
+class remains internal and declares no Koin registrations.
 
-Em debug, `impl` usa Timber por `debugImplementation` e mantém o código em
-`src/debug`. Em release, `src/release` fornece a implementação vazia. O módulo
-`di` não depende de Timber e não há flag de execução para habilitar esses logs.
+Debug builds use Timber through `debugImplementation`, with code in `src/debug`.
+Release builds use the empty implementation in `src/release`. The DI module does
+not depend on Timber, and no runtime flag enables logging.

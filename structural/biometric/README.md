@@ -1,169 +1,163 @@
-# Biometria e armazenamento tipado
+# Biometrics and typed storage
 
-O estruturante de biometria prepara o Cipher e solicita autorização biométrica.
-O local storage recebe uma operação autorizada, serializa as preferências nativas,
-criptografa e persiste o resultado. O Cipher nativo fica em `biometric/impl`.
-As APIs expõem interfaces Kotlin, sem tipos de plataforma.
+The biometric service prepares a Cipher and requests biometric authorization.
+Local storage accepts an authorized operation, serializes native preferences,
+encrypts them, and persists the result. The native Cipher remains in `biometric/impl`.
+APIs expose Kotlin interfaces without platform types.
 
-`BiometricProvider` oferece:
+`BiometricProvider` provides:
 
-- `getStatus()`: consulta a disponibilidade da biometria forte no aparelho.
-- `enroll(prompt)`: retorna `BiometricEncryption`, autorizada para criptografar
-  um único pacote de preferências. Não recebe nem persiste os valores.
-- `authenticate(data, prompt)`: usa o IV do dado salvo e retorna
-  `BiometricDecryption`, autorizada para descriptografar aquele dado.
+- `getStatus()`: checks strong biometric availability on the device.
+- `enroll(prompt)`: returns `BiometricEncryption`, authorized to encrypt one
+  preference package. It does not receive or persist preference values.
+- `authenticate(data, prompt)`: uses the stored IV and returns
+  `BiometricDecryption`, authorized to decrypt that data.
 
-## Configuração da DI
+## DI configuration
 
-O `app` depende de `biometric/di` e carrega `BiometricModule.init()`. Esse módulo
-registra uma `BiometricProviderFactory` compartilhada, que mantém o acesso ao
-Keystore, e cria um `BiometricProvider` por Activity. Os consumidores dependem de
-`biometric/api`; `impl` não contém registros Koin nem depende do módulo `di`.
+The app depends on `biometric/di` and loads `BiometricModule.init()`. This module
+registers a shared `BiometricProviderFactory` that retains Keystore access and
+creates a `BiometricProvider` per Activity. Consumers depend on `biometric/api`;
+`impl` declares no Koin bindings and does not depend on `di`.
 
-A adaptação de ciclo de vida pertence ao design system. O app também carrega
-`DesignSystemModule.init()`, de `design-system/di`, antes de abrir uma tela consumidora.
-Esse módulo registra o provider qualificado por `ScreenBiometricProvider`. Somente
-a tela que usar biometria declara a dependência de `biometric/api` e obtém seu
-provider em `onCreate`, passando sua Activity e seu `lifecycleScope`.
-`BaseActivity` não cria nem expõe esse provider. A adaptação cancela a operação ao
-destruir a tela ou cancelar a coroutine chamadora.
+Lifecycle adaptation belongs in the design system. The app also loads
+`DesignSystemModule.init()` from `design-system/di` before opening a consuming
+screen. This registers the `ScreenBiometricProvider` qualified binding. Only screens
+using biometrics declare the `biometric/api` dependency and obtain a provider in
+`onCreate`, passing their Activity and `lifecycleScope`. `BaseActivity` neither
+creates nor exposes this provider. The adapter cancels operations when the screen
+is destroyed or the calling coroutine is cancelled.
 
-A persistência é registrada por `LocalStorageModule.init()`, de `local-storage/di`.
+Persistence is registered by `LocalStorageModule.init()` from `local-storage/di`.
 
-`PreferencesDataSource` oferece:
+`PreferencesDataSource` provides:
 
-- `putEncrypted(key, encryption, vararg entries)`: serializa as entradas,
-  criptografa o lote uma vez e grava o pacote em `key: String`.
-- `getEncrypted(key)`: lê o pacote uma vez e retorna `EncryptedPreferences`,
-  um snapshot cifrado. Retorna `null` quando a chave não existe.
+- `putEncrypted(key, encryption, vararg entries)`: serializes entries, encrypts the
+  batch once, and saves the package under `key: String`.
+- `getEncrypted(key)`: reads the package once and returns an `EncryptedPreferences`
+  encrypted snapshot, or `null` if the key does not exist.
 
-Após `authenticate(stored.data, prompt)`,
-chame `stored.decrypt(decryption)`. Esse método descriptografa o snapshot sem reler
-o DataStore e devolve `DecryptedPreferences`. Os acessos `values[preference]`
-recuperam os valores tipados sem reutilizar Cipher.
+After `authenticate(stored.data, prompt)`, call `stored.decrypt(decryption)`. This
+decrypts the snapshot without rereading DataStore and returns `DecryptedPreferences`.
+`values[preference]` retrieves typed values without reusing the Cipher.
 
-## Preferências nativas tipadas
+## Typed native preferences
 
-`EncryptedPreferenceType` oferece factories para os tipos nativos de preferences:
-`string`, `boolean`, `int`, `long`, `float`, `double`, `stringSet` e `byteArray`.
-Por exemplo, `EncryptedPreferenceType.string("sample_text")` define uma preferência
-de texto. `preference.withValue(value)` vincula o valor ao tipo da preferência;
-um tipo incompatível é rejeitado pelo compilador.
+`EncryptedPreferenceType` provides factories for native preference types: `string`,
+`boolean`, `int`, `long`, `float`, `double`, `stringSet`, and `byteArray`. For example,
+`EncryptedPreferenceType.string("sample_text")` defines a text field.
+`preference.withValue(value)` binds a value to its preference type; incompatible
+values are rejected by the compiler.
 
-`key: String` identifica o pacote cifrado no DataStore. A leitura não precisa de serializadores nem de uma lista de campos: o pacote do DataStore
-já contém os tipos nativos. Uma entrada ausente retorna `null`. Mantenha cada chave
-associada ao mesmo tipo, como nas preferências comuns. Objetos personalizados não
-são serializados automaticamente por essa API.
+`key: String` identifies the encrypted package in DataStore. Reading requires
+neither serializers nor a field list: the package already contains native types.
+Missing entries return `null`. Keep each field key associated with the same type,
+as with ordinary preferences. This API does not automatically serialize custom objects.
 
-Cada chamada de `putEncrypted()` substitui o pacote inteiro daquela chave após
-criptografar com sucesso. Para guardar outro conjunto sem substituir o anterior,
-use outra chave de armazenamento e outra autorização. Acrescentar um campo a um
-pacote existente exige recuperar os valores anteriores e gravar o conjunto completo;
-o módulo não mescla silenciosamente conteúdo cifrado.
+Every successful `putEncrypted()` replaces the complete package under that key.
+Use another storage key and authorization to save a separate set. Adding a field
+to an existing package requires reading previous values and writing the complete
+set again; the module does not silently merge encrypted content.
 
-## Armazenamento e ciclo de vida dos dados
+## Storage and data lifecycle
 
-O local storage monta `MutablePreferences` em memória e usa o
-`PreferencesFileSerializer` do próprio DataStore para converter os valores em
-bytes. A biometria criptografa esses bytes uma única vez. A leitura inverte esse
-fluxo com o mesmo serializer. Não há outro DataStore nem escrita intermediária em
-disco. Os tipos AndroidX ficam restritos a `impl`.
+Local storage builds `MutablePreferences` in memory and uses DataStore's
+`PreferencesFileSerializer` to convert values into bytes. Biometrics encrypts those
+bytes once. Reading reverses the flow with the same serializer. There is no second
+DataStore or intermediate disk write. AndroidX types remain restricted to `impl`.
 
-Não há modelos de Batch, plugin Kotlin serialization, KSerializer ou dependência
-direta de kotlinx.serialization/Protobuf. O formato binário interno é administrado
-pelo DataStore existente. Entradas com chaves duplicadas são rejeitadas antes da
-criptografia.
+There are no Batch models, Kotlin serialization plugin, KSerializer, or direct
+kotlinx.serialization/Protobuf dependencies. DataStore manages its existing internal
+binary format. Duplicate entry keys are rejected before encryption.
 
-O `PreferencesDataSource` é singleton no Koin. Ele não guarda valores
-descriptografados. O snapshot cifrado pertence ao chamador e permite preparar o
-Cipher com o IV correto. O resultado descriptografado também pertence ao chamador;
-use `result.data.use { values -> ... }` para liberar as referências após o uso.
-`close()` não garante apagar Strings ou objetos já retidos pelo consumidor.
+`PreferencesDataSource` is a Koin singleton and retains no decrypted values. The
+caller owns the encrypted snapshot, which supplies the correct IV when preparing
+the Cipher. The caller also owns the decrypted result; use
+`result.data.use { values -> ... }` to release references after use. `close()` does
+not guarantee erasure of Strings or objects already retained by consumers.
 
-`EncryptedPreferencesImpl` é uma classe privada interna de
-`PreferencesDataSourceImpl`. Ela representa o snapshot devolvido por
-`getEncrypted(key)` e usa o codec e o dispatcher de IO da implementação externa.
+`EncryptedPreferencesImpl` is a private inner class of `PreferencesDataSourceImpl`.
+It represents the snapshot returned by `getEncrypted(key)` and uses the outer
+implementation's codec and IO dispatcher.
 
-`PreferencesDataStoreFactory` expõe a propriedade `dataStore`, inicializada por
-`lazy`, sem um método `create()` intermediário. Leituras e gravações do data source
-acessam essa propriedade dentro de `withContext(ioDispatcher)`, mantendo inclusive
-a primeira inicialização fora da thread principal. O dispatcher e o singleton são
-configurados pela DI.
+`PreferencesDataStoreFactory` exposes a lazy `dataStore` property without an
+intermediate `create()` method. Reads and writes access it inside
+`withContext(ioDispatcher)`, keeping even the first initialization off the main
+thread. DI configures the dispatcher and singleton.
 
-A camada biométrica cifra o pacote antes da gravação no mesmo DataStore Tink
-criptografado existente. O pacote persistido em Base64 contém versão, IV e
-ciphertext com tag de autenticação. A chave do Keystore é reutilizada enquanto
-válida; cada criptografia gera um Cipher e IV próprios.
+The biometric layer encrypts the package before writing it into the same existing
+Tink-encrypted DataStore. The Base64 package contains a version, IV, and ciphertext
+with an authentication tag. The Keystore key is reused while valid; each encryption
+creates its own Cipher and IV.
 
-`Parcelable` e `Parcel.marshall()` não são usados para persistência. A documentação
-do Android informa que esse formato é destinado a IPC e pode mudar entre versões,
-tornando dados antigos ilegíveis.
+Neither `Parcelable` nor `Parcel.marshall()` is used for persistence. Android's
+Parcel format is intended for IPC and can change between versions, making older
+persisted data unreadable.
 
-## Autorização por operação
+## Authorization per operation
 
-Cada `BiometricEncryption` ou `BiometricDecryption` pode ser consumida uma única
-vez. Uma tentativa de reutilização lança `IllegalStateException`; solicite outra
-autorização para outra operação. Todos os valores do lote são processados por uma
-única chamada de Cipher, portanto uma autenticação biométrica basta para o lote.
+Each `BiometricEncryption` or `BiometricDecryption` can be consumed once. Reuse
+throws `IllegalStateException`; request another authorization for another operation.
+All batch values are processed in a single Cipher call, so one biometric
+authentication authorizes the batch.
 
-A descriptografia usa exatamente o snapshot apresentado a `authenticate()`.
-Atualizar a chave durante o prompt não altera aquele snapshot. Uma autorização
-para outro pacote não pode ser usada para descriptografá-lo.
+Decryption uses exactly the snapshot passed to `authenticate()`. Updating the
+storage key while the prompt is open does not change that snapshot. Authorization
+for another package cannot decrypt it.
 
-AES/GCM de 256 bits protege conteúdo e integridade. A chave permanece no Android
-Keystore e exige biometria forte em cada uso. Os dados não são portáveis entre
-instalações ou aparelhos. A implementação não registra bytes descriptografados
-em logs. Falhas de IO do DataStore seguem o contrato existente de preferências e
-são propagadas ao chamador.
+AES/GCM with a 256-bit key protects content and integrity. The key stays in Android
+Keystore and requires strong biometrics for every use. Data is not portable between
+installations or devices. Decrypted bytes are never logged. DataStore IO failures
+follow the preferences contract and propagate to the caller.
 
-## Estado e switch de ativação
+## Device status and activation switch
 
-| Estado | Significado |
+| Status | Meaning |
 | --- | --- |
-| `AVAILABLE` | Biometria forte cadastrada e disponível. |
-| `NOT_ENROLLED` | Nenhuma credencial cadastrada atende à biometria forte. |
-| `NO_HARDWARE` | Não há hardware adequado para a biometria solicitada. |
-| `HARDWARE_UNAVAILABLE` | Hardware temporariamente indisponível. |
-| `SECURITY_UPDATE_REQUIRED` | Sensor indisponível até receber atualização de segurança. |
-| `UNSUPPORTED` | Opções incompatíveis com a versão do Android. |
-| `UNKNOWN` | O sistema não conseguiu determinar a disponibilidade. |
+| `AVAILABLE` | Strong biometrics are enrolled and available. |
+| `NOT_ENROLLED` | No enrolled credentials satisfy strong biometric requirements. |
+| `NO_HARDWARE` | No hardware supports the requested biometrics. |
+| `HARDWARE_UNAVAILABLE` | Hardware is temporarily unavailable. |
+| `SECURITY_UPDATE_REQUIRED` | The sensor requires a security update. |
+| `UNSUPPORTED` | Options are incompatible with the Android version. |
+| `UNKNOWN` | The system could not determine availability. |
 
-Use `AVAILABLE` para permitir ativar o switch e persista a ativação somente após
-salvar os valores com sucesso. A preferência de ativação pertence à feature.
-Permita desativá-la mesmo se o hardware ficar indisponível. Consulte o estado
-novamente em `onResume`, especialmente ao voltar das configurações do aparelho.
+Use `AVAILABLE` to allow enabling a switch and persist activation only after saving
+values successfully. The feature owns the activation preference. Allow disabling
+it even when hardware becomes unavailable. Check status again in `onResume`,
+especially after returning from device settings.
 
-O estado descreve a capacidade do aparelho; não verifica a chave, a preferência
-nem o estado da tela e não garante que uma operação futura concluirá.
+Status describes device capability. It does not inspect the key, activation
+preference, or screen state and does not guarantee a future operation will succeed.
 
-## Falhas retornadas
+## Returned failures
 
-| Erro | Significado |
+| Error | Meaning |
 | --- | --- |
-| `NOT_ENROLLED` | Nenhuma biometria forte está cadastrada. |
-| `UNAVAILABLE` | Biometria indisponível por outro motivo; consulte `getStatus()`. |
-| `BIOMETRIC_REACTIVATION_REQUIRED` | A chave foi invalidada permanentemente; autentique-se novamente e reative a biometria. |
-| `KEY_NOT_FOUND` | Não há chave para descriptografar o dado salvo. |
-| `LOCKED_OUT` | O sistema bloqueou a autenticação por excesso de tentativas. |
-| `OPERATION_IN_PROGRESS` | Outra solicitação está em andamento ou sendo encerrada. |
-| `ENCRYPTION_FAILED` | Falha ao preparar, serializar ou criptografar as preferências. |
-| `DECRYPTION_FAILED` | Falha ao preparar, descriptografar ou reconstruir as preferências salvas. |
-| `CANCELLED` | O usuário ou o sistema cancelou o prompt. |
-| `AUTHENTICATION_FAILED` | O sistema encerrou a autenticação com outro erro ou não devolveu o Cipher autorizado. |
+| `NOT_ENROLLED` | No strong biometrics are enrolled. |
+| `UNAVAILABLE` | Biometrics are unavailable for another reason; check `getStatus()`. |
+| `BIOMETRIC_REACTIVATION_REQUIRED` | The key was permanently invalidated; sign in again and reactivate biometrics. |
+| `KEY_NOT_FOUND` | No key exists to decrypt the stored data. |
+| `LOCKED_OUT` | The system blocked authentication after too many attempts. |
+| `OPERATION_IN_PROGRESS` | Another request is running or being terminated. |
+| `ENCRYPTION_FAILED` | Preparing, serializing, or encrypting preferences failed. |
+| `DECRYPTION_FAILED` | Preparing, decrypting, or reconstructing stored preferences failed. |
+| `CANCELLED` | The user or system cancelled the prompt. |
+| `AUTHENTICATION_FAILED` | The system ended authentication with another error or returned no authorized Cipher. |
 
-Uma chave invalidada é reportada ao chamador e nunca substituída automaticamente.
-O erro informa a invalidação, não identifica unicamente a causa. A recuperação
-das credenciais e a decisão de redefinir a chave pertencem ao fluxo da aplicação.
+An invalidated key is reported to the caller and never replaced automatically.
+The error identifies invalidation, not its unique cause. Credential recovery and
+the decision to reset the key belong to the application flow.
 
-Configuração e ciclo de vida são pré-condições: `BiometricPromptConfig` rejeita
-títulos ou textos de cancelamento vazios com `IllegalArgumentException`.
-`enroll()` e `authenticate()` exigem a tela em `RESUMED`; chamadas fora desse
-estado lançam `IllegalStateException`. Cancelar a coroutine cancela o prompt e
-propaga `CancellationException`. Uma tentativa sem reconhecimento mantém o prompt
-aberto para nova tentativa. O vínculo com sensor biométrico e Keystore precisa ser
-validado em dispositivo com biometria forte cadastrada.
+Configuration and lifecycle are preconditions. `BiometricPromptConfig` rejects
+blank titles or cancellation labels with `IllegalArgumentException`. `enroll()` and
+`authenticate()` require a `RESUMED` screen; calls outside that state throw
+`IllegalStateException`. Cancelling the coroutine cancels the prompt and propagates
+`CancellationException`. An unrecognized biometric attempt keeps the prompt open
+for another attempt. Sensor and Keystore integration must be validated on a device
+with strong biometrics enrolled.
 
-Referências: [biometria](https://developer.android.com/identity/sign-in/biometric-auth),
-[Keystore](https://developer.android.com/privacy-and-security/keystore) e
-[PreferencesFileSerializer](https://developer.android.com/reference/kotlin/androidx/datastore/preferences/core/PreferencesFileSerializer)
-e [Parcel](https://developer.android.com/reference/android/os/Parcel).
+References: [biometric authentication](https://developer.android.com/identity/sign-in/biometric-auth),
+[Keystore](https://developer.android.com/privacy-and-security/keystore),
+[PreferencesFileSerializer](https://developer.android.com/reference/kotlin/androidx/datastore/preferences/core/PreferencesFileSerializer),
+and [Parcel](https://developer.android.com/reference/android/os/Parcel).

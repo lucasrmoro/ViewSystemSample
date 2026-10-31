@@ -1,12 +1,12 @@
-# Sessão
+# Session
 
-`session/api` expõe `AppSessionProvider` e `SessionStatus`. A implementação mantém
-o estado de expiração da sessão, observado pelo agregador de estado do `core`.
+`session/api` exposes `AppSessionProvider` and `SessionStatus`. The implementation
+maintains session expiration state, observed by the application state aggregator in `core`.
 
-O `app` depende de `session/di` e carrega `SessionModule.init()` antes de usar os
-contratos. O módulo `di` registra um `AppSessionProvider` singleton usando a função
-de criação de `session/impl`. A implementação permanece interna.
+The app depends on `session/di` and loads `SessionModule.init()` before using the
+contracts. The DI module registers a singleton `AppSessionProvider` through the
+factory function in `session/impl`. Its implementation remains internal.
 
-Os consumidores dependem de `api`. Nem a API nem a implementação dependem do módulo
-`di`; os registros Koin ficam exclusivamente nele. A chamada `expireSession()`
-publica a expiração para os observadores existentes.
+Consumers depend on `api`. Neither the API nor the implementation depends on the
+DI module; Koin registrations belong exclusively there. `expireSession()` publishes
+expiration to existing observers.
