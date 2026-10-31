@@ -1,9 +1,7 @@
-import br.com.viewsystem_sample.ext.ksp
 import br.com.viewsystem_sample.modules.Modules
 
 plugins {
     alias(libs.plugins.sample.android.library)
-    alias(libs.plugins.ksp)
 }
 
 dependencies {
@@ -15,6 +13,4 @@ dependencies {
     implementation(libs.bundles.retrofit)
     implementation(libs.okhttp.loggingInterceptor)
     implementation(libs.coroutines)
-    implementation(libs.bundles.koin)
-    ksp(libs.koin.compiler)
 }

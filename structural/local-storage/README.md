@@ -2,7 +2,9 @@
 
 Este estruturante mantém o armazenamento local compartilhado: preferências e
 banco Room. Os consumidores dependem de `local-storage/api`; o `app` inclui
-`local-storage/impl` e inicializa `LocalStorageModule` antes de usar os contratos.
+`local-storage/di` e inicializa `LocalStorageModule` antes de usar os contratos.
+O módulo `di` depende de `api`, `impl`, dos helpers de dispatchers do `core` e dos
+DAOs das features. Os consumidores não dependem das implementações nem de `di`.
 
 ## Preferências
 
@@ -53,7 +55,9 @@ erros disponíveis estão descritos no [README de biometria](../biometric/README
 
 ## Room
 
-O banco compartilhado e a DI dos DAOs ficam em `impl`. Entidades, DAOs e data sources
+O banco compartilhado fica em `impl`. `LocalStorageFactory` mantém uma única instância
+do banco e da factory do DataStore; `di` registra o `PreferencesDataSource` como
+singleton e os DAOs como factories. Entidades, DAOs e data sources
 pertencem ao módulo `data` de cada feature. Esses módulos dependem apenas de
 `local-storage/api`, evitando ciclos com a implementação do banco. Durante esta
 fase de desenvolvimento, o esquema não é exportado e não são mantidas migrações.

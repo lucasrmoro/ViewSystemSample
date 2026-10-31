@@ -3,19 +3,19 @@ package br.com.viewsystem_sample.structural.core.di
 import org.koin.core.qualifier.Qualifier
 import org.koin.core.qualifier.QualifierValue
 
-internal object DispatcherIO : Qualifier {
+object DispatcherIO : Qualifier {
 
     override val value: QualifierValue = "DispatcherIO"
 
 }
 
-internal object DispatcherMain : Qualifier {
+object DispatcherMain : Qualifier {
 
     override val value: QualifierValue = "DispatcherMain"
 
 }
 
-internal object DispatcherDefault : Qualifier {
+object DispatcherDefault : Qualifier {
 
     override val value: QualifierValue = "DispatcherDefault"
 

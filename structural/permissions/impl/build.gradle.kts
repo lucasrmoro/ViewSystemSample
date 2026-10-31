@@ -7,5 +7,4 @@ plugins {
 dependencies {
     implementation(project(Modules.Structural.PERMISSIONS_API))
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.koin.core)
 }

@@ -13,6 +13,23 @@ As APIs expõem interfaces Kotlin, sem tipos de plataforma.
 - `authenticate(data, prompt)`: usa o IV do dado salvo e retorna
   `BiometricDecryption`, autorizada para descriptografar aquele dado.
 
+## Configuração da DI
+
+O `app` depende de `biometric/di` e carrega `BiometricModule.init()`. Esse módulo
+registra uma `BiometricProviderFactory` compartilhada, que mantém o acesso ao
+Keystore, e cria um `BiometricProvider` por Activity. Os consumidores dependem de
+`biometric/api`; `impl` não contém registros Koin nem depende do módulo `di`.
+
+A adaptação de ciclo de vida pertence ao design system. O app também carrega
+`DesignSystemModule.init()`, de `designsystem/di`, antes de abrir uma tela consumidora.
+Esse módulo registra o provider qualificado por `ScreenBiometricProvider`. Somente
+a tela que usar biometria declara a dependência de `biometric/api` e obtém seu
+provider em `onCreate`, passando sua Activity e seu `lifecycleScope`.
+`BaseActivity` não cria nem expõe esse provider. A adaptação cancela a operação ao
+destruir a tela ou cancelar a coroutine chamadora.
+
+A persistência é registrada por `LocalStorageModule.init()`, de `local-storage/di`.
+
 `PreferencesDataSource` oferece:
 
 - `putEncrypted(key, encryption, vararg entries)`: serializa as entradas,

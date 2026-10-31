@@ -7,5 +7,4 @@ plugins {
 dependencies {
     implementation(project(Modules.Structural.LOGGER_API))
     add("debugImplementation", libs.timber)
-    implementation(libs.koin.core)
 }

@@ -6,7 +6,5 @@ plugins {
 
 dependencies {
     implementation(project(Modules.Structural.BIOMETRIC_API))
-    implementation(project(Modules.Structural.CORE))
     implementation(libs.androidx.biometric)
-    implementation(libs.koin.core)
 }

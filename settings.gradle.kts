@@ -34,29 +34,36 @@ include(":app")
 include(
     ":structural",
     ":structural:core",
+    ":structural:core:di",
     ":structural:biometric:api",
     ":structural:biometric:impl",
+    ":structural:biometric:di",
     ":structural:session:api",
     ":structural:session:impl",
+    ":structural:session:di",
     ":structural:permissions:api",
     ":structural:permissions:impl",
+    ":structural:permissions:di",
     ":structural:logger:api",
     ":structural:logger:impl",
+    ":structural:logger:di",
     ":structural:network",
     ":structural:network:api",
     ":structural:network:impl",
+    ":structural:network:di",
     ":structural:designsystem",
+    ":structural:designsystem:di",
     ":structural:local-storage",
     ":structural:local-storage:api",
-    ":structural:local-storage:impl"
+    ":structural:local-storage:impl",
+    ":structural:local-storage:di"
 )
 
 // Features
 include(
     ":features",
     ":features:featureA",
-    ":features:featureA:di:api",
-    ":features:featureA:di:impl",
+    ":features:featureA:di",
     ":features:featureA:data",
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
@@ -64,6 +71,5 @@ include(
     ":features:featureA:navigation:api",
     ":features:login:domain:api",
     ":features:login:data",
-    ":features:login:di:api",
-    ":features:login:di:impl"
+    ":features:login:di"
 )

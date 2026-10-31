@@ -15,5 +15,4 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.datastore.tink)
     implementation(libs.tink.android)
-    implementation(libs.bundles.koin)
 }

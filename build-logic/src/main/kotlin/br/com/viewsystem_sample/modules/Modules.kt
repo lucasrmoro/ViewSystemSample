@@ -7,19 +7,27 @@ object Modules {
         private const val ROOT = ":structural"
 
         const val CORE = "$ROOT:core"
+        const val CORE_DI = "$ROOT:core:di"
         const val BIOMETRIC_API = "$ROOT:biometric:api"
         const val BIOMETRIC_IMPL = "$ROOT:biometric:impl"
+        const val BIOMETRIC_DI = "$ROOT:biometric:di"
         const val SESSION_API = "$ROOT:session:api"
         const val SESSION_IMPL = "$ROOT:session:impl"
+        const val SESSION_DI = "$ROOT:session:di"
         const val PERMISSIONS_API = "$ROOT:permissions:api"
         const val PERMISSIONS_IMPL = "$ROOT:permissions:impl"
+        const val PERMISSIONS_DI = "$ROOT:permissions:di"
         const val LOGGER_API = "$ROOT:logger:api"
         const val LOGGER_IMPL = "$ROOT:logger:impl"
+        const val LOGGER_DI = "$ROOT:logger:di"
         const val NETWORK_API = "$ROOT:network:api"
         const val NETWORK_IMPL = "$ROOT:network:impl"
+        const val NETWORK_DI = "$ROOT:network:di"
         const val DESIGNSYSTEM = "$ROOT:designsystem"
+        const val DESIGNSYSTEM_DI = "$ROOT:designsystem:di"
         const val LOCAL_STORAGE_API = "$ROOT:local-storage:api"
         const val LOCAL_STORAGE_IMPL = "$ROOT:local-storage:impl"
+        const val LOCAL_STORAGE_DI = "$ROOT:local-storage:di"
     }
 
     object Feature {
@@ -30,15 +38,13 @@ object Modules {
 
             const val DOMAIN_API = "$LOGIN:domain:api"
             const val DATA = "$LOGIN:data"
-            const val DI_API = "$LOGIN:di:api"
-            const val DI_IMPL = "$LOGIN:di:impl"
+            const val DI = "$LOGIN:di"
         }
 
         object FeatureA {
             private const val FEATURE_A = "$ROOT:featureA"
 
-            const val DI_API = "$FEATURE_A:di:api"
-            const val DI_IMPL = "$FEATURE_A:di:impl"
+            const val DI = "$FEATURE_A:di"
             const val DATA = "$FEATURE_A:data"
             const val DOMAIN_API = "$FEATURE_A:domain:api"
             const val DOMAIN_IMPL = "$FEATURE_A:domain:impl"
