@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    api(project(Modules.Structural.BIOMETRIC_API))
     implementation(project(Modules.Structural.PERMISSIONS_API))
     implementation(project(Modules.Structural.LOGGER_API))
     implementation(project(Modules.Structural.CORE))

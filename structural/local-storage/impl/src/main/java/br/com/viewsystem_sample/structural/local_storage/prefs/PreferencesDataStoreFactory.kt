@@ -16,7 +16,6 @@ import com.google.crypto.tink.integration.android.AndroidKeysetManager
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.withContext
 import java.io.File
 
 internal class PreferencesDataStoreFactory(
@@ -26,11 +25,7 @@ internal class PreferencesDataStoreFactory(
 
     private val applicationContext = context.applicationContext
 
-    val dataStore by lazy { createEncryptedDataStore() }
-
-    suspend fun create(): DataStore<Preferences> = withContext(ioDispatcher) {
-        dataStore
-    }
+    val dataStore: DataStore<Preferences> by lazy { createEncryptedDataStore() }
 
     private fun createEncryptedDataStore(): DataStore<Preferences> {
         val file = File(applicationContext.noBackupFilesDir, PREFERENCES_FILE_NAME)

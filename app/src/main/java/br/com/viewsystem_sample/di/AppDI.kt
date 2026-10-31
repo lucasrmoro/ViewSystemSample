@@ -4,6 +4,7 @@ import br.com.viewsystem_sample.featureA.FeatureADI
 import br.com.viewsystem_sample.featureA.FeatureADIImpl
 import br.com.viewsystem_sample.login.LoginDI
 import br.com.viewsystem_sample.login.LoginDIImpl
+import br.com.viewsystem_sample.structural.biometric.di.BiometricModule
 import br.com.viewsystem_sample.structural.core.di.CoreModule
 import br.com.viewsystem_sample.structural.local_storage.di.LocalStorageModule
 import br.com.viewsystem_sample.structural.logger.di.LoggerModule
@@ -25,6 +26,7 @@ internal object AppDI {
         CoreModule.init()
         SessionModule.init()
         PermissionsModule.init()
+        BiometricModule.init()
         CoreNetworkModule.init()
         LocalStorageModule.init()
         loadKoinModules(featuresModule)

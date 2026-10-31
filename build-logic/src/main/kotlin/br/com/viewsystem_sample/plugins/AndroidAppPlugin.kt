@@ -38,6 +38,8 @@ class AndroidAppPlugin : BasePlugin() {
 
     private fun Project.setupDependencies() = dependencies {
         implementation(project(Modules.Structural.CORE))
+        implementation(project(Modules.Structural.BIOMETRIC_API))
+        implementation(project(Modules.Structural.BIOMETRIC_IMPL))
         implementation(project(Modules.Structural.SESSION_API))
         implementation(project(Modules.Structural.SESSION_IMPL))
         implementation(project(Modules.Structural.PERMISSIONS_API))

@@ -24,7 +24,9 @@ private val localStorageModule = module {
     single<PreferencesDataStoreFactory> {
         PreferencesDataStoreFactory(context = get(), ioDispatcher = dispatcherIO)
     }
-    single<PreferencesDataSource> { PreferencesDataSourceImpl(dataStoreFactory = get()) }
+    single<PreferencesDataSource> {
+        PreferencesDataSourceImpl(dataStoreFactory = get(), ioDispatcher = dispatcherIO)
+    }
 }
 
 object LocalStorageModule {

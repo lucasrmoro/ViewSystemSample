@@ -34,6 +34,8 @@ include(":app")
 include(
     ":structural",
     ":structural:core",
+    ":structural:biometric:api",
+    ":structural:biometric:impl",
     ":structural:session:api",
     ":structural:session:impl",
     ":structural:permissions:api",

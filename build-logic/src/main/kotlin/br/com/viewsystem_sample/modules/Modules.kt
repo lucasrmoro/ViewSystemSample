@@ -7,6 +7,8 @@ object Modules {
         private const val ROOT = ":structural"
 
         const val CORE = "$ROOT:core"
+        const val BIOMETRIC_API = "$ROOT:biometric:api"
+        const val BIOMETRIC_IMPL = "$ROOT:biometric:impl"
         const val SESSION_API = "$ROOT:session:api"
         const val SESSION_IMPL = "$ROOT:session:impl"
         const val PERMISSIONS_API = "$ROOT:permissions:api"
