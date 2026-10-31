@@ -89,7 +89,7 @@ fun String?.setMask(mask: String, oldText: String): String {
         }
         maskedText += try {
             this[index]
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             break
         }
         index++
