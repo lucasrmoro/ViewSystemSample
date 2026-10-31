@@ -6,6 +6,13 @@ object Modules {
     object Structural {
         private const val ROOT = ":structural"
 
+        const val ANALYTICS_API = "$ROOT:analytics:api"
+        const val ANALYTICS_IMPL = "$ROOT:analytics:impl"
+        const val ANALYTICS_DI = "$ROOT:analytics:di"
+        const val REMOTE_CONFIG_API = "$ROOT:remote-config:api"
+        const val REMOTE_CONFIG_IMPL = "$ROOT:remote-config:impl"
+        const val REMOTE_CONFIG_DI = "$ROOT:remote-config:di"
+
         const val CORE = "$ROOT:core"
         const val CORE_DI = "$ROOT:core:di"
         const val BIOMETRIC_API = "$ROOT:biometric:api"
@@ -36,6 +43,7 @@ object Modules {
         object Login {
             private const val LOGIN = "$ROOT:login"
 
+            const val ANALYTICS = "$LOGIN:analytics"
             const val DOMAIN_API = "$LOGIN:domain:api"
             const val DATA = "$LOGIN:data"
             const val DI = "$LOGIN:di"
@@ -44,6 +52,7 @@ object Modules {
         object FeatureA {
             private const val FEATURE_A = "$ROOT:featureA"
 
+            const val ANALYTICS = "$FEATURE_A:analytics"
             const val DI = "$FEATURE_A:di"
             const val DATA = "$FEATURE_A:data"
             const val DOMAIN_API = "$FEATURE_A:domain:api"

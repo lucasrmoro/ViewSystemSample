@@ -1,5 +1,7 @@
 package br.com.viewsystem_sample.login
 
+import br.com.viewsystem_sample.login.analytics.LoginAnalytics
+import br.com.viewsystem_sample.structural.analytics.AnalyticsResult
 import br.com.viewsystem_sample.login.repository.LoginRepository
 import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
 import br.com.viewsystem_sample.structural.network.di.RetrofitNoAuth
@@ -37,6 +39,15 @@ class LoginRepositoryTest {
         val configuredRetrofit = GlobalContext.get().get<Retrofit>(RetrofitNoAuth)
         assertSame(Authenticator.NONE, (configuredRetrofit.callFactory() as OkHttpClient).authenticator)
         loadKoinModules(module {
+            single<LoginAnalytics> {
+                object : LoginAnalytics {
+
+                    override fun tokenRefreshStarted() = AnalyticsResult.UNAVAILABLE
+
+                    override fun tokenRefreshFinished(succeeded: Boolean) = AnalyticsResult.UNAVAILABLE
+
+                }
+            }
             single<Retrofit>(RetrofitNoAuth) {
                 configuredRetrofit.newBuilder().baseUrl(server.url("/")).build()
             }

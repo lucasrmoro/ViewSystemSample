@@ -1,5 +1,6 @@
 [versions]
 agp = "8.8.2"
+firebaseBom = "34.0.0"
 kotlin = "2.1.10"
 annotationJvm = "1.9.1"
 ksp = "2.1.10-1.0.31"
@@ -51,9 +52,13 @@ androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
 
 # Google
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-config = { module = "com.google.firebase:firebase-config" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 # Coroutines
+coroutinesPlayServices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines" }
 coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 
 # Room

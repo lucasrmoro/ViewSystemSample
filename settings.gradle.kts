@@ -33,6 +33,13 @@ include(":app")
 // Structural
 include(
     ":structural",
+    ":structural:analytics:api",
+    ":structural:analytics:impl",
+    ":structural:analytics:di",
+    ":structural:remote-config:api",
+    ":structural:remote-config:impl",
+    ":structural:remote-config:di",
+
     ":structural:core",
     ":structural:core:di",
     ":structural:biometric:api",
@@ -62,6 +69,8 @@ include(
 // Features
 include(
     ":features",
+    ":features:login:analytics",
+    ":features:featureA:analytics",
     ":features:featureA",
     ":features:featureA:di",
     ":features:featureA:data",

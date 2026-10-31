@@ -1,5 +1,8 @@
 package br.com.viewsystem_sample.featureA
 
+import br.com.viewsystem_sample.featureA.analytics.FeatureAAnalytics
+import br.com.viewsystem_sample.featureA.analytics.createFeatureAAnalytics
+
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSource
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSourceImpl
 import br.com.viewsystem_sample.featureA.dataSource.FeatureARemoteDataSource
@@ -26,6 +29,7 @@ import org.koin.dsl.module
 object FeatureAModule {
 
     private val dataModule = module {
+        single<FeatureAAnalytics> { createFeatureAAnalytics(provider = get()) }
         // Remote
         single<FeatureAService> { retrofit.createService() }
         single<FeatureARemoteDataSource> { FeatureARemoteDataSourceImpl(featureAService = get()) }

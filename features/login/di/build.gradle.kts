@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Modules.Feature.Login.ANALYTICS))
     implementation(project(Modules.Feature.Login.DOMAIN_API))
     testImplementation(libs.junit)
     testImplementation(libs.okhttp.mockwebserver)

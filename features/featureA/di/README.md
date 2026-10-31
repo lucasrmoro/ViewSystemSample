@@ -1,9 +1,13 @@
-# DI de featureA
+# featureA DI
 
-Este módulo concentra os registros Koin da feature, sem submódulos `api` e `impl`.
-O `app` depende de `:features:featureA:di` e chama `FeatureAModule.init()` durante
-sua inicialização, depois de carregar os módulos estruturantes.
+Centralizes the feature's Koin registrations without `api` and `impl` submodules.
+The app depends on `:features:featureA:di` and calls `FeatureAModule.init()` during
+startup, after loading the structural DI modules.
 
-Os consumidores usam os contratos da feature; não há interface intermediária para
-carregar a DI. Os bindings permanecem neste módulo, e os módulos de apresentação,
-domínio e dados não dependem dele.
+Consumers use feature contracts directly; no intermediate interface loads DI.
+Bindings remain in this module. Presentation, domain, and data modules do not depend
+on it.
+
+This module also registers `FeatureAAnalytics`, defined in `../analytics`, for injection
+into the feature's layers. Load `AnalyticsModule.init()` before first resolving
+that contract.

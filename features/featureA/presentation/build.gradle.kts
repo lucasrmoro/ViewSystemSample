@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Modules.Feature.FeatureA.ANALYTICS))
     implementation(project(Modules.Feature.FeatureA.DOMAIN_API))
     implementation(project(Modules.Feature.FeatureA.NAVIGATION_API))
 }
