@@ -21,7 +21,7 @@ Keystore, e cria um `BiometricProvider` por Activity. Os consumidores dependem d
 `biometric/api`; `impl` não contém registros Koin nem depende do módulo `di`.
 
 A adaptação de ciclo de vida pertence ao design system. O app também carrega
-`DesignSystemModule.init()`, de `designsystem/di`, antes de abrir uma tela consumidora.
+`DesignSystemModule.init()`, de `design-system/di`, antes de abrir uma tela consumidora.
 Esse módulo registra o provider qualificado por `ScreenBiometricProvider`. Somente
 a tela que usar biometria declara a dependência de `biometric/api` e obtém seu
 provider em `onCreate`, passando sua Activity e seu `lifecycleScope`.

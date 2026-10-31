@@ -30,7 +30,7 @@ class PresentationPlugin : BasePlugin() {
 
     private fun Project.setupDependencies() = dependencies {
         implementation(project(Modules.Structural.CORE))
-        implementation(project(Modules.Structural.DESIGNSYSTEM))
+        implementation(project(Modules.Structural.DESIGN_SYSTEM))
         implementation(libs.material)
         implementation(libs.bundles.android)
         implementation(project(Modules.Structural.LOGGER_API))
