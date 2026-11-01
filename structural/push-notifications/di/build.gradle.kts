@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_API))
-    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_IMPL))
-    implementation(project(Modules.Structural.NOTIFICATIONS_API))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.PushNotifications.API))
+    implementation(project(Modules.Structural.PushNotifications.IMPL))
+    implementation(project(Modules.Structural.Notifications.API))
+    implementation(project(Modules.Structural.DI.API))
 }

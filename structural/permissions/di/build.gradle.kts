@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.PERMISSIONS_API))
-    implementation(project(Modules.Structural.PERMISSIONS_IMPL))
+    implementation(project(Modules.Structural.Permissions.API))
+    implementation(project(Modules.Structural.Permissions.IMPL))
     implementation(libs.androidx.activity.ktx)
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.DI.API))
 }

@@ -5,12 +5,12 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.NETWORK_API))
-    implementation(project(Modules.Structural.NETWORK_IMPL))
-    implementation(project(Modules.Structural.CORE))
-    implementation(project(Modules.Structural.SESSION_API))
-    implementation(project(Modules.Structural.LOCAL_STORAGE_API))
+    implementation(project(Modules.Structural.Network.API))
+    implementation(project(Modules.Structural.Network.IMPL))
+    implementation(project(Modules.Structural.Core.MAIN))
+    implementation(project(Modules.Structural.Session.API))
+    implementation(project(Modules.Structural.LocalStorage.API))
     implementation(project(Modules.Feature.Login.DOMAIN_API))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.DI.API))
     implementation(libs.okhttp.client)
 }

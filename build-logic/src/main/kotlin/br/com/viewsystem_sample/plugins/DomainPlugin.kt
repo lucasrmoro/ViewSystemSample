@@ -17,8 +17,8 @@ class DomainPlugin : BaseLibraryPlugin() {
 
     override fun setupDependencies(project: Project) = with(project) {
         dependencies {
-            implementation(project(Modules.Structural.CORE))
-            implementation(project(Modules.Structural.LOGGER_API))
+            implementation(project(Modules.Structural.Core.MAIN))
+            implementation(project(Modules.Structural.Logger.API))
         }
     }
 

@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_API))
-    implementation(project(Modules.Structural.NOTIFICATIONS_API))
+    implementation(project(Modules.Structural.PushNotifications.API))
+    implementation(project(Modules.Structural.Notifications.API))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.messaging)
     implementation(libs.coroutinesPlayServices)

@@ -7,7 +7,7 @@ plugins {
 
 dependencies {
     implementation(project(FeatureA.ANALYTICS))
-    implementation(project(Modules.Structural.NAVIGATION_API))
+    implementation(project(Modules.Structural.Navigation.API))
     implementation(project(FeatureA.DATA))
     implementation(project(FeatureA.DOMAIN_API))
     implementation(project(FeatureA.DOMAIN_IMPL))

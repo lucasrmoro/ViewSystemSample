@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.ANALYTICS_API))
-    implementation(project(Modules.Structural.ANALYTICS_IMPL))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.Analytics.API))
+    implementation(project(Modules.Structural.Analytics.IMPL))
+    implementation(project(Modules.Structural.DI.API))
 }

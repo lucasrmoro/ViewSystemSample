@@ -5,10 +5,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.LOGGER_API))
+    implementation(project(Modules.Structural.Logger.API))
     implementation(libs.gson)
 
-    implementation(project(Modules.Structural.REMOTE_CONFIG_API))
+    implementation(project(Modules.Structural.RemoteConfig.API))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.config)
     implementation(libs.coroutinesPlayServices)

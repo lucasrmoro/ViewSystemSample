@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
 
-    implementation(project(Modules.Structural.REMOTE_CONFIG_API))
-    implementation(project(Modules.Structural.REMOTE_CONFIG_IMPL))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.RemoteConfig.API))
+    implementation(project(Modules.Structural.RemoteConfig.IMPL))
+    implementation(project(Modules.Structural.DI.API))
 }

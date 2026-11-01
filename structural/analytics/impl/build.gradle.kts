@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.ANALYTICS_API))
+    implementation(project(Modules.Structural.Analytics.API))
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
 }

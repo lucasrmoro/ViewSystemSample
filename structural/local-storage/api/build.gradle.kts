@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    api(project(Modules.Structural.BIOMETRIC_API))
+    api(project(Modules.Structural.Biometric.API))
 }

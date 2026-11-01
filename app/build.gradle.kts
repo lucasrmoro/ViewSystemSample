@@ -5,11 +5,11 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.DI_IMPL))
-    implementation(project(Modules.Structural.ANALYTICS_IMPL))
-    implementation(project(Modules.Structural.REMOTE_CONFIG_IMPL))
-    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_IMPL))
-    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_API))
+    implementation(project(Modules.Structural.DI.IMPL))
+    implementation(project(Modules.Structural.Analytics.IMPL))
+    implementation(project(Modules.Structural.RemoteConfig.IMPL))
+    implementation(project(Modules.Structural.PushNotifications.IMPL))
+    implementation(project(Modules.Structural.PushNotifications.API))
     implementation(project(Modules.Feature.Login.DI))
     implementation(project(Modules.Feature.FeatureA.DI))
 }

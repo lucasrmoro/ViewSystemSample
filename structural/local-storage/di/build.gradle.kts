@@ -5,9 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.LOCAL_STORAGE_API))
-    implementation(project(Modules.Structural.LOCAL_STORAGE_IMPL))
-    implementation(project(Modules.Structural.CORE))
+    implementation(project(Modules.Structural.LocalStorage.API))
+    implementation(project(Modules.Structural.LocalStorage.IMPL))
+    implementation(project(Modules.Structural.Core.MAIN))
     implementation(project(Modules.Feature.FeatureA.DATA))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.DI.API))
 }

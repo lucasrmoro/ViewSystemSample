@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.DI.API))
     implementation(libs.koin.core)
 }

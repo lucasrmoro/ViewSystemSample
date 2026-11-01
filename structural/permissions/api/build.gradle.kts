@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    api(project(Modules.Structural.DI_API))
+    api(project(Modules.Structural.DI.API))
 }

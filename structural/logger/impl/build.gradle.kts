@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.LOGGER_API))
+    implementation(project(Modules.Structural.Logger.API))
     add("debugImplementation", libs.timber)
 }

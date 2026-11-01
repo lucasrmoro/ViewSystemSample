@@ -5,9 +5,9 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.BIOMETRIC_API))
-    implementation(project(Modules.Structural.BIOMETRIC_IMPL))
-    implementation(project(Modules.Structural.CORE))
+    implementation(project(Modules.Structural.Biometric.API))
+    implementation(project(Modules.Structural.Biometric.IMPL))
+    implementation(project(Modules.Structural.Core.MAIN))
     implementation(libs.androidx.biometric)
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.DI.API))
 }

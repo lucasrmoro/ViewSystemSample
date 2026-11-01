@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.SESSION_API))
-    implementation(project(Modules.Structural.SESSION_IMPL))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.Session.API))
+    implementation(project(Modules.Structural.Session.IMPL))
+    implementation(project(Modules.Structural.DI.API))
 }

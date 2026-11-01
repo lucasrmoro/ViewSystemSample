@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.NOTIFICATIONS_API))
-    implementation(project(Modules.Structural.PERMISSIONS_API))
+    implementation(project(Modules.Structural.Notifications.API))
+    implementation(project(Modules.Structural.Permissions.API))
     implementation(libs.androidx.core.ktx)
 }

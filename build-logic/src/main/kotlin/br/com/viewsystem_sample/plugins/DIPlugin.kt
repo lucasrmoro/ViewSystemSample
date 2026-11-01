@@ -17,9 +17,9 @@ class DIPlugin : BaseLibraryPlugin() {
 
     override fun setupDependencies(project: Project) = with(project) {
         dependencies {
-            implementation(project(Modules.Structural.CORE))
-            implementation(project(Modules.Structural.NETWORK_API))
-            implementation(project(Modules.Structural.DI_API))
+            implementation(project(Modules.Structural.Core.MAIN))
+            implementation(project(Modules.Structural.Network.API))
+            implementation(project(Modules.Structural.DI.API))
         }
     }
 

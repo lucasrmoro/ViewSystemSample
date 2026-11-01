@@ -5,5 +5,5 @@ plugins {
 }
 
 dependencies {
-    api(project(Modules.Structural.LOGGER_API))
+    api(project(Modules.Structural.Logger.API))
 }

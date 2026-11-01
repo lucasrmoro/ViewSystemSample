@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.CORE))
-    implementation(project(Modules.Structural.NAVIGATION_API))
+    implementation(project(Modules.Structural.Core.MAIN))
+    implementation(project(Modules.Structural.Navigation.API))
 }

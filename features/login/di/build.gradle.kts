@@ -5,12 +5,12 @@ plugins {
 }
 
 dependencies {
-    testImplementation(project(Modules.Structural.CORE_DI))
-    testImplementation(project(Modules.Structural.DI_IMPL))
+    testImplementation(project(Modules.Structural.Core.DI))
+    testImplementation(project(Modules.Structural.DI.IMPL))
     implementation(project(Modules.Feature.Login.ANALYTICS))
     implementation(project(Modules.Feature.Login.DOMAIN_API))
     testImplementation(libs.junit)
     testImplementation(libs.okhttp.mockwebserver)
-    testImplementation(project(Modules.Structural.NETWORK_DI))
+    testImplementation(project(Modules.Structural.Network.DI))
     implementation(project(Modules.Feature.Login.DATA))
 }

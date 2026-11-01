@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.LOGGER_API))
-    implementation(project(Modules.Structural.LOGGER_IMPL))
-    implementation(project(Modules.Structural.DI_API))
+    implementation(project(Modules.Structural.Logger.API))
+    implementation(project(Modules.Structural.Logger.IMPL))
+    implementation(project(Modules.Structural.DI.API))
 }

@@ -5,6 +5,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(Modules.Structural.BIOMETRIC_API))
+    implementation(project(Modules.Structural.Biometric.API))
     implementation(libs.androidx.biometric)
 }
