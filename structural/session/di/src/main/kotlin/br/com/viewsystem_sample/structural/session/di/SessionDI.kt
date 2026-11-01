@@ -1,18 +1,19 @@
 package br.com.viewsystem_sample.structural.session.di
 
+import br.com.viewsystem_sample.structural.di.dependencyModule
+import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.session.AppSessionProvider
 import br.com.viewsystem_sample.structural.session.createAppSessionProvider
-import org.koin.core.context.loadKoinModules
-import org.koin.dsl.module
 
-private val sessionModule = module {
-    single<AppSessionProvider> { createAppSessionProvider() }
+private val sessionModule = dependencyModule {
+    singleton<AppSessionProvider> { createAppSessionProvider() }
 }
 
 object SessionModule {
 
     fun init() {
-        loadKoinModules(sessionModule)
+        loadModules(sessionModule)
     }
 
 }

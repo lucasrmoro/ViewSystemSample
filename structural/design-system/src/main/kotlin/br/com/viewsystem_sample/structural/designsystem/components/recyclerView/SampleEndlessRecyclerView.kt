@@ -9,13 +9,12 @@ import br.com.viewsystem_sample.structural.designsystem.adapter.SampleGenericAda
 import br.com.viewsystem_sample.structural.designsystem.adapter.model.Loading
 import br.com.viewsystem_sample.structural.designsystem.adapter.model.base.AdapterItem
 import br.com.viewsystem_sample.structural.designsystem.components.recyclerView.SampleEndlessRecyclerViewScrollListener.SampleEndlessRecyclerViewScrollListenerCallbacks
+import br.com.viewsystem_sample.structural.di.inject
 import br.com.viewsystem_sample.structural.logger.Logger
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 
 class SampleEndlessRecyclerView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
-) : RecyclerView(context, attrs), SampleEndlessRecyclerViewScrollListenerCallbacks, KoinComponent {
+) : RecyclerView(context, attrs), SampleEndlessRecyclerViewScrollListenerCallbacks {
 
     private val logger by inject<Logger>()
 

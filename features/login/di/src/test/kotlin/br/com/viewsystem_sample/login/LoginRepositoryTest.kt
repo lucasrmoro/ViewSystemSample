@@ -1,10 +1,18 @@
 package br.com.viewsystem_sample.login
 
 import br.com.viewsystem_sample.login.analytics.LoginAnalytics
-import br.com.viewsystem_sample.structural.analytics.AnalyticsResult
 import br.com.viewsystem_sample.login.repository.LoginRepository
+import br.com.viewsystem_sample.structural.analytics.AnalyticsResult
+import br.com.viewsystem_sample.structural.di.Dependencies
+import br.com.viewsystem_sample.structural.di.dependencyModule
+import br.com.viewsystem_sample.structural.di.get
+import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.singleton
+import br.com.viewsystem_sample.structural.di.startDependencyInjection
+import br.com.viewsystem_sample.structural.di.stopDependencyInjection
 import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
 import br.com.viewsystem_sample.structural.network.di.RetrofitNoAuth
+import java.util.concurrent.TimeUnit
 import kotlinx.coroutines.runBlocking
 import okhttp3.Authenticator
 import okhttp3.OkHttpClient
@@ -16,14 +24,8 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.context.GlobalContext
-import org.koin.core.context.loadKoinModules
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.dsl.module
 import retrofit2.HttpException
 import retrofit2.Retrofit
-import java.util.concurrent.TimeUnit
 
 class LoginRepositoryTest {
 
@@ -32,14 +34,14 @@ class LoginRepositoryTest {
     @Before
     fun setUp() {
         server.start()
-        startKoin {}
+        startDependencyInjection {}
         CoreNetworkModule.init()
         LoginModule.init()
 
-        val configuredRetrofit = GlobalContext.get().get<Retrofit>(RetrofitNoAuth)
+        val configuredRetrofit = Dependencies.get<Retrofit>(RetrofitNoAuth)
         assertSame(Authenticator.NONE, (configuredRetrofit.callFactory() as OkHttpClient).authenticator)
-        loadKoinModules(module {
-            single<LoginAnalytics> {
+        loadModules(dependencyModule {
+            singleton<LoginAnalytics> {
                 object : LoginAnalytics {
 
                     override fun tokenRefreshStarted() = AnalyticsResult.UNAVAILABLE
@@ -48,7 +50,7 @@ class LoginRepositoryTest {
 
                 }
             }
-            single<Retrofit>(RetrofitNoAuth) {
+            singleton<Retrofit>(RetrofitNoAuth) {
                 configuredRetrofit.newBuilder().baseUrl(server.url("/")).build()
             }
         })
@@ -56,7 +58,7 @@ class LoginRepositoryTest {
 
     @After
     fun tearDown() {
-        stopKoin()
+        stopDependencyInjection()
         server.shutdown()
     }
 
@@ -66,7 +68,7 @@ class LoginRepositoryTest {
             """{"AccessToken":"new-access-token","RefreshToken":"new-refresh-token"}"""
         ))
 
-        val accessToken = GlobalContext.get().get<LoginRepository>().refreshToken("refresh-token")
+        val accessToken = Dependencies.get<LoginRepository>().refreshToken("refresh-token")
 
         assertEquals("new-access-token", accessToken)
         val request = server.takeRequest(1, TimeUnit.SECONDS)
@@ -80,7 +82,7 @@ class LoginRepositoryTest {
         server.enqueue(MockResponse().setResponseCode(401))
 
         val error = runCatching {
-            GlobalContext.get().get<LoginRepository>().refreshToken("expired-refresh-token")
+            Dependencies.get<LoginRepository>().refreshToken("expired-refresh-token")
         }.exceptionOrNull()
 
         assertEquals(401, (error as? HttpException)?.code())

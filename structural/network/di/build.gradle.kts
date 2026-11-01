@@ -13,5 +13,5 @@ dependencies {
     implementation(project(Modules.Feature.Login.DOMAIN_API))
     implementation(libs.bundles.retrofit)
     implementation(libs.okhttp.loggingInterceptor)
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

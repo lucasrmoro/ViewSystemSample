@@ -1,16 +1,15 @@
 package br.com.viewsystem_sample.structural.network.di
 
-import org.koin.core.qualifier.Qualifier
-import org.koin.core.qualifier.QualifierValue
+import br.com.viewsystem_sample.structural.di.DependencyQualifier
 
-object RetrofitNoAuth : Qualifier {
+object RetrofitNoAuth : DependencyQualifier {
 
-    override val value: QualifierValue = "RetrofitNoAuth"
+    override val value: String = "RetrofitNoAuth"
 
 }
 
-object RetrofitAuth : Qualifier {
+object RetrofitAuth : DependencyQualifier {
 
-    override val value: QualifierValue = "Retrofit"
+    override val value: String = "Retrofit"
 
 }

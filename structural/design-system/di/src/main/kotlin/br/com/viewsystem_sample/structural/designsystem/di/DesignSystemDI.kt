@@ -3,12 +3,14 @@ package br.com.viewsystem_sample.structural.designsystem.di
 import androidx.fragment.app.FragmentActivity
 import br.com.viewsystem_sample.structural.biometric.BiometricProvider
 import br.com.viewsystem_sample.structural.designsystem.biometric.createLifecycleBiometricProvider
+import br.com.viewsystem_sample.structural.di.dependencyModule
+import br.com.viewsystem_sample.structural.di.factory
+import br.com.viewsystem_sample.structural.di.get
+import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.parametersOf
 import kotlinx.coroutines.CoroutineScope
-import org.koin.core.context.loadKoinModules
-import org.koin.core.parameter.parametersOf
-import org.koin.dsl.module
 
-private val designSystemModule = module {
+private val designSystemModule = dependencyModule {
     factory<BiometricProvider>(ScreenBiometricProvider) { parameters ->
         createLifecycleBiometricProvider(
             delegate = get { parametersOf(parameters.get<FragmentActivity>()) },
@@ -20,7 +22,7 @@ private val designSystemModule = module {
 object DesignSystemModule {
 
     fun init() {
-        loadKoinModules(designSystemModule)
+        loadModules(designSystemModule)
     }
 
 }

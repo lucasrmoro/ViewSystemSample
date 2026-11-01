@@ -7,5 +7,5 @@ plugins {
 dependencies {
     implementation(project(Modules.Structural.LOGGER_API))
     implementation(project(Modules.Structural.LOGGER_IMPL))
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

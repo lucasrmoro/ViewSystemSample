@@ -12,13 +12,13 @@ import br.com.viewsystem_sample.structural.core.base.viewModel.BaseViewModel
 import br.com.viewsystem_sample.structural.core.ext.hideKeyboard
 import br.com.viewsystem_sample.structural.core.provider.appState.AppState
 import br.com.viewsystem_sample.structural.core.provider.appState.AppStateProvider
+import br.com.viewsystem_sample.structural.di.dependencyViewModelForClass
 import br.com.viewsystem_sample.structural.designsystem.ext.getViewModelClass
+import br.com.viewsystem_sample.structural.di.get
+import br.com.viewsystem_sample.structural.di.inject
+import br.com.viewsystem_sample.structural.di.parametersOf
 import br.com.viewsystem_sample.structural.logger.Logger
 import br.com.viewsystem_sample.structural.permissions.PermissionsProvider
-import org.koin.android.ext.android.get
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModelForClass
-import org.koin.core.parameter.parametersOf
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
@@ -29,7 +29,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         private set
 
     protected abstract val binding: ViewBinding
-    protected val viewModel: VM by lazy { viewModelForClass(getViewModelClass()).value }
+    protected val viewModel: VM by lazy { dependencyViewModelForClass(getViewModelClass()).value }
 
     @CallSuper
     override fun onCreate(savedInstanceState: Bundle?) {

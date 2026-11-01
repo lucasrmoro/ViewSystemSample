@@ -13,6 +13,9 @@ object Modules {
         const val REMOTE_CONFIG_IMPL = "$ROOT:remote-config:impl"
         const val REMOTE_CONFIG_DI = "$ROOT:remote-config:di"
 
+        const val DI_API = "$ROOT:di:api"
+        const val DI_IMPL = "$ROOT:di:impl"
+
         const val CORE = "$ROOT:core"
         const val CORE_DI = "$ROOT:core:di"
         const val BIOMETRIC_API = "$ROOT:biometric:api"

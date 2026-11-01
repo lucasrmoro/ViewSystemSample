@@ -9,5 +9,5 @@ dependencies {
     implementation(project(Modules.Structural.LOCAL_STORAGE_IMPL))
     implementation(project(Modules.Structural.CORE))
     implementation(project(Modules.Feature.FeatureA.DATA))
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

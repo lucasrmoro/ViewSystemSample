@@ -3,7 +3,7 @@
 Exposes `FeatureAAnalytics` to the feature's layers through `listLoadStarted(page)` and `listLoadFinished(page, itemCount)`.
 The internal implementation depends only on `structural/analytics/api`.
 `FeatureAModule.init()` registers the contract as a singleton through
-`createFeatureAAnalytics()`. This module declares no Koin bindings.
+`createFeatureAAnalytics()`. This module declares no DI bindings.
 
 The ListViewModel receives the contract through its constructor. Other feature layers
 can depend on this module to consume the same methods without knowing event names,

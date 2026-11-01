@@ -2,7 +2,6 @@ package br.com.viewsystem_sample.featureA
 
 import br.com.viewsystem_sample.featureA.analytics.FeatureAAnalytics
 import br.com.viewsystem_sample.featureA.analytics.createFeatureAAnalytics
-
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSource
 import br.com.viewsystem_sample.featureA.dataSource.FeatureALocalDataSourceImpl
 import br.com.viewsystem_sample.featureA.dataSource.FeatureARemoteDataSource
@@ -20,22 +19,24 @@ import br.com.viewsystem_sample.featureA.viewModel.FeatureAViewModel
 import br.com.viewsystem_sample.featureA.viewModel.FormViewModel
 import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
 import br.com.viewsystem_sample.structural.core.ext.dispatcherIO
+import br.com.viewsystem_sample.structural.di.dependencyModule
+import br.com.viewsystem_sample.structural.di.factory
+import br.com.viewsystem_sample.structural.di.get
+import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.network.ext.createService
 import br.com.viewsystem_sample.structural.network.ext.retrofit
-import org.koin.core.context.loadKoinModules
-import org.koin.core.module.dsl.viewModelOf
-import org.koin.dsl.module
 
 object FeatureAModule {
 
-    private val dataModule = module {
-        single<FeatureAAnalytics> { createFeatureAAnalytics(provider = get()) }
+    private val dataModule = dependencyModule {
+        singleton<FeatureAAnalytics> { createFeatureAAnalytics(provider = get()) }
         // Remote
-        single<FeatureAService> { retrofit.createService() }
-        single<FeatureARemoteDataSource> { FeatureARemoteDataSourceImpl(featureAService = get()) }
+        singleton<FeatureAService> { retrofit.createService() }
+        singleton<FeatureARemoteDataSource> { FeatureARemoteDataSourceImpl(featureAService = get()) }
 
         // Local
-        single<FeatureALocalDataSource> {
+        singleton<FeatureALocalDataSource> {
             FeatureALocalDataSourceImpl(someDao = get(), someMapper = get())
         }
 
@@ -43,7 +44,7 @@ object FeatureAModule {
         factory<SomeMapper> { SomeMapperImpl() }
 
         // Repository
-        single<FeatureARepository> {
+        singleton<FeatureARepository> {
             FeatureARepositoryImpl(
                 dispatcher = dispatcherIO,
                 featureARemoteDataSource = get(),
@@ -52,19 +53,19 @@ object FeatureAModule {
         }
     }
 
-    private val domainModule = module {
+    private val domainModule = dependencyModule {
         factory<GetSomethingUseCase> { GetSomethingUseCaseImpl(featureARepository = get()) }
     }
 
-    private val presentationModule = module {
-        single<FeatureAEntryPoint> { createFeatureAEntryPoint() }
-        viewModelOf(::FeatureAViewModel)
-        viewModelOf(::FormViewModel)
-        viewModelOf(::ListViewModel)
+    private val presentationModule = dependencyModule {
+        singleton<FeatureAEntryPoint> { createFeatureAEntryPoint() }
+        factory { FeatureAViewModel() }
+        factory { FormViewModel(getSomethingUseCase = get()) }
+        factory { ListViewModel(getSomethingUseCase = get(), analytics = get()) }
     }
 
     fun init() {
-        loadKoinModules(listOf(dataModule, domainModule, presentationModule))
+        loadModules(dataModule, domainModule, presentationModule)
     }
 
 }

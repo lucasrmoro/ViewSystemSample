@@ -15,5 +15,5 @@ do not install that authenticator. Load the login DI module before resolving a
 client that needs token refresh.
 
 Public `RetrofitAuth` and `RetrofitNoAuth` qualifiers remain in `api`, alongside
-`Scope.retrofit` and `Scope.retrofitNoAuth`. Converter and timeout configuration
-belongs in `di`. The implementation neither depends on DI nor declares Koin bindings.
+`DependencyResolver.retrofit` and `DependencyResolver.retrofitNoAuth`. Converter and timeout configuration
+belongs in `di`. The implementation neither depends on DI nor declares DI bindings.

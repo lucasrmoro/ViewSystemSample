@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import br.com.viewsystem_sample.featureA.navigation.FeatureAEntryPoint
 import br.com.viewsystem_sample.structural.core.ext.launchActivity
-import org.koin.android.ext.android.inject
+import br.com.viewsystem_sample.structural.di.inject
 
 class LauncherActivity : AppCompatActivity() {
 

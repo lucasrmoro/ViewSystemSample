@@ -9,7 +9,7 @@ come from `session/api` and `network/api`; their implementations are registered 
 the corresponding DI modules.
 
 `core` does not depend on `core/di`. The `DispatcherIO`, `DispatcherMain`, and
-`DispatcherDefault` qualifiers and `Scope` extensions stay in the main module so
+`DispatcherDefault` qualifiers and `DependencyResolver` extensions stay in the main module so
 other DI layers can use them without circular dependencies. Implementations receive
 dispatchers through constructors instead of accessing `Dispatchers` directly;
 concrete values are selected in `core/di`.

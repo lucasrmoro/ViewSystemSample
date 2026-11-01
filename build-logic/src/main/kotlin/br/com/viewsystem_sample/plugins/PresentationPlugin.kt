@@ -21,7 +21,6 @@ class PresentationPlugin : BasePlugin() {
     private fun Project.setupPlugins() {
         apply(plugin = Plugins.ANDROID_LIBRARY)
         apply(plugin = Plugins.KOTLIN_ANDROID)
-        apply(plugin = Plugins.KSP)
     }
 
     private fun Project.setupConfig() = extensions.configure<LibraryExtension> {
@@ -34,6 +33,6 @@ class PresentationPlugin : BasePlugin() {
         implementation(libs.material)
         implementation(libs.bundles.android)
         implementation(project(Modules.Structural.LOGGER_API))
-        implementation(libs.bundles.koin)
+        implementation(project(Modules.Structural.DI_API))
     }
 }

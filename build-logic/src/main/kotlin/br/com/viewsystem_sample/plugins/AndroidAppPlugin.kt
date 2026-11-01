@@ -3,7 +3,6 @@ package br.com.viewsystem_sample.plugins
 import br.com.viewsystem_sample.Plugins
 import br.com.viewsystem_sample.ProjectConfig
 import br.com.viewsystem_sample.ext.implementation
-import br.com.viewsystem_sample.ext.ksp
 import br.com.viewsystem_sample.modules.Modules
 import br.com.viewsystem_sample.plugins.base.BasePlugin
 import com.android.build.api.dsl.ApplicationExtension
@@ -23,7 +22,6 @@ class AndroidAppPlugin : BasePlugin() {
     private fun Project.setupPlugins() {
         apply(plugin = Plugins.ANDROID_APPLICATION)
         apply(plugin = Plugins.KOTLIN_ANDROID)
-        apply(plugin = Plugins.KSP)
     }
 
     private fun Project.setupConfig() = extensions.configure<ApplicationExtension> {
@@ -55,9 +53,8 @@ class AndroidAppPlugin : BasePlugin() {
         implementation(project(Modules.Structural.DESIGN_SYSTEM_DI))
         implementation(libs.material)
         implementation(libs.bundles.android)
-        implementation(libs.bundles.koin)
+        implementation(project(Modules.Structural.DI_API))
         implementation(project(Modules.Structural.LOGGER_API))
         implementation(project(Modules.Structural.LOGGER_DI))
-        ksp(libs.koin.compiler)
     }
 }

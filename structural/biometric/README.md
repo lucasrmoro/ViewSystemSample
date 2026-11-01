@@ -18,7 +18,7 @@ APIs expose Kotlin interfaces without platform types.
 The app depends on `biometric/di` and loads `BiometricModule.init()`. This module
 registers a shared `BiometricProviderFactory` that retains Keystore access and
 creates a `BiometricProvider` per Activity. Consumers depend on `biometric/api`;
-`impl` declares no Koin bindings and does not depend on `di`.
+`impl` declares no DI bindings and does not depend on `di`.
 
 Lifecycle adaptation belongs in the design system. The app also loads
 `DesignSystemModule.init()` from `design-system/di` before opening a consuming
@@ -70,7 +70,7 @@ There are no Batch models, Kotlin serialization plugin, KSerializer, or direct
 kotlinx.serialization/Protobuf dependencies. DataStore manages its existing internal
 binary format. Duplicate entry keys are rejected before encryption.
 
-`PreferencesDataSource` is a Koin singleton and retains no decrypted values. The
+`PreferencesDataSource` is a DI singleton and retains no decrypted values. The
 caller owns the encrypted snapshot, which supplies the correct IV when preparing
 the Cipher. The caller also owns the decrypted result; use
 `result.data.use { values -> ... }` to release references after use. `close()` does

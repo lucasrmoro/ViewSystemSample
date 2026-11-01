@@ -8,5 +8,5 @@ dependencies {
     implementation(project(Modules.Structural.PERMISSIONS_API))
     implementation(project(Modules.Structural.PERMISSIONS_IMPL))
     implementation(libs.androidx.activity.ktx)
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

@@ -2,14 +2,16 @@ package br.com.viewsystem_sample.structural.analytics.di
 
 import br.com.viewsystem_sample.structural.analytics.AnalyticsProvider
 import br.com.viewsystem_sample.structural.analytics.createAnalyticsProvider
-import org.koin.core.context.loadKoinModules
-import org.koin.dsl.module
+import br.com.viewsystem_sample.structural.di.dependencyModule
+import br.com.viewsystem_sample.structural.di.get
+import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.singleton
 
 object AnalyticsModule {
 
     fun init() {
-        loadKoinModules(module {
-            single<AnalyticsProvider> { createAnalyticsProvider(context = get()) }
+        loadModules(dependencyModule {
+            singleton<AnalyticsProvider> { createAnalyticsProvider(context = get()) }
         })
     }
 

@@ -8,7 +8,7 @@ or DI.
 
 ## Preferences
 
-`PreferencesDataSource` is a Koin singleton. All preferences use a single DataStore
+`PreferencesDataSource` is a DI singleton. All preferences use a single DataStore
 encrypted with `datastore-tink`, including values written through ordinary methods
 such as `putString`, `putBoolean`, `putInt`, and `putLong`. Plaintext storage is not
 available. Methods are suspending; IO failures propagate to the caller.

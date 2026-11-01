@@ -4,13 +4,14 @@ import br.com.viewsystem_sample.structural.core.di.DispatcherDefault
 import br.com.viewsystem_sample.structural.core.di.DispatcherIO
 import br.com.viewsystem_sample.structural.core.di.DispatcherMain
 import kotlinx.coroutines.CoroutineDispatcher
-import org.koin.core.scope.Scope
+import br.com.viewsystem_sample.structural.di.DependencyResolver
+import br.com.viewsystem_sample.structural.di.get
 
-val Scope.dispatcherIO: CoroutineDispatcher
+val DependencyResolver.dispatcherIO: CoroutineDispatcher
     get() = get(DispatcherIO)
 
-val Scope.dispatcherMain: CoroutineDispatcher
+val DependencyResolver.dispatcherMain: CoroutineDispatcher
     get() = get(DispatcherMain)
 
-val Scope.dispatcherDefault: CoroutineDispatcher
+val DependencyResolver.dispatcherDefault: CoroutineDispatcher
     get() = get(DispatcherDefault)

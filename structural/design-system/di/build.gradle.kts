@@ -8,5 +8,5 @@ dependencies {
     implementation(project(Modules.Structural.DESIGN_SYSTEM))
     implementation(project(Modules.Structural.BIOMETRIC_API))
     implementation(libs.androidx.appcompat)
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

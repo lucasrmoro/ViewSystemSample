@@ -33,6 +33,8 @@ include(":app")
 // Structural
 include(
     ":structural",
+    ":structural:di:api",
+    ":structural:di:impl",
     ":structural:analytics:api",
     ":structural:analytics:impl",
     ":structural:analytics:di",

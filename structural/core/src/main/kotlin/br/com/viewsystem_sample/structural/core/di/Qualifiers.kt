@@ -1,22 +1,21 @@
 package br.com.viewsystem_sample.structural.core.di
 
-import org.koin.core.qualifier.Qualifier
-import org.koin.core.qualifier.QualifierValue
+import br.com.viewsystem_sample.structural.di.DependencyQualifier
 
-object DispatcherIO : Qualifier {
+object DispatcherIO : DependencyQualifier {
 
-    override val value: QualifierValue = "DispatcherIO"
-
-}
-
-object DispatcherMain : Qualifier {
-
-    override val value: QualifierValue = "DispatcherMain"
+    override val value: String = "DispatcherIO"
 
 }
 
-object DispatcherDefault : Qualifier {
+object DispatcherMain : DependencyQualifier {
 
-    override val value: QualifierValue = "DispatcherDefault"
+    override val value: String = "DispatcherMain"
+
+}
+
+object DispatcherDefault : DependencyQualifier {
+
+    override val value: String = "DispatcherDefault"
 
 }

@@ -8,5 +8,5 @@ dependencies {
 
     implementation(project(Modules.Structural.REMOTE_CONFIG_API))
     implementation(project(Modules.Structural.REMOTE_CONFIG_IMPL))
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

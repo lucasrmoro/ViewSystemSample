@@ -1,10 +1,9 @@
 package br.com.viewsystem_sample.structural.designsystem.di
 
-import org.koin.core.qualifier.Qualifier
-import org.koin.core.qualifier.QualifierValue
+import br.com.viewsystem_sample.structural.di.DependencyQualifier
 
-object ScreenBiometricProvider : Qualifier {
+object ScreenBiometricProvider : DependencyQualifier {
 
-    override val value: QualifierValue = "ScreenBiometricProvider"
+    override val value: String = "ScreenBiometricProvider"
 
 }

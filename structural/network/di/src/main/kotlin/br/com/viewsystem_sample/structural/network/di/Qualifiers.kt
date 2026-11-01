@@ -1,16 +1,15 @@
 package br.com.viewsystem_sample.structural.network.di
 
-import org.koin.core.qualifier.Qualifier
-import org.koin.core.qualifier.QualifierValue
+import br.com.viewsystem_sample.structural.di.DependencyQualifier
 
-internal object OkHttpClientAuth: Qualifier {
+internal object OkHttpClientAuth: DependencyQualifier {
 
-    override val value: QualifierValue = "OkHttpClientAuth"
+    override val value: String = "OkHttpClientAuth"
 
 }
 
-internal object OkHttpClientNoAuth: Qualifier {
+internal object OkHttpClientNoAuth: DependencyQualifier {
 
-    override val value: QualifierValue = "OkHttpClientNoAuth"
+    override val value: String = "OkHttpClientNoAuth"
 
 }

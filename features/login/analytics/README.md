@@ -3,7 +3,7 @@
 Exposes `LoginAnalytics` to the feature's layers through `tokenRefreshStarted()` and `tokenRefreshFinished(succeeded)`.
 The internal implementation depends only on `structural/analytics/api`.
 `LoginModule.init()` registers the contract as a singleton through
-`createLoginAnalytics()`. This module declares no Koin bindings.
+`createLoginAnalytics()`. This module declares no DI bindings.
 
 The login repository receives the contract through its constructor. Other feature layers
 can depend on this module to consume the same methods without knowing event names,

@@ -12,9 +12,9 @@ import androidx.viewbinding.ViewBinding
 import br.com.viewsystem_sample.structural.core.R
 import br.com.viewsystem_sample.structural.core.base.viewModel.BaseViewModel
 import br.com.viewsystem_sample.structural.designsystem.base.activity.BaseContainerActivity
+import br.com.viewsystem_sample.structural.di.dependencyViewModelForClass
 import br.com.viewsystem_sample.structural.designsystem.ext.getViewModelClass
 import br.com.viewsystem_sample.structural.designsystem.ext.onGetAndroidWindowInsets
-import org.koin.androidx.viewmodel.ext.android.viewModelForClass
 
 abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
     private val inflater: (LayoutInflater, ViewGroup?, Boolean) -> VB
@@ -27,7 +27,7 @@ abstract class BaseFragment<VB : ViewBinding, VM : BaseViewModel>(
     protected val binding
         get() = _binding ?: throw NotFoundException("ViewBinding not found")
 
-    protected val viewModel by viewModelForClass(getViewModelClass())
+    protected val viewModel by dependencyViewModelForClass(getViewModelClass())
     protected val genericErrorMessage
         get() = getString(R.string.an_error_occurred_try_again_later)
 

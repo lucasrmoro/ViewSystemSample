@@ -1,6 +1,6 @@
 # featureA DI
 
-Centralizes the feature's Koin registrations without `api` and `impl` submodules.
+Centralizes the feature's DI registrations without `api` and `impl` submodules.
 The app depends on `:features:featureA:di` and calls `FeatureAModule.init()` during
 startup, after loading the structural DI modules.
 

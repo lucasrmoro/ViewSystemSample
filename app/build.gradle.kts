@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(Modules.Structural.DI_IMPL))
     implementation(project(Modules.Structural.ANALYTICS_IMPL))
     implementation(project(Modules.Structural.REMOTE_CONFIG_IMPL))
     implementation(project(Modules.Feature.FeatureA.NAVIGATION_API))

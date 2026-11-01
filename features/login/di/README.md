@@ -1,6 +1,6 @@
 # login DI
 
-Centralizes the feature's Koin registrations without `api` and `impl` submodules.
+Centralizes the feature's DI registrations without `api` and `impl` submodules.
 The app depends on `:features:login:di` and calls `LoginModule.init()` during
 startup, after loading the structural DI modules.
 

@@ -9,5 +9,5 @@ dependencies {
     implementation(project(Modules.Structural.BIOMETRIC_IMPL))
     implementation(project(Modules.Structural.CORE))
     implementation(libs.androidx.biometric)
-    implementation(libs.koin.core)
+    implementation(project(Modules.Structural.DI_API))
 }

@@ -8,5 +8,5 @@ contracts. The DI module registers a singleton `AppSessionProvider` through the
 factory function in `session/impl`. Its implementation remains internal.
 
 Consumers depend on `api`. Neither the API nor the implementation depends on the
-DI module; Koin registrations belong exclusively there. `expireSession()` publishes
+DI module; DI registrations belong exclusively there. `expireSession()` publishes
 expiration to existing observers.

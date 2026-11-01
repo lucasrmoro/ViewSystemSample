@@ -1,3 +1,5 @@
+import br.com.viewsystem_sample.modules.Modules
+
 plugins {
     alias(libs.plugins.sample.android.library)
 }
@@ -5,7 +7,7 @@ plugins {
 dependencies {
     api(libs.androidx.lifecycle.livedata.core.ktx)
     api(libs.retrofit)
-    api(libs.koin.core)
+    api(project(Modules.Structural.DI_API))
     api(libs.coroutines)
     implementation(libs.gson)
 }
