@@ -3,6 +3,7 @@
 /local.properties
 .DS_Store
 /build
+**/build/
 /captures
 .externalNativeBuild
 .cxx
@@ -10,4 +11,11 @@ local.properties
 .idea
 .kotlin
 AGENTS.md
-/docs/
+!AGENTS.md
+!/docs/
+/docs/*
+!/docs/superpowers/
+/docs/superpowers/*
+!/docs/superpowers/specs/
+/docs/superpowers/specs/*
+!/docs/superpowers/specs/2026-11-01-notifications-design.md

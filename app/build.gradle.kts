@@ -8,6 +8,8 @@ dependencies {
     implementation(project(Modules.Structural.DI_IMPL))
     implementation(project(Modules.Structural.ANALYTICS_IMPL))
     implementation(project(Modules.Structural.REMOTE_CONFIG_IMPL))
+    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_IMPL))
+    implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_API))
     implementation(project(Modules.Feature.Login.DI))
     implementation(project(Modules.Feature.FeatureA.DI))
 }

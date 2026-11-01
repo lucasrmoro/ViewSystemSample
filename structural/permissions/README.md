@@ -9,6 +9,10 @@ function in `permissions/impl`. The implementation uses the Activity Result API 
 must be obtained in `onCreate`, before `STARTED`, as in `BaseActivity`. Activities
 are never retained in singletons.
 
+`PermissionsProvider.isGranted()` checks the current grant state without showing a
+permission prompt. The application-context binding is intended for checks in
+services; permission requests still use the Activity-bound provider.
+
 `requestPermissions(vararg permissions)` preserves argument order and processes
 one permission at a time. New requests enter a batch queue; every callback is
 preserved, including callbacks that enqueue another request. Results include

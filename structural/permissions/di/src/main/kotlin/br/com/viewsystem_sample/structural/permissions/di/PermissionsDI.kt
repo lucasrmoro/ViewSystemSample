@@ -5,12 +5,17 @@ import br.com.viewsystem_sample.structural.di.dependencyModule
 import br.com.viewsystem_sample.structural.di.factory
 import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.loadModules
+import br.com.viewsystem_sample.structural.di.singleton
+import br.com.viewsystem_sample.structural.permissions.PermissionQualifiers
 import br.com.viewsystem_sample.structural.permissions.PermissionsProvider
 import br.com.viewsystem_sample.structural.permissions.createPermissionsProvider
 
 object PermissionsModule {
 
     private val permissionsModule = dependencyModule {
+        singleton<PermissionsProvider>(qualifier = PermissionQualifiers.ApplicationContext) {
+            createPermissionsProvider(context = get())
+        }
         factory<PermissionsProvider> { params ->
             createPermissionsProvider(activity = params.get<ComponentActivity>())
         }

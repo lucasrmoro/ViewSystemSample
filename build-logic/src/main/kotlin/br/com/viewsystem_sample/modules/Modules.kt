@@ -12,6 +12,12 @@ object Modules {
         const val REMOTE_CONFIG_API = "$ROOT:remote-config:api"
         const val REMOTE_CONFIG_IMPL = "$ROOT:remote-config:impl"
         const val REMOTE_CONFIG_DI = "$ROOT:remote-config:di"
+        const val NOTIFICATIONS_API = "$ROOT:notifications:api"
+        const val NOTIFICATIONS_IMPL = "$ROOT:notifications:impl"
+        const val NOTIFICATIONS_DI = "$ROOT:notifications:di"
+        const val PUSH_NOTIFICATIONS_API = "$ROOT:push-notifications:api"
+        const val PUSH_NOTIFICATIONS_IMPL = "$ROOT:push-notifications:impl"
+        const val PUSH_NOTIFICATIONS_DI = "$ROOT:push-notifications:di"
 
         const val NAVIGATION_API = "$ROOT:navigation:api"
         const val NAVIGATION_IMPL = "$ROOT:navigation:impl"

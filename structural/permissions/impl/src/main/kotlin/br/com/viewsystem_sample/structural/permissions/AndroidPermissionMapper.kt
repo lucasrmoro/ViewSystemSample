@@ -2,11 +2,13 @@ package br.com.viewsystem_sample.structural.permissions
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Build
 import androidx.activity.ComponentActivity
 
 internal class AndroidPermissionMapper(
-    private val activity: ComponentActivity
+    private val context: Context
 ) {
 
     @SuppressLint("InlinedApi")
@@ -19,7 +21,16 @@ internal class AndroidPermissionMapper(
         }
     }
 
-    fun toResult(permission: Permission, results: Map<String, Boolean>): PermissionResult {
+    fun isGranted(permission: Permission): Boolean {
+        val permissionName = runtimeName(permission) ?: return true
+        return context.checkSelfPermission(permissionName) == PackageManager.PERMISSION_GRANTED
+    }
+
+    fun toResult(
+        activity: ComponentActivity,
+        permission: Permission,
+        results: Map<String, Boolean>
+    ): PermissionResult {
         val name = runtimeName(permission) ?: return PermissionResult.NOT_REQUIRED
         return when (results[name]) {
             true -> PermissionResult.GRANTED

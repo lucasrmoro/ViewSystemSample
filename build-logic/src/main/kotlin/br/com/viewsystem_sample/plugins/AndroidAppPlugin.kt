@@ -39,6 +39,8 @@ class AndroidAppPlugin : BasePlugin() {
         implementation(project(Modules.Structural.NAVIGATION_DI))
         implementation(project(Modules.Structural.ANALYTICS_DI))
         implementation(project(Modules.Structural.REMOTE_CONFIG_DI))
+        implementation(project(Modules.Structural.NOTIFICATIONS_DI))
+        implementation(project(Modules.Structural.PUSH_NOTIFICATIONS_DI))
         implementation(project(Modules.Structural.CORE))
         implementation(project(Modules.Structural.CORE_DI))
         implementation(project(Modules.Structural.BIOMETRIC_API))

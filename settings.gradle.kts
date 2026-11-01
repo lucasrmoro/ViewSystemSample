@@ -44,6 +44,12 @@ include(
     ":structural:remote-config:api",
     ":structural:remote-config:impl",
     ":structural:remote-config:di",
+    ":structural:notifications:api",
+    ":structural:notifications:impl",
+    ":structural:notifications:di",
+    ":structural:push-notifications:api",
+    ":structural:push-notifications:impl",
+    ":structural:push-notifications:di",
 
     ":structural:core",
     ":structural:core:di",
