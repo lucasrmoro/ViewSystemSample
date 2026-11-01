@@ -42,7 +42,9 @@ val loginModule = dependencyModule {
     factory<LoginService> { retrofitNoAuth.createService() }
 }
 
-loadModules(loginModule)
+loadModules(
+    loginModule
+)
 ```
 
 `singleton` retains one instance per type and qualifier. `factory` creates one for

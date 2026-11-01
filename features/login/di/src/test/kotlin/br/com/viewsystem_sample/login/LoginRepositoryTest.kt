@@ -40,20 +40,22 @@ class LoginRepositoryTest {
 
         val configuredRetrofit = Dependencies.get<Retrofit>(RetrofitNoAuth)
         assertSame(Authenticator.NONE, (configuredRetrofit.callFactory() as OkHttpClient).authenticator)
-        loadModules(dependencyModule {
-            singleton<LoginAnalytics> {
-                object : LoginAnalytics {
+        loadModules(
+            dependencyModule {
+                singleton<LoginAnalytics> {
+                    object : LoginAnalytics {
 
-                    override fun tokenRefreshStarted() = AnalyticsResult.UNAVAILABLE
+                        override fun tokenRefreshStarted() = AnalyticsResult.UNAVAILABLE
 
-                    override fun tokenRefreshFinished(succeeded: Boolean) = AnalyticsResult.UNAVAILABLE
+                        override fun tokenRefreshFinished(succeeded: Boolean) = AnalyticsResult.UNAVAILABLE
 
+                    }
+                }
+                singleton<Retrofit>(RetrofitNoAuth) {
+                    configuredRetrofit.newBuilder().baseUrl(server.url("/")).build()
                 }
             }
-            singleton<Retrofit>(RetrofitNoAuth) {
-                configuredRetrofit.newBuilder().baseUrl(server.url("/")).build()
-            }
-        })
+        )
     }
 
     @After

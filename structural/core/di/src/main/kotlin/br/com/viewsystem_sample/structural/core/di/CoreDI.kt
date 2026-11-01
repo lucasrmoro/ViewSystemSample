@@ -19,7 +19,9 @@ private val coreModule = dependencyModule {
 }
 
 object CoreModule {
+
     fun init() {
         loadModules(coreModule)
     }
+
 }

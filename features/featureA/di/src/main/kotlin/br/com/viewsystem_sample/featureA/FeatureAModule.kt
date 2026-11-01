@@ -64,7 +64,11 @@ object FeatureAModule {
     }
 
     fun init(navigationRegistry: NavigationRegistry) {
-        loadModules(dataModule, domainModule, presentationModule)
+        loadModules(
+            dataModule,
+            domainModule,
+            presentationModule
+        )
         navigationRegistry.register(createFeatureAEntryPoint())
     }
 

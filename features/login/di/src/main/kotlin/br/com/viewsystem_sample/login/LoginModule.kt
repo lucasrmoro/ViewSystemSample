@@ -25,7 +25,9 @@ object LoginModule {
     }
 
     fun init() {
-        loadModules(dataModule)
+        loadModules(
+            dataModule
+        )
     }
 
 }
