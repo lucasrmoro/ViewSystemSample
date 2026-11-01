@@ -13,7 +13,6 @@ class DataPlugin : BaseLibraryPlugin() {
     override fun setupPlugins(project: Project) = with(project) {
         apply(plugin = Plugins.ANDROID_LIBRARY)
         apply(plugin = Plugins.KOTLIN_ANDROID)
-        apply(plugin = Plugins.KSP)
     }
 
     override fun setupDependencies(project: Project) = with(project) {
