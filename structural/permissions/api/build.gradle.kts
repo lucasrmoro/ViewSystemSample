@@ -6,4 +6,5 @@ plugins {
 
 dependencies {
     api(project(Modules.Structural.DI.API))
+    api(libs.coroutines)
 }

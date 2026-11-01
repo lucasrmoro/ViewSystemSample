@@ -13,11 +13,12 @@ are never retained in singletons.
 permission prompt. The application-context binding is intended for checks in
 services; permission requests still use the Activity-bound provider.
 
-`requestPermissions(vararg permissions)` preserves argument order and processes
-one permission at a time. New requests enter a batch queue; every callback is
-preserved, including callbacks that enqueue another request. Results include
+Collecting `requestPermissions(vararg permissions)` starts a request, preserves
+argument order, and processes one permission at a time. New requests enter a
+batch queue. Each flow emits one result map and completes. Results include
 `GRANTED`, `DENIED`, `NOT_ASK_AGAIN`, `CANCELLED`, and `NOT_REQUIRED`.
 
-Camera and notification permissions have convenience methods. Notification
-permission returns `NOT_REQUIRED` before Android 13. The implementation checks the
-OS version directly.
+Camera and notification permissions have convenience flows. Collect them on
+the main thread; each collection starts a new request. Notification permission
+emits `NOT_REQUIRED` before Android 13. The implementation checks the OS version
+directly.

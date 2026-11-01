@@ -4,6 +4,11 @@ import androidx.annotation.MainThread
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
 import android.content.Context
+import android.os.Looper
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.map
 
 internal class PermissionsProviderImpl private constructor(
     context: Context,
@@ -36,26 +41,22 @@ internal class PermissionsProviderImpl private constructor(
     override fun isGranted(permission: Permission): Boolean = permissionMapper.isGranted(permission)
 
     @MainThread
-    override fun requestPermissions(
-        vararg permissions: Permission,
-        block: (results: Map<Permission, PermissionResult>) -> Unit
-    ) {
+    override fun requestPermissions(vararg permissions: Permission): Flow<Map<Permission, PermissionResult>> = callbackFlow {
+        check(Looper.myLooper() == Looper.getMainLooper()) { "Permission requests must be collected on the main thread" }
         checkNotNull(activity) { "Permission requests require a ComponentActivity" }
-        pendingRequests += PermissionRequest(permissions.toList(), block)
-        if (pendingRequests.size == 1) {
-            launchNextPermission()
+        pendingRequests += PermissionRequest(permissions.toList()) { results ->
+            trySend(results)
+            close()
         }
+        if (pendingRequests.size == 1) launchNextPermission()
+        awaitClose {}
     }
 
-    @MainThread
-    override fun requestCameraPermission(block: (result: PermissionResult) -> Unit) {
-        requestPermissions(Permission.CAMERA) { block(it.getValue(Permission.CAMERA)) }
-    }
+    override fun requestCameraPermission(): Flow<PermissionResult> =
+        requestPermissions(Permission.CAMERA).map { it.getValue(Permission.CAMERA) }
 
-    @MainThread
-    override fun requestNotificationsPermission(block: (result: PermissionResult) -> Unit) {
-        requestPermissions(Permission.NOTIFICATIONS) { block(it.getValue(Permission.NOTIFICATIONS)) }
-    }
+    override fun requestNotificationsPermission(): Flow<PermissionResult> =
+        requestPermissions(Permission.NOTIFICATIONS).map { it.getValue(Permission.NOTIFICATIONS) }
 
     private fun launchNextPermission() {
         while (pendingRequests.isNotEmpty()) {
