@@ -40,3 +40,8 @@ declares no registrations and does not depend on `design-system/di`.
 
 For encryption, persistence, and retrieval, see the [biometric](../biometric/README.md)
 and [local storage](../local-storage/README.md) READMEs.
+
+The presentation convention plugin keeps core and design-system as Gradle
+`implementation` dependencies. Fragments implement UI callback contracts and map
+domain values into adapter items. ViewModels expose state and actions without
+implementing RecyclerView callbacks or returning design-system adapter models.

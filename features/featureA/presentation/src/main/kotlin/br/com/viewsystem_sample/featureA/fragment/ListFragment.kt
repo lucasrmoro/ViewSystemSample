@@ -2,6 +2,8 @@ package br.com.viewsystem_sample.featureA.fragment
 
 import androidx.core.view.updatePadding
 import androidx.navigation.fragment.findNavController
+import br.com.viewsystem_sample.featureA.model.SomeModel
+import br.com.viewsystem_sample.structural.designsystem.components.recyclerView.SampleEndlessRecyclerViewCallbacks
 import br.com.viewsystem_sample.structural.designsystem.adapter.SampleGenericAdapter
 import br.com.viewsystem_sample.structural.designsystem.adapter.model.Foo
 import br.com.viewsystem_sample.structural.designsystem.base.fragment.BaseFragment
@@ -11,10 +13,18 @@ import br.com.viewsystem_sample.featureA.viewModel.ListViewModel
 import br.com.viewsystem_sample.features.featureA.presentation.R
 import br.com.viewsystem_sample.features.featureA.presentation.databinding.FragListBinding
 
-internal class ListFragment() :
-    BaseFragment<FragListBinding, ListViewModel>(FragListBinding::inflate) {
+internal class ListFragment :
+    BaseFragment<FragListBinding, ListViewModel>(FragListBinding::inflate),
+    SampleEndlessRecyclerViewCallbacks {
 
     private val listAdapter = SampleGenericAdapter()
+
+    override val pagesCount: Int
+        get() = viewModel.pagesCount
+
+    override fun loadItems(page: Int) {
+        viewModel.loadItems(page)
+    }
 
     override fun setupViews() {
         setupListeners()
@@ -34,17 +44,17 @@ internal class ListFragment() :
         btnAdd.setOnClickListener {
             findNavController().navigateAnimated(R.id.action_list_fragment_to_form_fragment)
         }
-        recyclerView.setup(adapter = listAdapter, callbacks = viewModel)
+        recyclerView.setup(adapter = listAdapter, callbacks = this@ListFragment)
     }
 
     override fun setupObservers() = with(viewModel) {
         onLoadItems.observe(viewLifecycleOwner, ::onLoadItems)
     }
 
-    private fun onLoadItems(result: Pair<List<Foo>?, String?>) = with(binding) {
+    private fun onLoadItems(result: Pair<List<SomeModel>?, String?>) = with(binding) {
         dismissScreenLoading()
         result.first?.let {
-            recyclerView.onLoadItemsSuccess(it)
+            recyclerView.onLoadItemsSuccess(it.map { item -> Foo(id = item.id, msg = item.text) })
         } ?: run {
             recyclerView.onLoadItemsError()
             showToast(result.second ?: genericErrorMessage)
