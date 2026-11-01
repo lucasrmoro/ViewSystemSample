@@ -39,7 +39,7 @@ val loginModule = dependencyModule {
     singleton<LoginRepository> {
         LoginRepositoryImpl(loginRemoteDataSource = get(), analytics = get())
     }
-    factory<LoginService> { retrofitNoAuth.createService() }
+    factory<LoginService> { LoginServiceImpl(httpClient = httpClientNoAuth) }
 }
 
 loadModules(

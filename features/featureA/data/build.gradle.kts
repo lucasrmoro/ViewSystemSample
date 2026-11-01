@@ -6,6 +6,5 @@ plugins {
 
 dependencies {
     implementation(project(Modules.Feature.FeatureA.DOMAIN_API))
-    implementation(libs.gson)
     implementation(libs.bundles.room)
 }

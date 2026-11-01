@@ -2,14 +2,14 @@ package br.com.viewsystem_sample.structural.network.di
 
 import br.com.viewsystem_sample.structural.di.DependencyQualifier
 
-object RetrofitNoAuth : DependencyQualifier {
+object AuthenticatedHttpClient : DependencyQualifier {
 
-    override val value: String = "RetrofitNoAuth"
+    override val value: String = "AuthenticatedHttpClient"
 
 }
 
-object RetrofitAuth : DependencyQualifier {
+object UnauthenticatedHttpClient : DependencyQualifier {
 
-    override val value: String = "Retrofit"
+    override val value: String = "UnauthenticatedHttpClient"
 
 }

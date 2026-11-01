@@ -1,8 +1,8 @@
 package br.com.viewsystem_sample.login.model
 
-import com.google.gson.annotations.SerializedName
+import br.com.viewsystem_sample.structural.network.http.JsonName
 
 data class LoginDTO(
-    @SerializedName("AccessToken") val accessToken: String?,
-    @SerializedName("RefreshToken") val refreshToken: String?
+    @JsonName("AccessToken") val accessToken: String?,
+    @JsonName("RefreshToken") val refreshToken: String?
 )

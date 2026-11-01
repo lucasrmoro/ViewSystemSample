@@ -1,8 +1,8 @@
 package br.com.viewsystem_sample.featureA.dto
 
-import com.google.gson.annotations.SerializedName
+import br.com.viewsystem_sample.structural.network.http.JsonName
 
 data class SomeDTO(
-    @SerializedName("serverId") val id: Long?,
-    @SerializedName("textId") val text: String?
+    @JsonName("serverId") val id: Long?,
+    @JsonName("textId") val text: String?
 )

@@ -6,8 +6,6 @@ plugins {
 
 dependencies {
     api(libs.androidx.lifecycle.livedata.core.ktx)
-    api(libs.retrofit)
     api(project(Modules.Structural.DI_API))
     api(libs.coroutines)
-    implementation(libs.gson)
 }

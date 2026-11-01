@@ -16,7 +16,7 @@ import br.com.viewsystem_sample.structural.di.startDependencyInjection
 import br.com.viewsystem_sample.structural.local_storage.di.LocalStorageModule
 import br.com.viewsystem_sample.structural.logger.di.LoggerModule
 import br.com.viewsystem_sample.structural.navigation.di.NavigationModule
-import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
+import br.com.viewsystem_sample.structural.network.di.NetworkModule
 import br.com.viewsystem_sample.structural.permissions.di.PermissionsModule
 import br.com.viewsystem_sample.structural.remote_config.di.RemoteConfigModule
 import br.com.viewsystem_sample.structural.remote_config.initializeRemoteConfig
@@ -56,7 +56,7 @@ class AppApplication : Application() {
         PermissionsModule.init()
         BiometricModule.init()
         DesignSystemModule.init()
-        CoreNetworkModule.init()
+        NetworkModule.init()
         LocalStorageModule.init()
     }
 

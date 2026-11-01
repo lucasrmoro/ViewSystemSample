@@ -8,6 +8,5 @@ dependencies {
     api(project(Modules.Structural.SESSION_API))
     api(project(Modules.Structural.NETWORK_API))
     implementation(libs.bundles.android)
-    implementation(libs.bundles.retrofit)
     api(project(Modules.Structural.DI_API))
 }

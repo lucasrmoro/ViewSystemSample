@@ -20,7 +20,6 @@ class DIPlugin : BaseLibraryPlugin() {
             implementation(project(Modules.Structural.CORE))
             implementation(project(Modules.Structural.NETWORK_API))
             implementation(project(Modules.Structural.DI_API))
-            implementation(libs.bundles.retrofit)
         }
     }
 

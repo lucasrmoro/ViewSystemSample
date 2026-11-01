@@ -16,3 +16,6 @@ concrete values are selected in `core/di`.
 
 Library clients, vendor SDKs, and their adapters belong in dedicated structural
 services, never in `core`.
+
+HTTP Flow error handling consumes the exceptions from `network/api`. Transport SDKs
+and JSON decoding remain in `network/impl`.

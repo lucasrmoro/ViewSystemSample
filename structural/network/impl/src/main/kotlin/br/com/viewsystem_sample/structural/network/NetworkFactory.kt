@@ -7,7 +7,9 @@ import br.com.viewsystem_sample.structural.network.authenticator.NetworkAuthenti
 import br.com.viewsystem_sample.structural.network.connectivity.NetworkConnectivityProvider
 import br.com.viewsystem_sample.structural.network.connectivity.NetworkConnectivityProviderImpl
 import br.com.viewsystem_sample.structural.session.AppSessionProvider
+import br.com.viewsystem_sample.structural.network.interceptor.NetworkInterceptor
 import okhttp3.Authenticator
+import okhttp3.Interceptor
 
 fun createNetworkConnectivityProvider(context: Context): NetworkConnectivityProvider =
     NetworkConnectivityProviderImpl(context)
@@ -17,3 +19,6 @@ fun createNetworkAuthenticator(
     loginRepository: LoginRepository,
     preferencesDataSource: PreferencesDataSource
 ): Authenticator = NetworkAuthenticator(appSessionProvider, loginRepository, preferencesDataSource)
+
+fun createNetworkInterceptor(preferencesDataSource: PreferencesDataSource): Interceptor =
+    NetworkInterceptor(preferencesDataSource)

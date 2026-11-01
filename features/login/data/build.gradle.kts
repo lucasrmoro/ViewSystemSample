@@ -7,5 +7,4 @@ plugins {
 dependencies {
     implementation(project(Modules.Feature.Login.ANALYTICS))
     implementation(project(Modules.Feature.Login.DOMAIN_API))
-    implementation(libs.gson)
 }

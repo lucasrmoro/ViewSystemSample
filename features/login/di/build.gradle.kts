@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+    testImplementation(project(Modules.Structural.CORE_DI))
     testImplementation(project(Modules.Structural.DI_IMPL))
     implementation(project(Modules.Feature.Login.ANALYTICS))
     implementation(project(Modules.Feature.Login.DOMAIN_API))

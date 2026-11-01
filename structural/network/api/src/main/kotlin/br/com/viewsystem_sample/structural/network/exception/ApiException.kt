@@ -1,9 +1,9 @@
 package br.com.viewsystem_sample.structural.network.exception
 
-import com.google.gson.annotations.SerializedName
+import br.com.viewsystem_sample.structural.network.http.JsonName
 
 data class ApiException(
-    @SerializedName("Status") val status: Int? = null,
-    @SerializedName("Message") val message: String? = null,
-    @SerializedName("ExceptionCode") val exceptionCode: Int? = null
+    @JsonName("Status") val status: Int? = null,
+    @JsonName("Message") val message: String? = null,
+    @JsonName("ExceptionCode") val exceptionCode: Int? = null
 )

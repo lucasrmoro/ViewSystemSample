@@ -9,7 +9,7 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class NetworkInterceptor(
+internal class NetworkInterceptor(
     private val preferencesDataSource: PreferencesDataSource
 ) : Interceptor {
 

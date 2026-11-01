@@ -5,13 +5,13 @@ import java.net.HttpURLConnection.HTTP_UNAUTHORIZED
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.transform
-import retrofit2.HttpException
+import br.com.viewsystem_sample.structural.network.exception.HttpException
 
 fun <T> Flow<T>.onError(
     ignoreUnauthorized: Boolean = true,
     block: SampleException.() -> Unit
 ): Flow<T> = catch {
-    if (ignoreUnauthorized && (it as? HttpException)?.code() == HTTP_UNAUTHORIZED) {
+    if (ignoreUnauthorized && (it as? HttpException)?.statusCode == HTTP_UNAUTHORIZED) {
         return@catch
     }
     block(it.toSampleException())

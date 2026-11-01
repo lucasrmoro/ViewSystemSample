@@ -12,6 +12,7 @@ import br.com.viewsystem_sample.featureA.navigation.createFeatureAEntryPoint
 import br.com.viewsystem_sample.featureA.repository.FeatureARepository
 import br.com.viewsystem_sample.featureA.repository.FeatureARepositoryImpl
 import br.com.viewsystem_sample.featureA.service.FeatureAService
+import br.com.viewsystem_sample.featureA.service.FeatureAServiceImpl
 import br.com.viewsystem_sample.featureA.useCase.GetSomethingUseCase
 import br.com.viewsystem_sample.featureA.useCase.GetSomethingUseCaseImpl
 import br.com.viewsystem_sample.featureA.viewModel.FeatureAViewModel
@@ -24,15 +25,14 @@ import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.loadModules
 import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.navigation.core.NavigationRegistry
-import br.com.viewsystem_sample.structural.network.ext.createService
-import br.com.viewsystem_sample.structural.network.ext.retrofit
+import br.com.viewsystem_sample.structural.network.ext.httpClient
 
 object FeatureAModule {
 
     private val dataModule = dependencyModule {
         singleton<FeatureAAnalytics> { createFeatureAAnalytics(provider = get()) }
         // Remote
-        singleton<FeatureAService> { retrofit.createService() }
+        singleton<FeatureAService> { FeatureAServiceImpl(httpClient = httpClient) }
         singleton<FeatureARemoteDataSource> { FeatureARemoteDataSourceImpl(featureAService = get()) }
 
         // Local

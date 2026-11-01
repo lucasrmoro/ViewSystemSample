@@ -1,19 +1,107 @@
 # Network
 
-`network/api` contains contracts, models, shared exceptions, Retrofit qualifiers,
-and consumer extensions. The API does not depend on `core`. `network/impl` contains
-connectivity, the HTTP interceptor, and the authenticator.
+Provides HTTP communication and connectivity contracts. Feature code depends only on
+`network/api`; Retrofit, OkHttp, and Gson are implementation details of `network/impl`.
+The API does not depend on `core`.
 
-The app depends on `network/di` and loads `CoreNetworkModule.init()` before resolving
-services. This module configures OkHttp clients, Retrofit, and their qualifiers,
-registers the connectivity contract, and connects HTTP implementation components.
-Factory functions expose internal classes through their contracts.
+## Modules and DI
 
-Authenticated bindings use `NetworkInterceptor` and an authenticator that consumes
-`LoginRepository` from `login/domain/api` to refresh tokens. Unauthenticated bindings
-do not install that authenticator. Load the login DI module before resolving a
-client that needs token refresh.
+- `api`: `HttpClient`, request and response type models, JSON field names, exceptions,
+  connectivity, and client qualifiers.
+- `impl`: HTTP transport, JSON conversion, timeouts, logging, authentication, and connectivity.
+- `di`: registrations using the project's DI contracts and composition of internal HTTP adapters.
 
-Public `RetrofitAuth` and `RetrofitNoAuth` qualifiers remain in `api`, alongside
-`DependencyResolver.retrofit` and `DependencyResolver.retrofitNoAuth`. Converter and timeout configuration
-belongs in `di`. The implementation neither depends on DI nor declares DI bindings.
+The app calls `NetworkModule.init()` explicitly in `AppApplication`. The default
+base URL comes from the network environment configuration through the DI registration of
+`HttpClientConfiguration`. Override that binding before resolving clients when another
+environment is required; `NetworkModule.init()` takes no arguments.
+Load `CoreModule.init()` for dispatchers
+and the login, session, and local-storage DI modules before resolving authenticated requests.
+Registration does not perform requests or initialize background work. DI creates and registers
+the authenticator and authorization interceptor, then passes them into `HttpClientFactory`.
+These adapter contracts are used only by network composition; features resolve `HttpClient`.
+
+Each qualifier has one shared client:
+
+- `AuthenticatedHttpClient`: adds the stored access token and installs the token-refresh
+  authenticator, which consumes `LoginRepository` from `login/domain/api`.
+- `UnauthenticatedHttpClient`: has neither the authorization interceptor nor the authenticator.
+  The login token-refresh service must use this client to avoid recursive authentication.
+
+Feature DI can use `DependencyResolver.httpClient` and `httpClientNoAuth`, or resolve
+`HttpClient` directly with a qualifier. It registers its own typed service implementations:
+
+```kotlin
+singleton<FeatureAService> { FeatureAServiceImpl(httpClient = httpClient) }
+```
+
+## Requests and typed responses
+
+```kotlin
+import br.com.viewsystem_sample.structural.network.http.HttpClient
+import br.com.viewsystem_sample.structural.network.http.HttpRequest
+import br.com.viewsystem_sample.structural.network.http.get
+import br.com.viewsystem_sample.structural.network.http.post
+
+val items = client.get<List<SomeDTO>>(
+    HttpRequest(
+        path = "items/{id}",
+        pathParameters = mapOf("id" to id),
+        query = mapOf("page" to "1"),
+        headers = mapOf("Accept-Language" to "en")
+    )
+)
+
+val created = client.post<SomeDTO>(HttpRequest("items"), body = payload)
+val ignored = client.delete<Unit>(HttpRequest("items/{id}", mapOf("id" to id)))
+```
+
+`get`, `post`, `put`, and `delete` have reified extensions that preserve collection and
+nested generic types through the library-independent `HttpResponseType<T>`. The interface
+accepts this type explicitly so implementations do not need inline methods.
+
+Paths are relative to the configured base URL. Pass raw path and query values separately;
+path substitutions are encoded as individual segments. Absolute URLs, unresolved placeholders,
+and dot segments in path parameter values are rejected. Query and header maps support one
+value per name. Requests and responses use JSON; request bodies are DTOs or native JSON-compatible
+values. A null POST, PUT, or DELETE body is encoded as JSON null. Multipart uploads, streaming,
+and binary response handling are outside this contract.
+
+Use `Unit` for endpoints without a response body, including HTTP 204. Other response types
+require a non-null JSON payload. `JsonName` maps DTO fields independently of the serialization SDK:
+
+```kotlin
+import br.com.viewsystem_sample.structural.network.http.JsonName
+
+data class LoginDTO(
+    @JsonName("AccessToken") val accessToken: String?,
+    @JsonName("RefreshToken") val refreshToken: String?
+)
+```
+
+Annotate every serialized request/response DTO field, including nested DTOs, with `JsonName`,
+including names identical to the property,
+to preserve mappings in minified builds. Missing or blank annotations cause
+`HttpSerializationException`; the implementation never falls back to Kotlin field names.
+Consumer rules retain these fields and captured
+response types. Optional JVM TLS provider references from OkHttp are handled by
+implementation consumer rules; they do not add providers to the Android app.
+Request serialization runs on the injected I/O dispatcher. JSON responses are decoded on
+the transport's background callback thread through a Reader, without allocating an intermediate
+response String. Successful response bodies use streaming conversion. The call remains linked
+to cancellation until decoding finishes, and both success and error bodies are closed afterwards.
+Retrofit still buffers non-success bodies internally. Debug BODY logging may also buffer bodies;
+release builds do not include that interceptor.
+
+## Failures
+
+- Non-2xx responses throw the API's `HttpException`, with `statusCode` and a decoded
+  `ApiException`. Empty or unrecognized server error payloads use an empty `ApiException`.
+- Invalid JSON and missing bodies for non-Unit responses throw `HttpSerializationException`.
+- Transport failures propagate as standard I/O exceptions; cancellation is not converted
+  into an HTTP error.
+
+The core Flow extensions consume these API errors without depending on Retrofit or Gson.
+The implementation configures call/read timeouts of 30 seconds. HTTP logging is configured
+only in `src/debug`, using a `debugImplementation` dependency. `src/release` provides a
+no-op builder extension; the logging interceptor dependency is absent from release APKs.
