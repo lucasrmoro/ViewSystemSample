@@ -53,3 +53,6 @@ The presentation convention plugin keeps core and design-system as Gradle
 `implementation` dependencies. Fragments implement UI callback contracts and map
 domain values into adapter items. ViewModels expose state and actions without
 implementing RecyclerView callbacks or returning design-system adapter models.
+
+Navigation between features belongs to `structural/navigation`. Navigation helpers
+here operate on the consuming feature's internal fragment graph.

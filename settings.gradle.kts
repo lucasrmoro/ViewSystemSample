@@ -33,6 +33,9 @@ include(":app")
 // Structural
 include(
     ":structural",
+    ":structural:navigation:api",
+    ":structural:navigation:impl",
+    ":structural:navigation:di",
     ":structural:di:api",
     ":structural:di:impl",
     ":structural:analytics:api",
@@ -79,7 +82,6 @@ include(
     ":features:featureA:domain:api",
     ":features:featureA:domain:impl",
     ":features:featureA:presentation",
-    ":features:featureA:navigation:api",
     ":features:login:domain:api",
     ":features:login:data",
     ":features:login:di"

@@ -1,3 +1,4 @@
+import br.com.viewsystem_sample.modules.Modules
 import br.com.viewsystem_sample.modules.Modules.Feature.FeatureA
 
 plugins {
@@ -6,7 +7,7 @@ plugins {
 
 dependencies {
     implementation(project(FeatureA.ANALYTICS))
-    implementation(project(FeatureA.NAVIGATION_API))
+    implementation(project(Modules.Structural.NAVIGATION_API))
     implementation(project(FeatureA.DATA))
     implementation(project(FeatureA.DOMAIN_API))
     implementation(project(FeatureA.DOMAIN_IMPL))

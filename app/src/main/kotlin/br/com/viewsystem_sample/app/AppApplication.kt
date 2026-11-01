@@ -15,6 +15,7 @@ import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.startDependencyInjection
 import br.com.viewsystem_sample.structural.local_storage.di.LocalStorageModule
 import br.com.viewsystem_sample.structural.logger.di.LoggerModule
+import br.com.viewsystem_sample.structural.navigation.di.NavigationModule
 import br.com.viewsystem_sample.structural.network.di.CoreNetworkModule
 import br.com.viewsystem_sample.structural.permissions.di.PermissionsModule
 import br.com.viewsystem_sample.structural.remote_config.di.RemoteConfigModule
@@ -46,6 +47,7 @@ class AppApplication : Application() {
         }
 
     private fun setupStructuralModules() {
+        NavigationModule.init()
         LoggerModule.init()
         CoreModule.init()
         AnalyticsModule.init()
@@ -60,7 +62,7 @@ class AppApplication : Application() {
 
     private fun setupFeatureModules() {
         LoginModule.init()
-        FeatureAModule.init()
+        FeatureAModule.init(navigationRegistry = get())
     }
 
 }

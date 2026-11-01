@@ -35,6 +35,8 @@ class AndroidAppPlugin : BasePlugin() {
     }
 
     private fun Project.setupDependencies() = dependencies {
+        implementation(project(Modules.Structural.NAVIGATION_API))
+        implementation(project(Modules.Structural.NAVIGATION_DI))
         implementation(project(Modules.Structural.ANALYTICS_DI))
         implementation(project(Modules.Structural.REMOTE_CONFIG_DI))
         implementation(project(Modules.Structural.CORE))

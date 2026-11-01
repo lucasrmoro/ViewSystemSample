@@ -8,7 +8,6 @@ import br.com.viewsystem_sample.featureA.dataSource.FeatureARemoteDataSource
 import br.com.viewsystem_sample.featureA.dataSource.FeatureARemoteDataSourceImpl
 import br.com.viewsystem_sample.featureA.mapper.SomeMapper
 import br.com.viewsystem_sample.featureA.mapper.SomeMapperImpl
-import br.com.viewsystem_sample.featureA.navigation.FeatureAEntryPoint
 import br.com.viewsystem_sample.featureA.navigation.createFeatureAEntryPoint
 import br.com.viewsystem_sample.featureA.repository.FeatureARepository
 import br.com.viewsystem_sample.featureA.repository.FeatureARepositoryImpl
@@ -24,6 +23,7 @@ import br.com.viewsystem_sample.structural.di.factory
 import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.loadModules
 import br.com.viewsystem_sample.structural.di.singleton
+import br.com.viewsystem_sample.structural.navigation.core.NavigationRegistry
 import br.com.viewsystem_sample.structural.network.ext.createService
 import br.com.viewsystem_sample.structural.network.ext.retrofit
 
@@ -58,14 +58,14 @@ object FeatureAModule {
     }
 
     private val presentationModule = dependencyModule {
-        singleton<FeatureAEntryPoint> { createFeatureAEntryPoint() }
         factory { FeatureAViewModel() }
         factory { FormViewModel(getSomethingUseCase = get()) }
         factory { ListViewModel(getSomethingUseCase = get(), analytics = get()) }
     }
 
-    fun init() {
+    fun init(navigationRegistry: NavigationRegistry) {
         loadModules(dataModule, domainModule, presentationModule)
+        navigationRegistry.register(createFeatureAEntryPoint())
     }
 
 }

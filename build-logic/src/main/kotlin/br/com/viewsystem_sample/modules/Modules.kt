@@ -13,6 +13,10 @@ object Modules {
         const val REMOTE_CONFIG_IMPL = "$ROOT:remote-config:impl"
         const val REMOTE_CONFIG_DI = "$ROOT:remote-config:di"
 
+        const val NAVIGATION_API = "$ROOT:navigation:api"
+        const val NAVIGATION_IMPL = "$ROOT:navigation:impl"
+        const val NAVIGATION_DI = "$ROOT:navigation:di"
+
         const val DI_API = "$ROOT:di:api"
         const val DI_IMPL = "$ROOT:di:impl"
 
@@ -61,7 +65,6 @@ object Modules {
             const val DOMAIN_API = "$FEATURE_A:domain:api"
             const val DOMAIN_IMPL = "$FEATURE_A:domain:impl"
             const val PRESENTATION = "$FEATURE_A:presentation"
-            const val NAVIGATION_API = "$FEATURE_A:navigation:api"
         }
     }
 }
