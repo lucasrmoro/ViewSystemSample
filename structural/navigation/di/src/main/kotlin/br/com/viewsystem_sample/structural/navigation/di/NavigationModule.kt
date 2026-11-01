@@ -1,6 +1,5 @@
 package br.com.viewsystem_sample.structural.navigation.di
 
-import android.app.Activity
 import br.com.viewsystem_sample.structural.di.dependencyModule
 import br.com.viewsystem_sample.structural.di.factory
 import br.com.viewsystem_sample.structural.di.get
@@ -15,9 +14,7 @@ object NavigationModule {
     private val navigationModule = dependencyModule {
         singleton { NavigatorFactory() }
         singleton<NavigationRegistry> { get<NavigatorFactory>().registry }
-        factory<Navigator> { parameters ->
-            get<NavigatorFactory>().create(parameters.get<Activity>())
-        }
+        factory<Navigator> { get<NavigatorFactory>().create() }
     }
 
     fun init() {

@@ -8,12 +8,16 @@ import br.com.viewsystem_sample.structural.navigation.core.NavigationOptions
 import br.com.viewsystem_sample.structural.navigation.core.Navigator
 
 internal class NavigatorImpl(
-    private val activity: Activity,
     private val registry: NavigationRegistryImpl
 ) : Navigator {
 
-    override fun navigate(destination: FeatureDestination, options: NavigationOptions) {
+    override fun navigate(
+        activity: Activity?,
+        destination: FeatureDestination,
+        options: NavigationOptions
+    ) {
         check(Looper.myLooper() == Looper.getMainLooper()) { "Navigation requires the main thread" }
+        checkNotNull(activity) { "Navigation requires an Activity" }
         check(!activity.isFinishing && !activity.isDestroyed) { "Navigation requires an active Activity" }
         val intent = registry.createIntent(activity, destination)
         activity.launchActivity(
