@@ -17,8 +17,9 @@ fun <T> Flow<T>.onError(
     block(it.toSampleException())
 }
 
+/** Collects emitted values and ignores upstream failures. Coroutine cancellation still propagates. */
 suspend fun <T> Flow<T>.onSuccess(block: suspend T.() -> Unit) {
-    collect { block(it) }
+    catch { }.collect { block(it) }
 }
 
 suspend fun Flow<*>.onFinish(block: suspend () -> Unit) {
