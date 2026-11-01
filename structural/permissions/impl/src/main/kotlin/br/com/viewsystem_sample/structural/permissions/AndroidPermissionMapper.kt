@@ -19,6 +19,11 @@ internal class AndroidPermissionMapper(
         } else {
             null
         }
+        Permission.WRITE_EXTERNAL_STORAGE -> if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        } else {
+            null
+        }
     }
 
     fun isGranted(permission: Permission): Boolean {

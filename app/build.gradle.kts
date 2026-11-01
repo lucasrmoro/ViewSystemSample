@@ -10,6 +10,9 @@ dependencies {
     implementation(project(Modules.Structural.RemoteConfig.IMPL))
     implementation(project(Modules.Structural.PushNotifications.IMPL))
     implementation(project(Modules.Structural.PushNotifications.API))
+    implementation(project(Modules.Structural.Camera.DI))
+    implementation(project(Modules.Structural.Media.DI))
+    implementation(project(Modules.Structural.MediaCompression.DI))
     implementation(project(Modules.Feature.Login.DI))
     implementation(project(Modules.Feature.FeatureA.DI))
 }

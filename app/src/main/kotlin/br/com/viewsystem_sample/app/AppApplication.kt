@@ -7,6 +7,9 @@ import br.com.viewsystem_sample.structural.analytics.di.AnalyticsModule
 import br.com.viewsystem_sample.structural.analytics.initializeAnalytics
 import br.com.viewsystem_sample.structural.analytics.initializeFirebase
 import br.com.viewsystem_sample.structural.biometric.di.BiometricModule
+import br.com.viewsystem_sample.structural.camera.di.CameraModule
+import br.com.viewsystem_sample.structural.media.di.MediaModule
+import br.com.viewsystem_sample.structural.media_compression.di.MediaCompressionModule
 import br.com.viewsystem_sample.structural.core.di.CoreModule
 import br.com.viewsystem_sample.structural.core.di.DispatcherIO
 import br.com.viewsystem_sample.structural.designsystem.di.DesignSystemModule
@@ -67,6 +70,9 @@ class AppApplication : Application(), PushMessagingServiceHost {
         SessionModule.init()
         PermissionsModule.init()
         BiometricModule.init()
+        MediaModule.init()
+        CameraModule.init()
+        MediaCompressionModule.init()
         DesignSystemModule.init()
         NetworkModule.init()
         LocalStorageModule.init()

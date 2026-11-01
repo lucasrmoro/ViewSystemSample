@@ -6,6 +6,9 @@ object Modules {
     object Structural {
         val Analytics = StructuralModules.Analytics
         val Biometric = StructuralModules.Biometric
+        val Camera = StructuralModules.Camera
+        val Media = StructuralModules.Media
+        val MediaCompression = StructuralModules.MediaCompression
         val Core = StructuralModules.Core
         val DesignSystem = StructuralModules.DesignSystem
         val DI = StructuralModules.DI

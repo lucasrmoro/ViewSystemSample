@@ -19,6 +19,30 @@ object StructuralModules {
         const val IMPL = "$ROOT:impl"
     }
 
+    object Camera {
+        private const val ROOT = "${StructuralModules.ROOT}:camera"
+
+        const val API = "$ROOT:api"
+        const val DI = "$ROOT:di"
+        const val IMPL = "$ROOT:impl"
+    }
+
+    object Media {
+        private const val ROOT = "${StructuralModules.ROOT}:media"
+
+        const val API = "$ROOT:api"
+        const val DI = "$ROOT:di"
+        const val IMPL = "$ROOT:impl"
+    }
+
+    object MediaCompression {
+        private const val ROOT = "${StructuralModules.ROOT}:media-compression"
+
+        const val API = "$ROOT:api"
+        const val DI = "$ROOT:di"
+        const val IMPL = "$ROOT:impl"
+    }
+
     object Core {
         private const val ROOT = "${StructuralModules.ROOT}:core"
 

@@ -22,3 +22,7 @@ Camera and notification permissions have convenience flows. Collect them on
 the main thread; each collection starts a new request. Notification permission
 emits `NOT_REQUIRED` before Android 13. The implementation checks the OS version
 directly.
+
+`WRITE_EXTERNAL_STORAGE` is requested only on Android 8 and 9 for legacy public
+gallery writes. On Android 10 and later it returns `NOT_REQUIRED`; gallery
+captures use `MediaStore` scoped storage.
