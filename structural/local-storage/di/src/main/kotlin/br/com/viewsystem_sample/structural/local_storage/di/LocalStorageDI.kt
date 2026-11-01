@@ -10,13 +10,13 @@ import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.local_storage.LocalStorageFactory
 import br.com.viewsystem_sample.structural.local_storage.prefs.PreferencesDataSource
 
-private val localStorageModule = dependencyModule {
-    singleton { LocalStorageFactory(context = get(), ioDispatcher = dispatcherIO) }
-    singleton<PreferencesDataSource> { get<LocalStorageFactory>().createPreferencesDataSource() }
-    factory<SomeDao> { get<LocalStorageFactory>().someDao() }
-}
-
 object LocalStorageModule {
+
+    private val localStorageModule = dependencyModule {
+        singleton { LocalStorageFactory(context = get(), ioDispatcher = dispatcherIO) }
+        singleton<PreferencesDataSource> { get<LocalStorageFactory>().createPreferencesDataSource() }
+        factory<SomeDao> { get<LocalStorageFactory>().someDao() }
+    }
 
     fun init() {
         loadModules(localStorageModule)

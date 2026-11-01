@@ -10,15 +10,15 @@ import br.com.viewsystem_sample.structural.navigation.core.NavigationRegistry
 import br.com.viewsystem_sample.structural.navigation.core.Navigator
 import br.com.viewsystem_sample.structural.navigation.NavigatorFactory
 
-private val navigationModule = dependencyModule {
-    singleton { NavigatorFactory() }
-    singleton<NavigationRegistry> { get<NavigatorFactory>().registry }
-    factory<Navigator> { parameters ->
-        get<NavigatorFactory>().create(parameters.get<Activity>())
-    }
-}
-
 object NavigationModule {
+
+    private val navigationModule = dependencyModule {
+        singleton { NavigatorFactory() }
+        singleton<NavigationRegistry> { get<NavigatorFactory>().registry }
+        factory<Navigator> { parameters ->
+            get<NavigatorFactory>().create(parameters.get<Activity>())
+        }
+    }
 
     fun init() {
         loadModules(navigationModule)

@@ -9,16 +9,16 @@ import br.com.viewsystem_sample.structural.di.singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-private val coreModule = dependencyModule {
-    singleton<CoroutineDispatcher>(DispatcherIO) { Dispatchers.IO }
-    singleton<CoroutineDispatcher>(DispatcherMain) { Dispatchers.Main }
-    singleton<CoroutineDispatcher>(DispatcherDefault) { Dispatchers.Default }
-    singleton<AppStateProvider> {
-        createAppStateProvider(appSessionProvider = get(), networkConnectivityProvider = get())
-    }
-}
-
 object CoreModule {
+
+    private val coreModule = dependencyModule {
+        singleton<CoroutineDispatcher>(DispatcherIO) { Dispatchers.IO }
+        singleton<CoroutineDispatcher>(DispatcherMain) { Dispatchers.Main }
+        singleton<CoroutineDispatcher>(DispatcherDefault) { Dispatchers.Default }
+        singleton<AppStateProvider> {
+            createAppStateProvider(appSessionProvider = get(), networkConnectivityProvider = get())
+        }
+    }
 
     fun init() {
         loadModules(coreModule)

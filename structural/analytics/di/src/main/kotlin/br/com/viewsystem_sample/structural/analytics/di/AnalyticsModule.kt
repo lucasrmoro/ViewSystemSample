@@ -7,11 +7,11 @@ import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.loadModules
 import br.com.viewsystem_sample.structural.di.singleton
 
-private val analyticsModule = dependencyModule {
-    singleton<AnalyticsProvider> { createAnalyticsProvider(context = get()) }
-}
-
 object AnalyticsModule {
+
+    private val analyticsModule = dependencyModule {
+        singleton<AnalyticsProvider> { createAnalyticsProvider(context = get()) }
+    }
 
     fun init() {
         loadModules(analyticsModule)

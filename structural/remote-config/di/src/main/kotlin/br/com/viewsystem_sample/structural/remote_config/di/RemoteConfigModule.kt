@@ -7,11 +7,11 @@ import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.remote_config.RemoteConfigProvider
 import br.com.viewsystem_sample.structural.remote_config.createRemoteConfigProvider
 
-private val remoteConfigModule = dependencyModule {
-    singleton<RemoteConfigProvider> { createRemoteConfigProvider(context = get()) }
-}
-
 object RemoteConfigModule {
+
+    private val remoteConfigModule = dependencyModule {
+        singleton<RemoteConfigProvider> { createRemoteConfigProvider(context = get()) }
+    }
 
     fun init() {
         loadModules(remoteConfigModule)

@@ -6,11 +6,11 @@ import br.com.viewsystem_sample.structural.di.singleton
 import br.com.viewsystem_sample.structural.logger.Logger
 import br.com.viewsystem_sample.structural.logger.createLogger
 
-private val loggerModule = dependencyModule {
-    singleton<Logger> { createLogger() }
-}
-
 object LoggerModule {
+
+    private val loggerModule = dependencyModule {
+        singleton<Logger> { createLogger() }
+    }
 
     fun init() {
         loadModules(loggerModule)

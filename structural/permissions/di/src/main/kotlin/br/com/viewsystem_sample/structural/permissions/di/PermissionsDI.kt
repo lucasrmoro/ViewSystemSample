@@ -8,13 +8,13 @@ import br.com.viewsystem_sample.structural.di.loadModules
 import br.com.viewsystem_sample.structural.permissions.PermissionsProvider
 import br.com.viewsystem_sample.structural.permissions.createPermissionsProvider
 
-private val permissionsModule = dependencyModule {
-    factory<PermissionsProvider> { params ->
-        createPermissionsProvider(activity = params.get<ComponentActivity>())
-    }
-}
-
 object PermissionsModule {
+
+    private val permissionsModule = dependencyModule {
+        factory<PermissionsProvider> { params ->
+            createPermissionsProvider(activity = params.get<ComponentActivity>())
+        }
+    }
 
     fun init() {
         loadModules(permissionsModule)

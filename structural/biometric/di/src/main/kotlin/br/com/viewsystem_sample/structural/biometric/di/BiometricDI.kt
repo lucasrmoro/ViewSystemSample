@@ -10,14 +10,14 @@ import br.com.viewsystem_sample.structural.di.get
 import br.com.viewsystem_sample.structural.di.loadModules
 import br.com.viewsystem_sample.structural.di.singleton
 
-private val biometricModule = dependencyModule {
-    singleton { BiometricProviderFactory(mainDispatcher = dispatcherMain) }
-    factory<BiometricProvider> { parameters ->
-        get<BiometricProviderFactory>().create(parameters.get<FragmentActivity>())
-    }
-}
-
 object BiometricModule {
+
+    private val biometricModule = dependencyModule {
+        singleton { BiometricProviderFactory(mainDispatcher = dispatcherMain) }
+        factory<BiometricProvider> { parameters ->
+            get<BiometricProviderFactory>().create(parameters.get<FragmentActivity>())
+        }
+    }
 
     fun init() {
         loadModules(biometricModule)
